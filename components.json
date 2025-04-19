@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "src/app/globals.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "aliases": {
+    "components": "maidana07/components",
+    "utils": "maidana07/lib/utils",
+    "ui": "maidana07/components/ui",
+    "lib": "maidana07/lib",
+    "hooks": "maidana07/hooks"
+  },
+  "iconLibrary": "lucide"
+}
