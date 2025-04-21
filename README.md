@@ -37,21 +37,27 @@ MaidaVision es una plataforma moderna construida con Next.js 15 y TypeScript que
 ## 🗂️ Estructura del proyecto
 
 ```
+/public
 /src
   /app
-    /auth
+    /api
+    /(auth)
       /login
       /register
     /layout.tsx
     /page.tsx
   /components
+  /hooks
+  /layouts
   /lib
+    auth.ts
+    prisma.ts
     utils.ts
     tmdb.ts
     openai.ts
-  /prisma
-    schema.prisma
   /types
+/prisma
+  schema.prisma
 ```
 
 ---
@@ -61,7 +67,7 @@ MaidaVision es una plataforma moderna construida con Next.js 15 y TypeScript que
 1. Cloná este repo:
 ```bash
 git clone https://github.com/maidana0/MaidaVision.git
-cd media-track
+cd maidavision
 ```
 
 2. Instalá las dependencias:

@@ -1,8 +1,14 @@
 import { GalleryVerticalEnd } from "lucide-react"
 
-import { LoginForm } from "maidana07/components/login-form"
+import RegisterForm from "maidana07/components/auth/register-form"
+import { auth } from "maidana07/lib/auth"
+import { redirect } from "next/navigation";
 
-export default function LoginPage() {
+const Page = async () => {
+
+  const session = await auth();
+  if (session) redirect("/")
+
   return (
     <div className="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
       <div className="flex w-full max-w-sm flex-col gap-6">
@@ -12,8 +18,10 @@ export default function LoginPage() {
           </div>
           MaidaVision
         </a>
-        <LoginForm />
+        <RegisterForm />
       </div>
     </div>
   )
 }
+
+export default Page;
