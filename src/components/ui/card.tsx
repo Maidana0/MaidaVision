@@ -1,5 +1,5 @@
 
-import { cn } from "maidana07/lib/utils"
+import cn from "maidana07/utils/cn"
 import { ComponentProps } from "react"
 
 function Card({ className, ...props }: ComponentProps<"div">) {

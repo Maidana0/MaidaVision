@@ -1,7 +1,7 @@
 import { GalleryVerticalEnd } from "lucide-react"
 
-import LoginForm from "maidana07/components/auth/login-form"
-import { auth } from "maidana07/lib/auth"
+import LoginForm from "maidana07/components/auth/login"
+import { auth } from "maidana07/lib/prisma/auth"
 import { redirect } from "next/navigation"
 
 const Page = async () => {
@@ -17,7 +17,15 @@ const Page = async () => {
           </div>
           MaidaVision
         </a>
-        <LoginForm />
+
+        <div className={"flex flex-col gap-6"}>
+          <LoginForm />
+
+          <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
+            By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
+            and <a href="#">Privacy Policy</a>.
+          </div>
+        </div>
       </div>
     </div>
   )

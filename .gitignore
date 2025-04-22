@@ -40,5 +40,11 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+#prisma
+/prisma/data/prod.db
+/prisma/data/prod.db-journal
+/prisma/migrations
+/prisma/data
+/src/generated
 # custom
 .vscode

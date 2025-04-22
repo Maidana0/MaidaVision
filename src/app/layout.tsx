@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Header from "maidana07/layouts/header/Header";
-import Footer from "maidana07/layouts/footer/Footer";
+import { Toaster } from "maidana07/components/ui/sonner"
+import Header from "maidana07/layouts/header/header";
+import Footer from "maidana07/layouts/footer/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,6 +31,7 @@ export default function RootLayout({
         <Header />
         <main>
           {children}
+          <Toaster theme="dark" richColors position="bottom-right" />
         </main>
         <Footer />
       </body>

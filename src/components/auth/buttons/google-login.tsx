@@ -1,5 +1,5 @@
 // import { signIn } from "maidana07/lib/auth"
-import { Button } from "../ui/button"
+import { Button } from "../../ui/button"
 
 
 const GoogleLogin = () => {

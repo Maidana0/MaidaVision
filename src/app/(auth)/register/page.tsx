@@ -1,7 +1,7 @@
 import { GalleryVerticalEnd } from "lucide-react"
 
-import RegisterForm from "maidana07/components/auth/register-form"
-import { auth } from "maidana07/lib/auth"
+import RegisterForm from "maidana07/components/auth/register"
+import { auth } from "maidana07/lib/prisma/auth"
 import { redirect } from "next/navigation";
 
 const Page = async () => {

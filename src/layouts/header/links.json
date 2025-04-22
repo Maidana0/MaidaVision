@@ -1,0 +1,22 @@
+[
+  {
+    "href": "/",
+    "label": "Inicio"
+  },
+  {
+    "href": "/movies",
+    "label": "Películas"
+  },
+  {
+    "href": "/series",
+    "label": "Series"
+  },
+  {
+    "href": "/books",
+    "label": "Libros"
+  },
+  {
+    "href": "/about",
+    "label": "Sobre Nosotros"
+  }
+]
