@@ -1,6 +1,6 @@
 "use client"
 import { LogOut } from "lucide-react"
-import { Button } from "../../ui/button"
+import { Button } from "../../../components/ui/button"
 import { logoutAction } from "maidana07/actions/logout-action"
 import { useTransition } from "react"
 

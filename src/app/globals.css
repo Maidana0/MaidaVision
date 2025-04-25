@@ -9,24 +9,27 @@
 @layer base {
   :root {
     --primary: oklch(0.645 0.246 16.439);
+    --secondary: oklch(0.274 0.006 286.033);
+    --foreground: oklch(0.985 0 0);
+    
   }
 }
 
 @theme {
   --color-background: oklch(0.141 0.005 285.823);
-  --color-foreground: oklch(0.985 0 0);
+  --color-foreground: var(--foreground);
   --color-card: oklch(0.21 0.006 285.885);
-  --color-card-foreground: oklch(0.985 0 0);
+  --color-card-foreground: var(--foreground);
   --color-popover: oklch(0.21 0.006 285.885);
-  --color-popover-foreground: oklch(0.985 0 0);
+  --color-popover-foreground: var(--foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: oklch(0.969 0.015 12.422);
-  --color-secondary: oklch(0.274 0.006 286.033);
-  --color-secondary-foreground: oklch(0.985 0 0);
-  --color-muted: oklch(0.274 0.006 286.033);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--foreground);
+  --color-muted: var(--secondary);
   --color-muted-foreground: oklch(0.705 0.015 286.067);
-  --color-accent: oklch(0.274 0.006 286.033);
-  --color-accent-foreground: oklch(0.985 0 0);
+  --color-accent: var(--secondary);
+  --color-accent-foreground: var(--foreground);
   --color-destructive: oklch(0.704 0.191 22.216);
   --color-border: oklch(1 0 0 / 10%);
   --color-input: oklch(1 0 0 / 15%);
@@ -37,11 +40,11 @@
   --color-chart-4: oklch(0.627 0.265 303.9);
   --color-chart-5: var(--primary);
   --color-sidebar: oklch(0.21 0.006 285.885);
-  --color-sidebar-foreground: oklch(0.985 0 0);
+  --color-sidebar-foreground: var(--foreground);
   --color-sidebar-primary: var(--primary);
   --color-sidebar-primary-foreground: oklch(0.969 0.015 12.422);
-  --color-sidebar-accent: oklch(0.274 0.006 286.033);
-  --color-sidebar-accent-foreground: oklch(0.985 0 0);
+  --color-sidebar-accent: var(--secondary);
+  --color-sidebar-accent-foreground: var(--foreground);
   --color-sidebar-border: oklch(1 0 0 / 10%);
   --color-sidebar-ring: var(--primary);
 

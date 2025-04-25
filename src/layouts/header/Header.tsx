@@ -4,7 +4,7 @@ import { NavigationMenu, NavigationMenuList, NavigationMenuItem } from "maidana0
 import { Button } from "maidana07/components/ui/button"
 import { LogIn, UserPlus } from "lucide-react"
 import { auth } from "maidana07/lib/prisma/auth"
-import LogoutButton from "maidana07/components/auth/buttons/button-logout"
+import LogoutButton from "maidana07/layouts/header/user/button-logout"
 import MobileMenu from "./mobile-menu"
 import links from "./links.json"
 import ActiveLink from "./active-link"
@@ -15,9 +15,14 @@ const Header = async () => {
   return (
     <header className="w-full bg-muted/30 sticky top-0 z-50">
       <div className="flex items-center justify-between px-3 py-3">
-        <Link href="/" className="text-xl font-bold tracking-tight hidden md:block">
-          Maida<span className="text-primary">Vision</span>
-        </Link>
+        <div className="flex items-center">
+
+          <MobileMenu />
+
+          <Link href="/" className="text-xl font-bold tracking-tight ml-5">
+            Maida<span className="text-primary">Vision</span>
+          </Link>
+        </div>
 
 
         <NavigationMenu>
@@ -39,21 +44,19 @@ const Header = async () => {
               <>
                 <Link href="/login">
                   <Button variant="outline" size="sm" className="h-[33px]">
-                    <LogIn className="w-4 h-4 mr-1" />
+                    <LogIn className="w-3 h-3" />
                     Iniciar sesión
                   </Button>
                 </Link>
-                <Link href="/register">
+                <Link href="/register" className="lg:block hidden">
                   <Button variant="default" size="sm" className="h-[33px]">
-                    <UserPlus className="w-4 h-4 mr-1" />
+                    <UserPlus className="w-3 h-3" />
                     Registrarse
                   </Button>
                 </Link>
               </>
             )}
         </div>
-
-        <MobileMenu />
 
       </div>
     </header>
