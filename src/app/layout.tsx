@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "maidana07/components/ui/sonner"
 import Header from "maidana07/layouts/header/header";
 import Footer from "maidana07/layouts/footer/footer";
+import { ThemeProvider } from "maidana07/providers/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,15 +27,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
-      <body className="dark">
-        <Header />
-        <main>
-          {children}
-          <Toaster theme="dark" richColors position="bottom-right" />
-        </main>
-        <Footer />
+    <html lang="es" suppressHydrationWarning>
+      <body>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+        >
+          <Header />
+          <main>
+            {children}
+            <Toaster theme="dark" richColors position="bottom-right" />
+          </main>
+          <Footer />
+        </ThemeProvider>
       </body>
-    </html>
+    </html >
   );
 }

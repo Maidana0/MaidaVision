@@ -1,9 +1,5 @@
 [
   {
-    "href": "/",
-    "label": "Inicio"
-  },
-  {
     "href": "/movies",
     "label": "Películas"
   },

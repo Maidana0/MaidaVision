@@ -8,13 +8,14 @@ import LogoutButton from "maidana07/layouts/header/user/button-logout"
 import MobileMenu from "./mobile-menu"
 import links from "./links.json"
 import ActiveLink from "./active-link"
+import { ModeToggle } from "maidana07/components/mode-toggle"
 
 const Header = async () => {
   const session = await auth()
 
   return (
-    <header className="w-full bg-muted/30 sticky top-0 z-50">
-      <div className="flex items-center justify-between px-3 py-3">
+    <header className="w-full bg-muted/30 sticky top-0 z-50 backdrop-blur">
+      <div className="flex items-center justify-between px-3 py-1">
         <div className="flex items-center">
 
           <MobileMenu />
@@ -43,20 +44,22 @@ const Header = async () => {
             : (
               <>
                 <Link href="/login">
-                  <Button variant="outline" size="sm" className="h-[33px]">
+                  <Button variant="outline" size="sm" className="h-[30px]">
                     <LogIn className="w-3 h-3" />
                     Iniciar sesión
                   </Button>
                 </Link>
                 <Link href="/register" className="lg:block hidden">
-                  <Button variant="default" size="sm" className="h-[33px]">
+                  <Button variant="default" size="sm" className="h-[30px]">
                     <UserPlus className="w-3 h-3" />
                     Registrarse
                   </Button>
                 </Link>
               </>
             )}
+          <ModeToggle />
         </div>
+
 
       </div>
     </header>

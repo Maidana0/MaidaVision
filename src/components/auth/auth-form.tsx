@@ -76,7 +76,7 @@ const AuthForm: FC<Props> = ({ type, onSubmitAction, submitText = "Enviar" }) =>
             <FormItem>
               <FormLabel>Correo electrónico</FormLabel>
               <FormControl>
-                <Input type="email" placeholder="maida@vision.com" {...field} />
+                <Input placeholder="maida@vision.com" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
