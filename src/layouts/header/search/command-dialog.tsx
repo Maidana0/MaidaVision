@@ -14,11 +14,11 @@ import { useHotkey } from 'maidana07/hooks/search/use-hot-key';
 import { useEffect, useState } from 'react';
 
 export default function SearchCommandPalette() {
-  const { isOpen, close, addToHistory, history } = useSearchStore();
+  const { open, setOpen, addToHistory, history } = useSearchStore();
   const [input, setInput] = useState('');
   const { search, results, loading } = useSearchTMDB();
-
-  useHotkey(() => useSearchStore.getState().open());
+  const close = () => setOpen(!open);
+  useHotkey(() => setOpen(true));
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -34,7 +34,7 @@ export default function SearchCommandPalette() {
   };
 
   return (
-    <CommandDialog open={isOpen} onOpenChange={close}>
+    <CommandDialog open={open} onOpenChange={close}>
       <CommandInput
         placeholder="Buscar películas..."
         value={input}

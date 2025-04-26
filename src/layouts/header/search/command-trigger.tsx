@@ -5,8 +5,10 @@ import { Button } from 'maidana07/components/ui/button';
 import { useSearchStore } from 'maidana07/lib/zustand/search/search-store';
 
 export function CommandTrigger() {
-  const open = useSearchStore((s) => s.open);
-
+  const setOpen = useSearchStore((s) => s.setOpen);
+  const open = () => {
+    setOpen(true)
+  }
   return (
     <Button
       variant="ghost"
