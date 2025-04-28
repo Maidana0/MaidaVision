@@ -8,7 +8,7 @@ import loginAction from "maidana07/actions/login-action"
 const LoginForm = () => {
 
   return (
-    <Card>
+    <Card className="py-6">
       <CardHeader className="text-center">
         <CardTitle className="text-xl">Welcome back</CardTitle>
         <CardDescription>

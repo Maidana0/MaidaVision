@@ -9,13 +9,14 @@ import MobileMenu from "./mobile-menu"
 import links from "./links.json"
 import ActiveLink from "./active-link"
 import { ModeToggle } from "maidana07/components/mode-toggle"
+import CommandTrigger from "maidana07/components/search/command-trigger"
 
 const Header = async () => {
   const session = await auth()
 
   return (
     <header className="w-full bg-muted/30 sticky top-0 z-50 backdrop-blur">
-      <div className="flex items-center justify-between px-3 py-1">
+      <div className="flex items-center justify-between px-3 py-2">
         <div className="flex items-center">
 
           <MobileMenu />
@@ -37,6 +38,8 @@ const Header = async () => {
             ))}
           </NavigationMenuList>
         </NavigationMenu>
+
+        <CommandTrigger />
 
         <div className="flex items-center gap-2">
           {session ?

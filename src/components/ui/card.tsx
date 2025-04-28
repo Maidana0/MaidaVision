@@ -1,18 +1,21 @@
 
 import cn from "maidana07/utils/cn"
-import { ComponentProps } from "react"
+import { ComponentProps, HTMLAttributes } from "react"
+import { HTMLMotionProps, motion } from 'framer-motion';
 
-function Card({ className, ...props }: ComponentProps<"div">) {
+type CardProps = HTMLAttributes<HTMLDivElement> & HTMLMotionProps<"div"> & {
+  animated?: boolean;
+};
+
+function Card({ className, animated = false, ...props }: CardProps) {
+  const Component = animated ? motion.div : "div";
   return (
-    <div
+    <Component
       data-slot="card"
-      className={cn(
-        "bg-card text-card-foreground flex flex-col gap-6 rounded-xl py-6 shadow-sm",
-        className
-      )}
-      {...props}
+      className={`bg-card text-card-foreground flex flex-col gap-6 rounded-xl shadow-sm ${className}`}
+      {...(props)}
     />
-  )
+  );
 }
 
 function CardHeader({ className, ...props }: ComponentProps<"div">) {
@@ -42,7 +45,7 @@ function CardDescription({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
       data-slot="card-description"
-      className={cn("text-muted-foreground text-sm", className)}
+      className={cn("text-foreground text-sm", className)}
       {...props}
     />
   )

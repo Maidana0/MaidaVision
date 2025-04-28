@@ -7,7 +7,7 @@ import registerUserAction from "maidana07/actions/register-user-action"
 
 const RegisterForm = async () => {
   return (
-    <Card>
+    <Card className="py-6">
       <CardHeader className="text-center">
         <CardTitle className="text-xl">Welcome back</CardTitle>
         <CardDescription>

@@ -10,9 +10,5 @@
   {
     "href": "/books",
     "label": "Libros"
-  },
-  {
-    "href": "/about",
-    "label": "Nosotros"
   }
 ]
