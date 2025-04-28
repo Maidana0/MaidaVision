@@ -8,15 +8,13 @@ import useSearch from 'maidana07/hooks/use-search';
 import useHotkey from 'maidana07/hooks/use-hot-key';
 import { useShallow } from 'zustand/react/shallow';
 import SearchCard from './search-card';
+import useDialogStore from 'maidana07/store/use-dialog-store';
 
 
 export default function CommandDialogSearch() {
-  const { isOpen, setIsOpen, openDialog, closeDialog, history, addToHistory, clearHistory } = useSearchStore(
+  const { searchIsOpen, setSearchIsOpen, openSearchDialog, closeSearchDialog } = useDialogStore()
+  const { history, addToHistory, clearHistory } = useSearchStore(
     useShallow(state => ({
-      isOpen: state.isOpen,
-      setIsOpen: state.setIsOpen,
-      openDialog: state.openDialog,
-      closeDialog: state.closeDialog,
       history: state.history,
       addToHistory: state.addToHistory,
       clearHistory: state.clearHistory
@@ -27,7 +25,7 @@ export default function CommandDialogSearch() {
   const router = useRouter();
 
   // Atajo de teclado (Ctrl+K) por defecto
-  useHotkey(openDialog)
+  useHotkey(openSearchDialog)
 
   const handleSelect = (item: MultiSearchItem) => {
 
@@ -40,14 +38,14 @@ export default function CommandDialogSearch() {
     }
 
     addToHistory(itemToAdd);
-    closeDialog();
+    closeSearchDialog();
     router.push(`/movie/${item.id}`);
   };
 
   return (
     <CommandDialog
-      open={isOpen}
-      onOpenChange={setIsOpen}
+      open={searchIsOpen}
+      onOpenChange={setSearchIsOpen}
       aria-label="Buscador de películas y series"
     >
       <Command shouldFilter={false} className="overflow-y-auto ">
