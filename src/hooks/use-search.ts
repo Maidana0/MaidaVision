@@ -1,18 +1,26 @@
 import { useCallback, useEffect, useRef, useState, useTransition } from 'react';
-import { useSearchStore } from 'maidana07/store/use-search-store';
+import { useShallow } from 'zustand/react/shallow'
+import useQueryParamStore from 'maidana07/store/use-query-param-store';
 
 interface SearchResult {
   id: number;
   title?: string;
   name?: string;
-  media_type: 'movie' | 'tv';
+  media_type: 'movie' | 'tv' | 'person';
   poster_path: string | null;
   release_date?: string;
   first_air_date?: string;
 }
 
-export function useSearch() {
-  const { query, setQuery } = useSearchStore();
+export default function useSearch() {
+  // Estado de búsqueda global
+  const { searchQuery, setSearchQuery } = useQueryParamStore(
+    useShallow(state => ({
+      searchQuery: state.searchQuery,
+      setSearchQuery: state.setSearchQuery
+    })
+    ));
+
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -22,9 +30,9 @@ export function useSearch() {
   const abortController = useRef<AbortController | null>(null);
   const debounceTimer = useRef<NodeJS.Timeout>(null);
 
-  const searchQuery = useCallback(async (searchTerm: string) => {
+  const useSearchQuery = useCallback(async (searchTerm: string) => {
     const normalizedQuery = searchTerm.trim().toLowerCase();
-    
+
     if (normalizedQuery.length < 2) {
       setResults([]);
       return;
@@ -43,7 +51,7 @@ export function useSearch() {
 
     setLoading(true);
     setError(null);
-    
+
     abortController.current = new AbortController();
 
     try {
@@ -51,20 +59,15 @@ export function useSearch() {
         `/api/search?q=${encodeURIComponent(normalizedQuery)}`,
         { signal: abortController.current.signal }
       );
-      
+
       if (!res.ok) throw new Error('Error en la búsqueda');
-      
+
       const data = await res.json();
-      
-      const filteredResults = (data.results || [])
-        .filter((item: SearchResult) => 
-          item.media_type === 'movie' || item.media_type === 'tv'
-        );
-      
-      cache.current[normalizedQuery] = filteredResults;
-      
+
+      cache.current[normalizedQuery] = data.results || [];
+
       startTransition(() => {
-        setResults(filteredResults);
+        setResults(data.results || []);
       });
 
     } catch (err) {
@@ -82,8 +85,8 @@ export function useSearch() {
     }
 
     debounceTimer.current = setTimeout(() => {
-      if (query) {
-        searchQuery(query);
+      if (searchQuery) {
+        useSearchQuery(searchQuery);
       } else {
         setResults([]);
       }
@@ -94,13 +97,13 @@ export function useSearch() {
         clearTimeout(debounceTimer.current);
       }
     };
-  }, [query, searchQuery]);
+  }, [searchQuery, useSearchQuery]);
 
   return {
     results,
     loading: loading || isPending,
     error,
-    query,
-    setQuery
+    searchQuery,
+    setSearchQuery
   };
 }

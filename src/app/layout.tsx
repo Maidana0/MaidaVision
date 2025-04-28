@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "maidana07/components/ui/sonner"
 import Header from "maidana07/layouts/header/header";
 import Footer from "maidana07/layouts/footer/footer";
+import CommandDialogSearch from "maidana07/components/search/command-dialog"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,6 +32,7 @@ export default function RootLayout({
         <Header />
         <main>
           {children}
+          <CommandDialogSearch />
           <Toaster theme="dark" richColors position="bottom-right" />
         </main>
         <Footer />

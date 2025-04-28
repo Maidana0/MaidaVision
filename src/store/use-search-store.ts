@@ -1,32 +1,25 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-interface HistoryItem {
-  id: number;
-  title: string;
-  poster_path: string | null;
-  media_type: 'movie' | 'tv';
-  year?: string;
-}
 
 interface SearchState {
-  open: boolean;
-  query: string;
-  history: HistoryItem[];
-  setOpen: (open: boolean) => void;
-  setQuery: (query: string) => void;
-  addToHistory: (item: HistoryItem) => void;
+  isOpen: boolean;
+  history: MultiSearchItem[];
+  setIsOpen: (isOpen: boolean) => void;
+  openDialog: () => void;
+  closeDialog: () => void;
+  addToHistory: (item: MultiSearchItem) => void;
   clearHistory: () => void;
 }
 
-export const useSearchStore = create<SearchState>()(
+const useSearchStore = create<SearchState>()(
   persist(
     (set) => ({
-      open: false,
-      query: '',
+      isOpen: false,
       history: [],
-      setOpen: (open) => set({ open }),
-      setQuery: (query) => set({ query }),
+      setIsOpen: (isOpen) => set({ isOpen }),
+      openDialog: () => set({ isOpen: true }),
+      closeDialog: () => set({ isOpen: false }),
       addToHistory: (item) => set((state) => ({
         history: [
           item,
@@ -40,3 +33,5 @@ export const useSearchStore = create<SearchState>()(
     }
   )
 );
+
+export default useSearchStore;
