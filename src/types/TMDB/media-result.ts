@@ -53,6 +53,7 @@ interface MultiSearchItem extends Partial<BaseMediaResult>, Partial<PersonResult
   original_name?: string;
   first_air_date?: string;
   year?: string;
+  media_type: 'movie' | 'tv' | 'person';
 }
 
 interface SearchResponse {

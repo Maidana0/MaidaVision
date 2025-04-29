@@ -1,7 +1,9 @@
 import { FC } from "react";
-import { Card, CardContent, CardDescription } from "../ui/card";
-import { CommandItem } from "../ui/command";
+import { Card, CardContent, CardDescription } from "../../ui/card";
+import { CommandItem } from "../../ui/command";
 import Image from "next/image";
+import { translateMediaType } from "maidana07/utils/stringDto";
+import { motion } from 'framer-motion';
 
 type SearchCardProps = {
   title: string;
@@ -24,16 +26,14 @@ const SearchCard: FC<SearchCardProps> = ({
 }) => {
 
   return (
-    <Card
-      animated
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.2 }}
       className="w-full"
     >
-      <CommandItem onSelect={onSelect} className="md:min-h-[120px]"
-      >
+      <CommandItem onSelect={onSelect} className="md:h-[106px]">
         <CardContent className="flex items-center gap-3 px-0 w-full">
           <Image
             width={64}
@@ -56,14 +56,14 @@ const SearchCard: FC<SearchCardProps> = ({
             </h3>
             <span className="opacity-75 truncate">
               {` 
-              ${type === 'movie' ? 'Película' : type === "tv" ? 'Serie' : "Persona"
-                }${year ? ` • ${year.slice(0, 4)}` : type === "person" ? ` • ${known_for_department}` : ""}
+              ${translateMediaType(type)}
+              ${year ? ` • ${year.slice(0, 4)}` : type === "person" ? ` • ${known_for_department}` : ""}
                `.trim()}
             </span>
           </CardDescription>
         </CardContent>
       </CommandItem>
-    </Card>
+    </motion.div >
   )
 }
 

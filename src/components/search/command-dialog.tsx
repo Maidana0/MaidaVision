@@ -48,59 +48,53 @@ export default function CommandDialogSearch() {
       open={searchIsOpen}
       onOpenChange={setSearchIsOpen}
       aria-label="Buscador de películas y series"
+      dialogContentClassName="lg:max-w-2xl"
     >
-      <Command shouldFilter={false} className="overflow-y-auto ">
+      <Command shouldFilter={false} className="overflow-y-auto">
         <CommandInput
           placeholder="Buscar películas o series..."
           value={searchQuery}
           onValueChange={setSearchQuery}
         />
 
-        <CommandList>
+        <CommandList className="max-h-[60vh]">
           <AnimatePresence mode="wait" key="search-animation">
-            {
-              searchQuery.length > 2 && !loading && results.length === 0 && (<CommandEmpty key="empty-results">
+            {searchQuery.length > 2 && !loading && results.length === 0 && (
+              <CommandEmpty key="empty-results">
                 {error || 'No se encontraron resultados.'}
-              </CommandEmpty>)
-            }
+              </CommandEmpty>
+            )}
 
             {/* Historial de búsquedas */}
-            {
-              !searchQuery && history.length > 0 && (
-                <CustomListItems
-                  key="history-list"
-                  heading="Búsquedas recientes"
-                  nameList="history"
-                  listItems={history}
-                  onSelect={handleSelect}
-                >
-                  <CommandItem
-                    key="clear-history"
-                    className="cursor-pointer opacity-75" onSelect={clearHistory}>
-                    {/* ver como centrarlo editando el commanditem */}
-                    <Trash2 className="h-4 w-4" /> Limpiar historial
-                  </CommandItem>
-                </CustomListItems>
-              )
-            }
+            {!searchQuery && history.length > 0 && (
+              <CustomListItems
+                key="history-list"
+                heading="Búsquedas recientes"
+                nameList="history"
+                listItems={history}
+                onSelect={handleSelect}
+              >
+                <CommandItem
+                  key="clear-history"
+                  className="cursor-pointer opacity-75 w-fit mx-auto mt-2" onSelect={clearHistory}>
+                  <Trash2 className="h-4 w-4" /> Limpiar historial
+                </CommandItem>
+              </CustomListItems>
+            )}
 
             {/* Indicador de carga */}
             {loading && (<Loader key="loader" />)}
 
             {/* Resultados de búsqueda */}
-
-            {
-              !loading && results.length > 0 && (
-                <CustomListItems
-                  key="search-results"
-                  heading="Resultados"
-                  nameList="results"
-                  listItems={results}
-                  onSelect={handleSelect}
-                />
-              )
-            }
-
+            {!loading && results.length > 0 && (
+              <CustomListItems
+                key="search-results"
+                heading="Resultados de busqueda"
+                nameList="results"
+                listItems={results}
+                onSelect={handleSelect}
+              />
+            )}
 
           </AnimatePresence>
         </CommandList>
