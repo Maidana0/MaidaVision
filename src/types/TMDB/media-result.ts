@@ -36,6 +36,9 @@ interface TVResult extends BaseMovieAndTVResult, BaseMediaResult {
 
 interface PersonResult {
   known_for: Array<MovieResult | TVResult>;
+  profile_path: string;
+  gender: number;
+  known_for_department: string;
 }
 
 

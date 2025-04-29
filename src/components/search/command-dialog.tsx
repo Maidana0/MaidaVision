@@ -1,25 +1,29 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Loader2, Trash2 } from 'lucide-react';
-import { Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from 'maidana07/components/ui/command';
+import { AnimatePresence } from 'framer-motion';
+import { Trash2 } from 'lucide-react';
+import { Command, CommandDialog, CommandEmpty, CommandInput, CommandItem, CommandList } from 'maidana07/components/ui/command';
 import useSearchStore from 'maidana07/store/use-search-store';
 import useSearch from 'maidana07/hooks/use-search';
 import useHotkey from 'maidana07/hooks/use-hot-key';
 import { useShallow } from 'zustand/react/shallow';
-import SearchCard from './search-card';
 import useDialogStore from 'maidana07/store/use-dialog-store';
+import Loader from '../ui/loader';
+import { useCallback } from 'react';
+import CustomListItems from './group/custom-list-items';
 
 
 export default function CommandDialogSearch() {
+  // Estados globales
   const { searchIsOpen, setSearchIsOpen, openSearchDialog, closeSearchDialog } = useDialogStore()
+
+  //  Estado de búsqueda global
   const { history, addToHistory, clearHistory } = useSearchStore(
     useShallow(state => ({
       history: state.history,
       addToHistory: state.addToHistory,
       clearHistory: state.clearHistory
-    }),
-    )
+    }))
   );
   const { results, loading, error, searchQuery, setSearchQuery } = useSearch();
   const router = useRouter();
@@ -27,20 +31,17 @@ export default function CommandDialogSearch() {
   // Atajo de teclado (Ctrl+K) por defecto
   useHotkey(openSearchDialog)
 
-  const handleSelect = (item: MultiSearchItem) => {
-
-    const itemToAdd = {
+  const handleSelect = useCallback((item: MultiSearchItem) => {
+    addToHistory({
       title: item.title || item.name,
       year: item.release_date?.slice(0, 4) || item.first_air_date?.slice(0, 4) || item.year,
       id: item.id,
       poster_path: item.poster_path,
       media_type: item.media_type,
-    }
-
-    addToHistory(itemToAdd);
+    });
     closeSearchDialog();
     router.push(`/movie/${item.id}`);
-  };
+  }, [addToHistory, closeSearchDialog, router]);
 
   return (
     <CommandDialog
@@ -56,71 +57,51 @@ export default function CommandDialogSearch() {
         />
 
         <CommandList>
-          {
-            searchQuery.length > 2 && !loading && (<CommandEmpty>
-              {error || 'No se encontraron resultados.'}
-            </CommandEmpty>)
-          }
+          <AnimatePresence mode="wait" key="search-animation">
+            {
+              searchQuery.length > 2 && !loading && results.length === 0 && (<CommandEmpty key="empty-results">
+                {error || 'No se encontraron resultados.'}
+              </CommandEmpty>)
+            }
 
-          <AnimatePresence mode="wait">
             {/* Historial de búsquedas */}
-            {!searchQuery && history.length > 0 && (
-              <CommandGroup heading="Búsquedas recientes">
-                <AnimatePresence>
-                  <div className="grid grid-cols-1 md:grid-cols-2 p-1 gap-1 items-center">
-                    {history.map((item, i) => (
-                      <SearchCard
-                        type={item.media_type}
-                        key={`history-${item.id}-${i}`}
-                        title={item.title ?? "Desconocido"}
-                        year={item.year || item.release_date || item.first_air_date}
-                        image={item.poster_path}
-                        onClick={() => handleSelect(item)}
-                      />
-                    ))}
-                  </div>
-                </AnimatePresence>
-                <CommandItem
-                  className="cursor-pointer opacity-75"
-                  onSelect={clearHistory}
+            {
+              !searchQuery && history.length > 0 && (
+                <CustomListItems
+                  key="history-list"
+                  heading="Búsquedas recientes"
+                  nameList="history"
+                  listItems={history}
+                  onSelect={handleSelect}
                 >
-                  <Trash2 className="h-4 w-4" /> Limpiar historial
-                  {/* ver como centrarlo editando el commanditem */}
-                </CommandItem>
-              </CommandGroup>
-            )}
+                  <CommandItem
+                    key="clear-history"
+                    className="cursor-pointer opacity-75" onSelect={clearHistory}>
+                    {/* ver como centrarlo editando el commanditem */}
+                    <Trash2 className="h-4 w-4" /> Limpiar historial
+                  </CommandItem>
+                </CustomListItems>
+              )
+            }
 
             {/* Indicador de carga */}
-            {loading && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="flex justify-center p-4"
-              >
-                <Loader2 className="h-6 w-6 animate-spin" />
-              </motion.div>
-            )}
+            {loading && (<Loader key="loader" />)}
 
             {/* Resultados de búsqueda */}
-            {!loading && results.length > 0 && (
-              <CommandGroup heading="Resultados">
-                <AnimatePresence>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-1 p-1 items-center">
-                    {results.map((item, i) => (
-                      <SearchCard
-                        type={item.media_type}
-                        key={`results-${item.id}-${i}`}
-                        title={item.title || item.name || "Desconocido"}
-                        year={item.release_date || item.first_air_date}
-                        image={item.poster_path}
-                        onClick={() => handleSelect(item)}
-                      />
-                    ))}
-                  </div>
-                </AnimatePresence>
-              </CommandGroup>
-            )}
+
+            {
+              !loading && results.length > 0 && (
+                <CustomListItems
+                  key="search-results"
+                  heading="Resultados"
+                  nameList="results"
+                  listItems={results}
+                  onSelect={handleSelect}
+                />
+              )
+            }
+
+
           </AnimatePresence>
         </CommandList>
       </Command>

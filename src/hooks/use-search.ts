@@ -1,36 +1,28 @@
 import { useCallback, useEffect, useRef, useState, useTransition } from 'react';
-import { useShallow } from 'zustand/react/shallow'
+import { useShallow } from 'zustand/react/shallow';
 import useQueryParamStore from 'maidana07/store/use-query-param-store';
 
-interface SearchResult {
-  id: number;
-  title?: string;
-  name?: string;
-  media_type: 'movie' | 'tv' | 'person';
-  poster_path: string | null;
-  release_date?: string;
-  first_air_date?: string;
-}
-
 export default function useSearch() {
-  // Estado de búsqueda global
+  // Estado global de búsqueda
   const { searchQuery, setSearchQuery } = useQueryParamStore(
     useShallow(state => ({
       searchQuery: state.searchQuery,
       setSearchQuery: state.setSearchQuery
-    })
-    ));
+    }))
+  );
 
-  const [results, setResults] = useState<SearchResult[]>([]);
+  // Estados locales
+  const [results, setResults] = useState<MultiSearchItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
-  const cache = useRef<Record<string, SearchResult[]>>({});
+  // Referencias persistentes
+  const cache = useRef<Map<string, MultiSearchItem[]>>(new Map());
   const abortController = useRef<AbortController | null>(null);
-  const debounceTimer = useRef<NodeJS.Timeout>(null);
+  const debounceTimer = useRef<NodeJS.Timeout | null>(null);
 
-  const useSearchQuery = useCallback(async (searchTerm: string) => {
+  const performSearch = useCallback(async (searchTerm: string) => {
     const normalizedQuery = searchTerm.trim().toLowerCase();
 
     if (normalizedQuery.length < 2) {
@@ -38,13 +30,15 @@ export default function useSearch() {
       return;
     }
 
-    if (cache.current[normalizedQuery]) {
+    // Verificar caché
+    if (cache.current.has(normalizedQuery)) {
       startTransition(() => {
-        setResults(cache.current[normalizedQuery]);
+        setResults(cache.current.get(normalizedQuery) || []);
       });
       return;
     }
 
+    // Cancelar petición anterior
     if (abortController.current) {
       abortController.current.abort();
     }
@@ -62,14 +56,15 @@ export default function useSearch() {
 
       if (!res.ok) throw new Error('Error en la búsqueda');
 
-      const data = await res.json();
+      const data: SearchResponse = await res.json();
+      const searchResults = data.results || [];
 
-      cache.current[normalizedQuery] = data.results || [];
+      // Actualizar caché
+      cache.current.set(normalizedQuery, searchResults);
 
       startTransition(() => {
-        setResults(data.results || []);
+        setResults(searchResults);
       });
-
     } catch (err) {
       if (err instanceof Error && err.name !== 'AbortError') {
         setError('Hubo un problema al buscar. Por favor intenta de nuevo.');
@@ -79,6 +74,7 @@ export default function useSearch() {
     }
   }, []);
 
+  // Efecto para manejar la búsqueda con debounce
   useEffect(() => {
     if (debounceTimer.current) {
       clearTimeout(debounceTimer.current);
@@ -86,7 +82,7 @@ export default function useSearch() {
 
     debounceTimer.current = setTimeout(() => {
       if (searchQuery) {
-        useSearchQuery(searchQuery);
+        performSearch(searchQuery);
       } else {
         setResults([]);
       }
@@ -96,14 +92,18 @@ export default function useSearch() {
       if (debounceTimer.current) {
         clearTimeout(debounceTimer.current);
       }
+      if (abortController.current) {
+        abortController.current.abort();
+      }
     };
-  }, [searchQuery, useSearchQuery]);
+  }, [searchQuery, performSearch]);
 
   return {
     results,
     loading: loading || isPending,
     error,
     searchQuery,
-    setSearchQuery
+    setSearchQuery,
+    performSearch
   };
 }

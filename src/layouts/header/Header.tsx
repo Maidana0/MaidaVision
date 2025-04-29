@@ -21,7 +21,7 @@ const Header = async () => {
 
           <MobileMenu />
 
-          <Link href="/" className="text-xl font-bold tracking-tight ml-5">
+          <Link href="/" className="text-xl font-bold tracking-tight ml-5 sm:block hidden">
             Maida<span className="text-primary">Vision</span>
           </Link>
         </div>
@@ -49,7 +49,9 @@ const Header = async () => {
                 <Link href="/login">
                   <Button variant="outline" size="sm" className="h-[30px]">
                     <LogIn className="w-3 h-3" />
-                    Iniciar sesión
+                    <span className="md:block hidden">
+                      Iniciar sesión
+                    </span>
                   </Button>
                 </Link>
                 <Link href="/register" className="lg:block hidden">

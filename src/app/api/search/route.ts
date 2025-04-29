@@ -5,16 +5,16 @@ export async function GET(request: Request) {
   const query = searchParams.get('q');
 
   if (!query) return NextResponse.json({ results: [] });
+  let url = `https://api.themoviedb.org/3/search/multi?query=${query}&language=es-AR&page=1&include_adult=false`
 
   const res = await fetch(
-    `https://api.themoviedb.org/3/search/multi?query=${query}&language=es-AR`,
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': `Bearer ${process.env.TMDB_API_KEY}`,
-      }
+    url, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${process.env.TMDB_API_KEY}`,
     }
+  }
   );
   const data: SearchResponse = await res.json();
   return NextResponse.json(data);
