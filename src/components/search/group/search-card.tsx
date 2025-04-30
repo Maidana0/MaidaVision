@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Card, CardContent, CardDescription } from "../../ui/card";
+import { CardContent, CardDescription } from "../../ui/card";
 import { CommandItem } from "../../ui/command";
 import Image from "next/image";
 import { translateMediaType } from "maidana07/utils/stringDto";
@@ -27,10 +27,14 @@ const SearchCard: FC<SearchCardProps> = ({
 
   return (
     <motion.div
+      layout
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.2 }}
+      transition={{
+        layout: { duration: 0.3 },
+        opacity: { duration: 0.2 }
+      }}
       className="w-full"
     >
       <CommandItem onSelect={onSelect} className="md:h-[106px]">
@@ -47,8 +51,10 @@ const SearchCard: FC<SearchCardProps> = ({
                   : "/images/image-not-found.png"
             }
             alt={title}
-            className={"w-16 max-h-24 object-cover rounded"}
             loading="lazy"
+            className="w-16 h-24 object-cover rounded"
+            sizes="64px"
+            quality={75}
           />
           <CardDescription className="flex flex-col gap-0.5">
             <h3 className="max-h-16 text-ellipsis overflow-y-hidden" style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' }}>

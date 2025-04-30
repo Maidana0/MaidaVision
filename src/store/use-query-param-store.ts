@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 
 
 interface QueryParamState {
@@ -9,13 +8,13 @@ interface QueryParamState {
 }
 
 
-const useQueryParamStore = create<QueryParamState>()(persist((set) => ({
-  searchQuery: '',
-  setSearchQuery: (query) => set({ searchQuery: query }),
+const useQueryParamStore = create<QueryParamState>()(
+  (set) => ({
+    searchQuery: '',
+    setSearchQuery: (query) => set({ searchQuery: query }),
 
-  clearQuery: () => set({ searchQuery: '' })
-}), {
-  name: 'query-storage',
-}));
+    clearQuery: () => set({ searchQuery: '' })
+  })
+);
 
 export default useQueryParamStore;

@@ -1,109 +1,67 @@
-import { useCallback, useEffect, useRef, useState, useTransition } from 'react';
-import { useShallow } from 'zustand/react/shallow';
+import { useCallback, useEffect, useState, useTransition } from 'react';
 import useQueryParamStore from 'maidana07/store/use-query-param-store';
+import fetcher from 'maidana07/utils/fetcher';
+import useCache from './use-cache';
+
+const DEBOUNCE_DELAY = 350;
+const MIN_QUERY_LENGTH = 2;
 
 export default function useSearch() {
-  // Estado global de búsqueda
-  const { searchQuery, setSearchQuery } = useQueryParamStore(
-    useShallow(state => ({
-      searchQuery: state.searchQuery,
-      setSearchQuery: state.setSearchQuery
-    }))
-  );
-
-  // Estados locales
+  const { searchQuery, setSearchQuery, clearQuery } = useQueryParamStore();
   const [results, setResults] = useState<MultiSearchItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
-  // Referencias persistentes
-  const cache = useRef<Map<string, MultiSearchItem[]>>(new Map());
-  const abortController = useRef<AbortController | null>(null);
-  const debounceTimer = useRef<NodeJS.Timeout | null>(null);
+  const { getCached, setCached } = useCache<MultiSearchItem[]>();
 
   const performSearch = useCallback(async (searchTerm: string) => {
     const normalizedQuery = searchTerm.trim().toLowerCase();
-
-    if (normalizedQuery.length < 2) {
+    if (normalizedQuery.length < MIN_QUERY_LENGTH) {
       setResults([]);
       return;
     }
 
-    // Verificar caché
-    if (cache.current.has(normalizedQuery)) {
-      startTransition(() => {
-        setResults(cache.current.get(normalizedQuery) || []);
-      });
+    const cachedResults = getCached(normalizedQuery);
+    if (cachedResults) {
+      startTransition(() => setResults(cachedResults));
       return;
-    }
-
-    // Cancelar petición anterior
-    if (abortController.current) {
-      abortController.current.abort();
     }
 
     setLoading(true);
     setError(null);
 
-    abortController.current = new AbortController();
+    const response = await fetcher<SearchResponse>({
+      url: `/api/search?q=${encodeURIComponent(normalizedQuery)}`,
+      errorMessage: 'Error al realizar la búsqueda',
+      tags: ['search']
+    });
 
-    try {
-      const res = await fetch(
-        `/api/search?q=${encodeURIComponent(normalizedQuery)}`,
-        { signal: abortController.current.signal }
-      );
-
-      if (!res.ok) throw new Error('Error en la búsqueda');
-
-      const data: SearchResponse = await res.json();
-      const searchResults = data.results || [];
-
-      // Actualizar caché
-      cache.current.set(normalizedQuery, searchResults);
-
-      startTransition(() => {
-        setResults(searchResults);
-      });
-    } catch (err) {
-      if (err instanceof Error && err.name !== 'AbortError') {
-        setError('Hubo un problema al buscar. Por favor intenta de nuevo.');
-      }
-    } finally {
-      setLoading(false);
+    if (response.success && response.data) {
+      const searchResults = response.data.results || [];
+      setCached(normalizedQuery, searchResults);
+      startTransition(() => setResults(searchResults));
+    } else {
+      setError(response.message);
     }
-  }, []);
+    setLoading(false);
+  }, [getCached, setCached]);
 
-  // Efecto para manejar la búsqueda con debounce
   useEffect(() => {
-    if (debounceTimer.current) {
-      clearTimeout(debounceTimer.current);
-    }
+    const timer = setTimeout(() => {
+      if (searchQuery) performSearch(searchQuery);
+      else setResults([]);
+    }, DEBOUNCE_DELAY);
 
-    debounceTimer.current = setTimeout(() => {
-      if (searchQuery) {
-        performSearch(searchQuery);
-      } else {
-        setResults([]);
-      }
-    }, 300);
-
-    return () => {
-      if (debounceTimer.current) {
-        clearTimeout(debounceTimer.current);
-      }
-      if (abortController.current) {
-        abortController.current.abort();
-      }
-    };
+    return () => clearTimeout(timer);
   }, [searchQuery, performSearch]);
 
   return {
     results,
     loading: loading || isPending,
     error,
+    clearQuery,
     searchQuery,
-    setSearchQuery,
-    performSearch
+    setSearchQuery
   };
 }

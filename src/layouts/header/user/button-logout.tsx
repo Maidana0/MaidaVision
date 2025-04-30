@@ -1,5 +1,5 @@
 "use client"
-import { LogOut } from "lucide-react"
+import { LogOut, Loader2 } from "lucide-react"
 import { Button } from "../../../components/ui/button"
 import { logoutAction } from "maidana07/actions/logout-action"
 import { useTransition } from "react"
@@ -20,8 +20,16 @@ function LogoutButton() {
       variant="outline"
       size={"sm"}
     >
-       <LogOut className="w-4 h-4 mr-1" />
-      {isPending ? "Cerrando sesión..." : "Cerrar sesión"}
+      {
+        isPending
+          ? <Loader2 className="w-4 h-4 mr-1" />
+          : <LogOut className="w-4 h-4 mr-1" />
+      }
+      <span className="md:block hidden">
+        {isPending 
+        ? "Cerrando sesión..." 
+        : "Cerrar sesión"}
+      </span>
     </Button>
   )
 }
