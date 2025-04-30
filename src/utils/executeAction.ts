@@ -1,5 +1,3 @@
-// utils/executeAction.ts
-
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 
 type Options<T> = {
@@ -18,9 +16,15 @@ const executeAction = async <T>({
     return { success: true, message: successMessage };
   } catch (error: any) {
     if (isRedirectError(error)) throw error;
+
+    const errorMsg =
+      error?.cause?.err?.message || // Mensaje interno de errores por Auth.js (providers)
+      error?.message ||
+      errorMessage;
+
     return {
       success: false,
-      message: error?.message || errorMessage,
+      message: errorMsg,
     };
   }
 };

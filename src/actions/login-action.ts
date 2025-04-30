@@ -17,7 +17,7 @@ export default async function loginUserAction(values: unknown) {
         callbackUrl: "/",
       });
     },
-    errorMessage: "Correo o contraseña incorrectos",
+    errorMessage: "Error al iniciar sesión",
     successMessage: "Sesión iniciada correctamente",
   });
 

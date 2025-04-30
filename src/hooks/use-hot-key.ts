@@ -1,17 +1,20 @@
 "use client"
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 
 export default function useHotkey(callback: () => void, keys = ['k']) {
+  const down = useCallback((e: KeyboardEvent) => {
+    if (
+      e.key
+      && keys.includes(e.key.toLowerCase())
+      && (e.metaKey || e.ctrlKey)
+    ) {
+      e.preventDefault();
+      callback();
+    }
+  }, [callback, keys]);
 
   useEffect(() => {
-    const down = (e: KeyboardEvent) => {
-      if (keys.includes(e.key.toLowerCase()) && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        callback()
-      }
-    };
-
     document.addEventListener('keydown', down);
     return () => document.removeEventListener('keydown', down);
-  }, []);
+  }, [down]);
 }
