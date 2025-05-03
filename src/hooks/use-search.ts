@@ -32,7 +32,7 @@ export default function useSearch() {
     setError(null);
 
     const response = await fetcher<SearchResponse>({
-      url: `/api/search?q=${encodeURIComponent(normalizedQuery)}`,
+      url: `/api/tmdb/search?q=${encodeURIComponent(normalizedQuery)}`,
       errorMessage: 'Error al realizar la búsqueda',
       tags: ['search']
     });

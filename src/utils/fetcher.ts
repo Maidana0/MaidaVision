@@ -1,7 +1,7 @@
 
 
 
-const fetcher = async <T>({ url, tags = [], errorMessage, successMessage = null, ...options }: FetcherProps): Promise<CustomResponse<T>> => {
+const fetcher = async <T>({ url, tags = [], revalidate, errorMessage, successMessage = null, ...options }: FetcherProps): Promise<CustomResponse<T>> => {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 8000); // 8s timeout
   try {
@@ -11,14 +11,17 @@ const fetcher = async <T>({ url, tags = [], errorMessage, successMessage = null,
       signal: controller.signal,
       headers: {
         'Content-Type': 'application/json',
+        'Accept': 'application/json',
         ...options.headers,
       },
-      next: { tags }
+      next: { tags, revalidate }
     });
     if (!response.ok) throw new Error(`${response.status}: ${response.statusText}`);
 
     clearTimeout(timeout);
     const data = await response.json();
+
+    if (data.error) return { data: null, message: data.error, success: false }
 
     return {
       data: response.ok ? data : null,

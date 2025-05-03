@@ -56,11 +56,23 @@ interface MultiSearchItem extends Partial<BaseMediaResult>, Partial<PersonResult
   media_type: 'movie' | 'tv' | 'person';
 }
 
-interface SearchResponse {
+
+// RESPUESTA DE PETICIONES
+interface TMDBBaseResponse {
   page: number;
-  results: MultiSearchItem[];
   total_pages: number;
   total_results: number;
+}
+
+
+interface SearchResponse extends TMDBBaseResponse {
+  results: MultiSearchItem[];
+}
+interface TrendingMovieResponse extends TMDBBaseResponse {
+  results: MovieResult[];
+}
+interface TrendingTVResponse extends TMDBBaseResponse {
+  results: PersonResult[];
 }
 
 
