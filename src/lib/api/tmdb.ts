@@ -1,5 +1,9 @@
 import fetcher from "maidana07/utils/fetcher";
 
+import { unstable_cache } from 'next/cache';
+
+const CACHE_TIME = 86400 * 3; // 3 días
+
 interface TMDBResponse<T> {
   data?: T | null;
   error?: {
@@ -48,18 +52,20 @@ class TMDBFetcher {
   }
 
 
-  async getTrendingMovies(): Promise<TMDBResponse<TrendingMovieResponse | []>> {
-    const url = `${this.baseUrl}/trending/movie/day?language=es-AR`;
-    // 24 horas (86400 segundos);
-    return await this.fetch<TrendingMovieResponse>(url, "trendingMovies", 86400 * 3);
+  getTrendingMovies = unstable_cache(
+    async (): Promise<TMDBResponse<TrendingMovieResponse>> => {
+      const url = `${this.baseUrl}/trending/movie/day?language=es-AR`;
+      // 24 horas (86400 segundos);
+      return await this.fetch<TrendingMovieResponse>(url, "trending-movies", CACHE_TIME);
+    }
+  )
 
-  }
-
-  async getTrendingTV(): Promise<TMDBResponse<TrendingTVResponse>> {
-    const url = `${this.baseUrl}/trending/tv/day?language=es-AR`;
-
-    return await this.fetch<TrendingTVResponse>(url, "trendingTV", 86400 * 3);
-  }
+  getTrendingTV = unstable_cache(
+    async (): Promise<TMDBResponse<TrendingTVResponse>> => {
+      const url = `${this.baseUrl}/trending/tv/day?language=es-AR`;
+      return await this.fetch<TrendingTVResponse>(url, "trending-tv", CACHE_TIME);
+    }
+  )
 }
 
 const tmdbFetcher = new TMDBFetcher(process.env.TMDB_API_KEY ?? "");

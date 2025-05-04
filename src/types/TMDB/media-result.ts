@@ -72,7 +72,7 @@ interface TrendingMovieResponse extends TMDBBaseResponse {
   results: MovieResult[];
 }
 interface TrendingTVResponse extends TMDBBaseResponse {
-  results: PersonResult[];
+  results: TVResult[];
 }
 
 

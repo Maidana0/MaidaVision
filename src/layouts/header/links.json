@@ -1,6 +1,6 @@
 [
   {
-    "href": "/movies",
+    "href": "/peliculas",
     "label": "Películas"
   },
   {
@@ -8,7 +8,7 @@
     "label": "Series"
   },
   {
-    "href": "/books",
+    "href": "/libros",
     "label": "Libros"
   }
 ]

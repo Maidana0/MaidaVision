@@ -2,7 +2,7 @@ import { FC } from "react";
 import { CardContent, CardDescription } from "../../ui/card";
 import { CommandItem } from "../../ui/command";
 import Image from "next/image";
-import { translateMediaType } from "maidana07/utils/stringDto";
+import { translateMediaType } from "maidana07/utils/transform/stringDto";
 import { motion } from 'framer-motion';
 
 type SearchCardProps = {

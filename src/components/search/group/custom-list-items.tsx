@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import SearchCard from "./search-card";
-import { translateMediaType } from "maidana07/utils/stringDto";
+import { translateMediaType } from "maidana07/utils/transform/stringDto";
 import { CommandGroup } from "maidana07/components/ui/command"
 
 interface SearchResultsProps {

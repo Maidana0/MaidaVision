@@ -2,6 +2,9 @@
 @import "tw-animate-css";
 @custom-variant dark (&:where(.dark, .dark *));
 
+@view-transition {
+  navigation: auto;
+}
 
 @layer base {
   :root {
