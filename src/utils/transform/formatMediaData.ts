@@ -10,7 +10,7 @@ export const formatMediaData = (mediaArray: TVResult[] | MovieResult[]): Trendin
     backdrop_url: media.backdrop_path
       ? `https://image.tmdb.org/t/p/w780${media.backdrop_path}`
       : "https://placehold.co/780x439?text=No+Backdrop",
-    overview: media.overview ?? "La descripción no está disponible.",
+    overview: media.overview ?? "",
     title: isMovie(media) ? media.title : media.name,
     poster_url: media.poster_path
       ? `https://image.tmdb.org/t/p/w185${media.poster_path}`

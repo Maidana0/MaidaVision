@@ -1,5 +1,5 @@
 "use client"
-import TrendingCard from "../cards/trending-card"
+
 import { Section } from "../ui/section"
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Parallax } from 'swiper/modules';
@@ -8,6 +8,8 @@ import 'swiper/css/autoplay';
 import 'swiper/css/parallax';
 import { FC } from "react";
 import CustomLink from "../ui/custom-link";
+import TrendingCard from "../cards/trending-card";
+
 
 
 interface TrendingCarouselProps {
@@ -71,7 +73,7 @@ const TrendingCarousel: FC<TrendingCarouselProps> = ({ items, href = "#", headin
         </div>
       </Swiper>
     </div>
-  </Section>
+  </Section >
 )
 
 

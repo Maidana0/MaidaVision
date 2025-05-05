@@ -5,6 +5,9 @@ import { CallToAction } from "maidana07/components/home/call-to-action"
 import tmdbFetcher from "maidana07/lib/api/tmdb"
 import TrendingCarousel from "maidana07/components/carousel/trending-carousel"
 import { formatMediaData } from "maidana07/utils/transform/formatMediaData"
+import { TrendingModal } from "maidana07/components/home/trending-modal"
+
+
 
 export default async function HomePage() {
   const { data: dataMovies } = await tmdbFetcher.getTrendingMovies();
@@ -24,6 +27,7 @@ export default async function HomePage() {
       <TrendingCarousel heading="Películas" items={formattedMovies} href="/peliculas" />
       <Testimonials />
       <CallToAction />
+      <TrendingModal />
     </>
   )
 }

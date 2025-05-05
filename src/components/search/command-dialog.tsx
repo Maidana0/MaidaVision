@@ -38,6 +38,8 @@ export default function CommandDialogSearch() {
       aria-label="Buscador de películas y series"
       dialogContentClassName="lg:max-w-2xl"
       onClose={clearQuery}
+      title='Buscador de MaidaVision'
+      description='Busca películas y series por su título'
     >
       <Command shouldFilter={false} className="overflow-y-auto">
         <CommandInput
