@@ -48,7 +48,7 @@ class TMDBFetcher {
 
   async multiSearch(query: string): Promise<TMDBResponse<SearchResponse | []>> {
     const url = `${this.baseUrl}/search/multi?query=${query}&language=es-AR&page=1&include_adult=false`;
-    return await this.fetch<SearchResponse>(url, "search");
+    return await this.fetch<SearchResponse>(url, "search", 3600);
   }
 
 

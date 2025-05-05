@@ -6,6 +6,8 @@ import tmdbFetcher from "maidana07/lib/api/tmdb"
 import TrendingCarousel from "maidana07/components/carousel/trending-carousel"
 import { formatMediaData } from "maidana07/utils/transform/formatMediaData"
 import { TrendingModal } from "maidana07/components/home/trending-modal"
+import { Suspense } from "react"
+import Loader from "maidana07/components/ui/loader"
 
 
 
@@ -23,8 +25,13 @@ export default async function HomePage() {
     <>
       <Hero />
       <Features />
-      <TrendingCarousel heading="Series" items={formattedTV} href="/series" />
-      <TrendingCarousel heading="Películas" items={formattedMovies} href="/peliculas" />
+      <Suspense fallback={<Loader />}>
+        <TrendingCarousel heading="Series" items={formattedTV} href="/series" />
+      </Suspense>
+
+      <Suspense fallback={<Loader />}>
+        <TrendingCarousel heading="Películas" items={formattedMovies} href="/peliculas" />
+      </Suspense>
       <Testimonials />
       <CallToAction />
       <TrendingModal />

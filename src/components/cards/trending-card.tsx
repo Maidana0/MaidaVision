@@ -23,6 +23,7 @@ const TrendingCard: FC<{ item: TrendingMedia }> = ({ item }) => {
         className='swiper-lazy w-full h-full object-cover transition-all duration-500 dark:opacity-70 dark:group-hover:opacity-100 hover:scale-105 absolute inset-0'
         width={201.59}
         height={302.59}
+        quality={75}
       // style={{ viewTransitionName: `trending-card-${item.id}` }} CREO QUE SOLO FUNCIONA EN LOS LINKS
       />
       <div className='absolute bottom-0 left-0 right-0 px-3 py-2 w-fit'>

@@ -3,7 +3,10 @@ import { AnimatePresence } from 'framer-motion';
 import Loader from 'maidana07/components/ui/loader';
 import dynamic from 'next/dynamic';
 
-const CustomListItems = dynamic(() => import('./custom-list-items'), { ssr: false });
+const CustomListItems = dynamic(() => import('./custom-list-items'), {
+  ssr: false,
+  loading: () => <Loader />
+})
 
 interface SearchResultsProps {
   query: string;

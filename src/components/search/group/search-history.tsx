@@ -3,8 +3,12 @@ import { Trash2 } from 'lucide-react';
 import useSearchStore from 'maidana07/store/use-search-store';
 import { useShallow } from 'zustand/react/shallow';
 import dynamic from 'next/dynamic';
+import Loader from 'maidana07/components/ui/loader';
 
-const CustomListItems = dynamic(() => import('./custom-list-items'), { ssr: false });
+const CustomListItems = dynamic(() => import('./custom-list-items'), {
+  ssr: false,
+  loading: () => <Loader />
+})
 
 interface SearchHistoryProps {
   onSelect: (item: MultiSearchItem) => void;
