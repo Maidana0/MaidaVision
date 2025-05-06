@@ -12,7 +12,7 @@ function Card({ className, animated = false, ...props }: CardProps) {
   return (
     <Component
       data-slot="card"
-      className={`bg-card text-card-foreground flex flex-col gap-6 rounded-xl shadow-sm ${className}`}
+      className={cn("bg-card text-card-foreground flex flex-col gap-6 rounded-xl shadow-sm", className)}
       {...(props)}
     />
   );

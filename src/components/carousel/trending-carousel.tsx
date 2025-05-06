@@ -31,7 +31,7 @@ const breakpoints = {
 }
 
 const TrendingCarousel: FC<TrendingCarouselProps> = ({ items, href = "#", heading }) => (
-  <Section className="md:px-5 px-2.5">
+  <Section>
     <div className="flex justify-between items-center pb-7">
       <h2 className="text-3xl font-bold">
         <span className="text-primary">{heading} </span>
