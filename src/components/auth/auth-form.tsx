@@ -11,7 +11,7 @@ import { FC, useState, useTransition } from "react";
 
 interface Props {
   type: "login" | "register";
-  onSubmitAction: (values: any) => Promise<{ error?: string }>;
+  onSubmitAction: (values: Record<string, unknown>) => Promise<{ error?: string }>;
   submitText?: string;
 }
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 
 
@@ -78,10 +79,10 @@ interface TrendingTVResponse extends TMDBBaseResponse {
 
 //  del historial
 
-interface HistoryItem {
-  id: number;
-  title: string;
-  year?: string;
-  poster_path: string | null;
-  media_type: 'movie' | 'tv' | 'person';
-}
+// interface HistoryItem {
+//   id: number;
+//   title: string;
+//   year?: string;
+//   poster_path: string | null;
+//   media_type: 'movie' | 'tv' | 'person';
+// }

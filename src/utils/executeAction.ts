@@ -14,7 +14,9 @@ const executeAction = async <T>({
   try {
     await actionFn();
     return { success: true, message: successMessage };
-  } catch (error: any) {
+  }
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+  catch (error: any) {
     if (isRedirectError(error)) throw error;
 
     const errorMsg =

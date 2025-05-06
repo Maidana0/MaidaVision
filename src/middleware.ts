@@ -8,6 +8,8 @@ import { NextRequest } from "next/server"
 
 // 2. Wrapped middleware option
 const { auth } = NextAuth(authConfig)
-export default auth(async function middleware(req: NextRequest) {
+
+/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+export default auth(async function middleware(_req: NextRequest) {
   // Your custom middleware logic goes here
 })

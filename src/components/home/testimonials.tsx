@@ -41,7 +41,7 @@ export function Testimonials() {
           >
             <CardContent className="text-lg italic mb-6">
               <blockquote>
-                "{testimonial.quote}"
+                &quot;{testimonial.quote}&quot;
               </blockquote>
             </CardContent>
 

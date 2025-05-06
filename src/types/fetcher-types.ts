@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 interface FetcherProps extends RequestInit {
   url: string | URL;
   tags?: string[];

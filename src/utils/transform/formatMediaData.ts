@@ -6,7 +6,7 @@ function isMovie(media: MovieResult | TVResult): media is MovieResult {
 
 function getGenres(genreIds: number[]): string[] {
   const genresToString = genreIds.map(id => {
-    let genre = genres.find(g => g.id === id)
+    const genre = genres.find(g => g.id === id)
     if (genre) return genre.name;
   }).filter(Boolean) as string[];
 
