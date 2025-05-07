@@ -1,14 +1,14 @@
 [
   {
+    "href": "/",
+    "label": "Inicio"
+  },
+  {
     "href": "/peliculas",
     "label": "Películas"
   },
   {
     "href": "/series",
     "label": "Series"
-  },
-  {
-    "href": "/libros",
-    "label": "Libros"
   }
 ]

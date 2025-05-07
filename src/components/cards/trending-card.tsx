@@ -10,8 +10,10 @@ const TrendingCard: FC<{ item: TrendingMedia }> = ({ item }) => {
       className='relative group rounded-lg overflow-hidden cursor-pointer'
       onClick={() => onOpen(item)}
       style={{
-        maxWidth: "221.59px",
-        maxHeight: "322.39px",
+        width: "221.59px",
+        height: "322.39px",
+        // maxWidth: "221.59px",
+        // maxHeight: "322.39px",
         aspectRatio: '2/3'
       }}
     >

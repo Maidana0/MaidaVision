@@ -12,7 +12,7 @@ export default function MobileMenu() {
     <div className="md:hidden">
       <Sheet >
         <SheetTrigger asChild>
-          <Button variant="outline" aria-label="Abrir menú" className="opacity-70 transition-opacity hover:opacity-100">
+          <Button variant="outline" aria-label="Abrir menú">
             <Menu className="w-6 h-6" />
           </Button>
         </SheetTrigger>
@@ -21,7 +21,7 @@ export default function MobileMenu() {
         <SheetContent side="left">
           <SheetHeader className="flex items-center flex-row">
             <SheetClose className="inline" asChild>
-              <Button variant="outline" aria-label="Cerrar menú" className="opacity-70 transition-opacity hover:opacity-100">
+              <Button variant="outline" aria-label="Cerrar menú">
                 <X className="w-6 h-6" />
               </Button>
             </SheetClose>
@@ -42,6 +42,6 @@ export default function MobileMenu() {
           ))}
         </SheetContent>
       </Sheet>
-    </div>
+    </div >
   )
 }

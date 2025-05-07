@@ -33,24 +33,24 @@ export function Testimonials() {
         </p>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+      <div className="grid md:grid-cols-3 gap-8 md:max-w-7xl mx-auto max-w-10/12">
         {testimonials.map((testimonial, index) => (
           <Card
             key={index}
             className="py-6 shadow-lg justify-between"
           >
-            <CardContent className="text-lg italic mb-6">
+            <CardContent className="text-lg italic mb-4">
               <blockquote>
                 &quot;{testimonial.quote}&quot;
               </blockquote>
             </CardContent>
 
             <CardFooter className="gap-4">
-              <Avatar>
+              <Avatar className="size-10">
                 <AvatarImage src={testimonial.avatar} />
                 <AvatarFallback>{testimonial.author[0]}</AvatarFallback>
               </Avatar>
-              <div>
+              <div className="text-sm">
                 <div className="font-semibold">{testimonial.author}</div>
                 <div className="text-sm text-muted-foreground">{testimonial.role}</div>
               </div>

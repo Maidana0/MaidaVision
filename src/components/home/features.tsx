@@ -35,7 +35,7 @@ export function Features() {
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 max-w-7xl mx-auto">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 md:max-w-7xl max-w-11/12 mx-auto">
 
         {features.map((feature, index) => (
           <Card
@@ -56,13 +56,3 @@ export function Features() {
     </Section>
   )
 }
-/* 
-            className="flex flex-col items-center text-center p-6 rounded-lg bg-card hover:bg-card/80 transition-colors"
-          >
-            <div className="p-3 rounded-full bg-primary/10 text-primary mb-4">
-              {feature.icon}
-            </div>
-            <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-            <p className="text-muted-foreground">{feature.description}</p>
-          </div>
-*/

@@ -7,9 +7,9 @@ export function Hero() {
   return (
     <Section className="relative overflow-hidden">
 
-      <div className="relative max-w-5xl mx-auto text-center pt-24">
+      <div className="relative max-w-5xl mx-auto text-center md:pt-24 pt-6">
 
-        <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50 p-3">
+        <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50 p-3">
           Tu guía definitiva de streaming
         </h1>
 

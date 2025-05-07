@@ -27,11 +27,10 @@ export default async function HomePage() {
       <div className="absolute inset-0 bg-gradient-to-b from-primary/50 via-background to-background -z-10" />
 
       <Hero />
-      <Features />
       <Suspense fallback={<Loader />}>
         <TrendingCarousel heading="Series" items={formattedTV} href="/series" />
       </Suspense>
-
+      <Features />
       <Suspense fallback={<Loader />}>
         <TrendingCarousel heading="Películas" items={formattedMovies} href="/peliculas" />
       </Suspense>
