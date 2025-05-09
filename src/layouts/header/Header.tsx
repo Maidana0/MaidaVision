@@ -15,7 +15,7 @@ const Header = async () => {
   const session = await auth()
 
   return (
-    <header className="w-full bg-muted/30 sticky top-0 z-50 backdrop-blur">
+    <header className="w-full sticky top-0 z-50">
       <div className="flex items-center justify-between px-3 py-2">
         <div className="flex items-center">
 

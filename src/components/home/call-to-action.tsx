@@ -6,7 +6,10 @@ export function CallToAction() {
   return (
     <Section>
       <div className="max-w-11/12 md:max-w-8/12 mx-auto text-center" >
-        <div className="md:bg-gradient-to-r bg-gradient-to-b from-primary/10 via-primary/30 to-primary/10 md:p-12 p-10 rounded-2xl">
+        <div className="md:bg-gradient-to-r dark:bg-gradient-to-b 
+        from-primary/10 via-primary/30 to-primary/10
+         bg-gradient-to-br
+         md:p-12 p-10 rounded-2xl">
           <h2 className="text-4xl font-bold mb-6">
             ¿Listo para revolucionar tu experiencia de streaming?
           </h2>

@@ -14,7 +14,7 @@ export function ModeToggle() {
 
   return (
     <Button
-      variant="outline"
+      variant="ghost"
       size="icon"
       onClick={handleThemeChange}
       className="relative rounded-full transition-all"

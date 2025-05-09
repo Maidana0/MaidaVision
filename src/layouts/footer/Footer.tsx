@@ -1,11 +1,9 @@
-// components/footer.tsx
-
 import { Github, Instagram, Linkedin } from "lucide-react";
 import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="pt-6 pb-3 px-4 md:px-8 bg-muted/30 text-muted-foreground">
+    <footer className="pt-6 pb-3 px-4 md:px-8 text-muted-foreground">
       <div className="max-w-7xl mx-auto flex flex-col items-center gap-4">
         <div className="flex gap-4">
           <Link href="https://github.com/maidana0" target="_blank" aria-label="GitHub">
