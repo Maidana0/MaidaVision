@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Parallax } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/parallax';
-import { FC } from "react";
+import { CSSProperties, FC } from "react";
 import CustomLink from "../ui/custom-link";
 import TrendingCard from "../cards/trending-card";
 
@@ -57,6 +57,7 @@ const TrendingCarousel: FC<TrendingCarouselProps> = ({ items, href = "#", headin
           navigation={navigation}
           className="rounded-xl overflow-visible"
           breakpoints={breakpoints}
+          style={{ '--swiper-theme-color': 'var(--primary' } as CSSProperties}
         >
 
           {items.map((item, i) => (

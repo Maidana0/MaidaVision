@@ -8,6 +8,7 @@ import { formatMediaData } from "maidana07/utils/transform/formatMediaData"
 import { TrendingModal } from "maidana07/components/home/trending-modal"
 import { Suspense } from "react"
 import Loader from "maidana07/components/ui/loader"
+import BgGradient from "maidana07/components/ui/bg-gradient"
 
 
 
@@ -24,7 +25,7 @@ export default async function HomePage() {
   return (
     <>
       {/* Background gradient */}
-      <div className="absolute inset-0 dark:bg-gradient-to-b from-primary/50 via-background to-background -z-10" />
+      <BgGradient />
 
       <Hero />
       <Suspense fallback={<Loader />}>

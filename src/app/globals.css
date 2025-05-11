@@ -90,6 +90,10 @@
   --color-sidebar-accent: var(--secondary-dark);
   --color-sidebar-accent-foreground: var(--foreground-dark);
   --color-sidebar-border: var(--border-dark);
+
+  && body {
+    background-color: var(--background-dark) !important;
+  }
 }
 
 body {
@@ -98,4 +102,5 @@ body {
   height: 100vh;
   min-height: 480px;
   justify-content: space-between;
+  background-color: var(--background-light);
 }

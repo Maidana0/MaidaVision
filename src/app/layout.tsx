@@ -6,6 +6,7 @@ import Header from "maidana07/layouts/header/header";
 import Footer from "maidana07/layouts/footer/footer";
 import { ThemeProvider } from "maidana07/providers/theme-provider";
 import CommandDialogSearch from "maidana07/components/search/command-dialog"
+import BgGradient from "maidana07/components/ui/bg-gradient"
 
 export const metadata: Metadata = {
   title: {
@@ -47,10 +48,10 @@ export const metadata: Metadata = {
     description: 'Descubre, busca y sigue tus películas y series favoritas',
     // images: ['/og-image.jpg'],
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-  },
+  // viewport: {
+  //   width: 'device-width',
+  //   initialScale: 1,
+  // },
   // icons: {
   //   icon: '/favicon.ico',
   //   apple: '/apple-icon.png',
@@ -80,6 +81,7 @@ export default function RootLayout({
           defaultTheme="dark"
           enableSystem
         >
+          <BgGradient />
           <Header />
           <main>
             {children}

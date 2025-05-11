@@ -1,4 +1,4 @@
-import { Card, CardContent } from "../ui/card"
+import FeatureCard from "../cards/feature-card"
 import { Section } from "../ui/section"
 import { Search, Tv, Heart, Mail } from "lucide-react"
 
@@ -38,18 +38,7 @@ export function Features() {
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 md:max-w-7xl max-w-11/12 mx-auto">
 
         {features.map((feature, index) => (
-          <Card
-            key={index}
-            className="items-center text-center justify-evenly gap-2 p-6 transition-all border border-muted hover:border-primary/40"
-          >
-            <div className="md:p-4 p-3 rounded-full bg-primary/10 text-primary">
-              {feature.icon}
-            </div>
-            <h3 className="text-xl font-semibold">{feature.title}</h3>
-            <CardContent className="text-muted-foreground p-0">
-              <p>{feature.description}</p>
-            </CardContent>
-          </Card>
+          <FeatureCard key={index} feature={feature} />
         ))}
 
       </div>
