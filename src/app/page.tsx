@@ -8,7 +8,6 @@ import { formatMediaData } from "maidana07/utils/transform/formatMediaData"
 import { TrendingModal } from "maidana07/components/home/trending-modal"
 import { Suspense } from "react"
 import Loader from "maidana07/components/ui/loader"
-import BgGradient from "maidana07/components/ui/bg-gradient"
 
 
 
@@ -24,9 +23,6 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* Background gradient */}
-      <BgGradient />
-
       <Hero />
       <Suspense fallback={<Loader />}>
         <TrendingCarousel heading="Series" items={formattedTV} href="/series" />

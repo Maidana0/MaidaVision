@@ -1,8 +1,8 @@
 import { Section } from "maidana07/components/ui/section"
-import { Button } from "maidana07/components/ui/button"
-import { ArrowLeft, PlayCircle, Users, Zap, Github } from "lucide-react"
-import Link from "next/link"
+import { PlayCircle, Users, Zap, Github } from "lucide-react"
 import FeatureCard from "maidana07/components/cards/feature-card"
+import HeroSection from "maidana07/components/hero-section"
+import CustomLink from "maidana07/components/ui/custom-link"
 
 export default function AboutPage() {
   const features = [
@@ -33,22 +33,10 @@ export default function AboutPage() {
   return (
     <>
       {/* Hero Section */}
-      <Section className="relative py-20">
-        <div className="max-w-7xl mx-auto px-4">
-          <Link href="/">
-            <Button variant="ghost" className="mb-8">
-              <ArrowLeft className="mr-2 h-4 w-4" /> Volver al inicio
-            </Button>
-          </Link>
-
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Sobre MaidaVision
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl">
-            Simplificamos tu experiencia de streaming unificando todas tus plataformas favoritas en un solo lugar.
-          </p>
-        </div>
-      </Section>
+      <HeroSection
+        title={"Sobre MaidaVision"}
+        description={"Simplificamos tu experiencia de streaming unificando todas tus plataformas favoritas en un solo lugar."}
+      />
 
       {/* Features Grid */}
       <Section className="bg-muted/30">
@@ -83,12 +71,10 @@ export default function AboutPage() {
             Facilitar el descubrimiento y acceso al entretenimiento digital,
             ahorrándote tiempo y mejorando tu experiencia de streaming.
           </p>
-          <Button asChild>
-            <Link href="https://github.com/Maidana0/MaidaVision" target="_blank" className="gap-2">
-              <Github className="w-5 h-5" />
-              Contribuir al Proyecto
-            </Link>
-          </Button>
+          <CustomLink variant={"button"} href="https://github.com/Maidana0/MaidaVision" target="_blank" className="gap-2">
+            <Github className="w-5 h-5" />
+            Contribuir al Proyecto
+          </CustomLink>
         </div>
       </Section>
     </>

@@ -1,7 +1,7 @@
 import { Button } from "maidana07/components/ui/button"
 import { Section } from "../ui/section"
 import { ArrowRight, Search } from "lucide-react"
-import Link from "next/link"
+import CustomLink from "../ui/custom-link"
 
 export function CallToAction() {
   return (
@@ -23,14 +23,10 @@ export function CallToAction() {
               <Search className="w-5 h-5" />
               Comenzar ahora
             </Button>
-            <Link href="/nosotros" className="gap-2">
+            <CustomLink href="/nosotros" size="lg" variant="outline" className="gap-2">
               Saber más
               <ArrowRight className="w-5 h-5" />
-            </Link>
-            {/* <Button size="lg" variant="outline" className="gap-2">
-              Saber más
-              <ArrowRight className="w-5 h-5" />
-            </Button> */}
+            </CustomLink>
           </div>
         </div>
       </div>
