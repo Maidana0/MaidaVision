@@ -9,15 +9,21 @@ import useHotkey from 'maidana07/hooks/use-hot-key';
 import useDialogStore from 'maidana07/store/use-dialog-store';
 import SearchResults from './group/search-results';
 import SearchHistory from './group/search-history';
+import { useShallow } from 'zustand/react/shallow';
 
 
 export default function CommandDialogSearch() {
-  const { searchIsOpen, setSearchIsOpen, openSearchDialog, closeSearchDialog } = useDialogStore();
+  const { searchIsOpen, setSearchIsOpen, openSearchDialog, closeSearchDialog } = useDialogStore(useShallow(state => ({
+    searchIsOpen: state.search,
+    setSearchIsOpen: state.setIsOpen,
+    openSearchDialog: state.openDialog,
+    closeSearchDialog: state.closeDialog
+  })))
   const { results, loading, error, searchQuery, setSearchQuery, clearQuery } = useSearch();
   const router = useRouter();
 
   // Atajo de teclado (Ctrl+K)
-  useHotkey(openSearchDialog);
+  useHotkey(() => openSearchDialog('search'));
 
   const handleSelect = useCallback((item: MultiSearchItem) => {
     useSearchStore.getState().addToHistory({
@@ -27,14 +33,14 @@ export default function CommandDialogSearch() {
       poster_path: item.poster_path,
       media_type: item.media_type,
     });
-    closeSearchDialog();
+    closeSearchDialog("search");
     router.push(`/movie/${item.id}`);
   }, [closeSearchDialog, router]);
 
   return (
     <CommandDialog
       open={searchIsOpen}
-      onOpenChange={setSearchIsOpen}
+      onOpenChange={(open) => setSearchIsOpen("search", open)}
       aria-label="Buscador de películas y series"
       dialogContentClassName="lg:max-w-2xl"
       onClose={clearQuery}

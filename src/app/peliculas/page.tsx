@@ -3,6 +3,7 @@ import { Section } from "maidana07/components/ui/section"
 import { Button } from "maidana07/components/ui/button"
 import { Input } from "maidana07/components/ui/input"
 import { Filter, Search, SlidersHorizontal } from "lucide-react"
+import { FilterDialog } from "maidana07/components/media/filter-dialog"
 
 export default function MoviesPage() {
   // Estos datos serían dinámicos en la implementación final
@@ -33,10 +34,11 @@ export default function MoviesPage() {
               />
             </div>
             <div className="flex gap-2">
-              <Button variant="outline" className="gap-2">
+              <FilterDialog />
+              {/* <Button variant="outline" className="gap-2">
                 <Filter className="h-4 w-4" />
                 Filtros
-              </Button>
+              </Button> */}
               <Button variant="outline" className="gap-2">
                 <SlidersHorizontal className="h-4 w-4" />
                 Ordenar
