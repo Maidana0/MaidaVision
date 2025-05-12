@@ -16,9 +16,11 @@ class TMDBFetcher {
   private apiKey: string;
   private baseUrl: string;
   private headers: HeadersInit;
+  private queryLanguage: string;
 
   constructor(api_key: string) {
     this.baseUrl = "https://api.themoviedb.org/3";
+    this.queryLanguage = "language=es-MX";
     this.apiKey = api_key;
     this.headers = {
       'Authorization': `Bearer ${this.apiKey}`
@@ -47,14 +49,14 @@ class TMDBFetcher {
   }
 
   async multiSearch(query: string): Promise<TMDBResponse<SearchResponse | []>> {
-    const url = `${this.baseUrl}/search/multi?query=${query}&language=es-AR&page=1&include_adult=false`;
+    const url = `${this.baseUrl}/search/multi?query=${query}&${this.queryLanguage}&page=1&include_adult=false`;
     return await this.fetch<SearchResponse>(url, "search", 3600);
   }
 
 
   getTrendingMovies = unstable_cache(
     async (): Promise<TMDBResponse<TrendingMovieResponse>> => {
-      const url = `${this.baseUrl}/trending/movie/day?language=es-AR`;
+      const url = `${this.baseUrl}/trending/movie/day?${this.queryLanguage}`;
       // 24 horas (86400 segundos);
       return await this.fetch<TrendingMovieResponse>(url, "trending-movies", CACHE_TIME);
     }
@@ -62,7 +64,7 @@ class TMDBFetcher {
 
   getTrendingTV = unstable_cache(
     async (): Promise<TMDBResponse<TrendingTVResponse>> => {
-      const url = `${this.baseUrl}/trending/tv/day?language=es-AR`;
+      const url = `${this.baseUrl}/trending/tv/day?${this.queryLanguage}`;
       return await this.fetch<TrendingTVResponse>(url, "trending-tv", CACHE_TIME);
     }
   )
