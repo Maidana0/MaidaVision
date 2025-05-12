@@ -12,17 +12,17 @@ import { Badge } from "../ui/badge"
 
 export const TrendingModal: FC = () => {
   const router = useRouter()
-  const { isOpen, onClose, item } = useTrendingModalStore()
+  const { isOpen, onClose, item, onOpenChange } = useTrendingModalStore()
 
   if (!item) return;
 
   return (
     <Modal
       isOpen={isOpen}
-      onClose={onClose}
+      onOpenChange={onOpenChange}
       title={`Modal de información`}
       description={`Película o serie en tendencia: ${item.title} - En la posición de ${item.position} lugar.`}
-      className="max-h-[85vh] !overflow-y-auto"
+      className="p-0 max-h-[85vh] !overflow-y-auto"
     >
       <div className="relative aspect-video">
         <Image
