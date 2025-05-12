@@ -35,7 +35,9 @@ export const TrendingModal: FC = () => {
         <Loader className="absolute -z-10 top-2/4 right-2/4 translate-x-[50%] translate-y-[-50%]" size="lg" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent" />
         <div className="absolute bottom-1.5 left-5 right-6">
-          <h2 className="lg:text-4xl text-3xl font-bold text-white text-shadow-sm truncate pb-0.5">
+          <h2 className="lg:text-4xl text-3xl font-bold text-white text-shadow-sm pb-0.5 line-clamp-2"
+            title={item.title}
+          >
             {item.title}
           </h2>
         </div>
