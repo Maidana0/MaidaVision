@@ -7,13 +7,6 @@ import { FilterDialog } from "maidana07/components/media/filter-dialog"
 import SortSelect from "maidana07/components/media/sort-select"
 
 export default function MoviesPage() {
-  // Estos datos serían dinámicos en la implementación final
-  const genres = [
-    "Acción", "Aventura", "Comedia", "Drama", "Ciencia Ficción",
-    "Terror", "Romance", "Animación", "Documental"
-  ]
-
-  const years = ["2024", "2023", "2022", "2021", "2020"]
 
   return (
     <>
@@ -37,23 +30,6 @@ export default function MoviesPage() {
             <div className="flex gap-2">
               <FilterDialog />
               <SortSelect />
-            </div>
-          </div>
-
-          {/* Filtros rápidos */}
-          <div className="mb-8">
-            <h3 className="text-lg font-semibold mb-4">Géneros populares</h3>
-            <div className="flex flex-wrap gap-2">
-              {genres.map((genre) => (
-                <Button
-                  key={genre}
-                  variant="outline"
-                  size="sm"
-                  className="rounded-full"
-                >
-                  {genre}
-                </Button>
-              ))}
             </div>
           </div>
 
