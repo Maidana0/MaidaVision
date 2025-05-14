@@ -6,10 +6,16 @@ import { SlidersHorizontal } from "lucide-react"
 
 const sortOptions = [
   { value: 'none', label: 'Por defecto' },
+  { value: 'title.desc', label: 'Por título (A-Z)' },
+  { value: 'title.asc', label: 'Por título (Z-A)' },
   { value: 'popularity.desc', label: 'Más populares' },
-  { value: 'vote_average.desc', label: 'Mejor valoradas' },
+  { value: 'popularity.asc', label: 'Menos populares' },
   { value: 'primary_release_date.desc', label: 'Más recientes' },
+  { value: 'primary_release_date.asc', label: 'Más antiguas' },
+  { value: 'vote_average.desc', label: 'Mejor valoradas' },
+  { value: 'vote_average.asc', label: 'Peor valoradas' },
   { value: 'revenue.desc', label: 'Más taquilleras' },
+  { value: 'revenue.asc', label: 'Menos taquilleras' },
 ]
 
 
@@ -41,7 +47,7 @@ const SortSelect = () => {
             <SelectLabel>
               Ordenar por
             </SelectLabel>
-            {sortOptions.map((option) => (
+            {sortOptions.map((option, i) => (
               <SelectItem key={option.value} value={option.value}>
                 {option.label}
               </SelectItem>

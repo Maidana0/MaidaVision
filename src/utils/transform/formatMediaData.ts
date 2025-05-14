@@ -4,19 +4,16 @@ function isMovie(media: MovieResult | TVResult): media is MovieResult {
   return 'title' in media;
 }
 
-function getGenres(genreIds: number[]): string[] {
-  const genresToString = genreIds.map(id => {
-    const genre = genres.find(g => g.id === id)
-    if (genre) return genre.name;
-  }).filter(Boolean) as string[];
-
-  return genresToString;
+function getGenres(genreIds: number[] = [], genresList: { id: number, name: string }[]): string[] {
+  return genreIds
+    .map(id => genresList.find(g => g.id === id)?.name)
+    .filter(Boolean) as string[];
 }
 
 
-
-
-export const formatMediaData = (mediaArray: TVResult[] | MovieResult[]): TrendingMedia[] => {
+export const formatMediaData = (mediaArray: MovieResult[] | TVResult[]): TrendingMedia[] => {
+  if (!mediaArray) return [];
+  const genresList = isMovie(mediaArray[0]) ? genres.movie : genres.tv;
 
 
   return mediaArray.map((media, i) => ({
@@ -24,7 +21,7 @@ export const formatMediaData = (mediaArray: TVResult[] | MovieResult[]): Trendin
     position: i + 1,
     overview: media.overview ?? "",
     title: isMovie(media) ? media.title : media.name,
-    genres: getGenres(media.genre_ids),
+    genres: getGenres(media.genre_ids, genresList),
     media_type: isMovie(media) ? "Película" : "Serie",
     release_date: (isMovie(media) ? media.release_date : media.first_air_date)?.slice(0, 4) ?? "",
     backdrop_url: media.backdrop_path
