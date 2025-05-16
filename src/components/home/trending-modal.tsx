@@ -64,7 +64,7 @@ export const TrendingModal: FC = () => {
           </div>
         </div>
 
-        <p className="text-muted-foreground line-clamp-3 md:text-lg text-md mt-4 mb-5">
+        <p className="text-muted-foreground sm:line-clamp-3 line-clamp-4 md:text-lg text-md my-5">
           {item.overview.length > 5 ? item.overview : "La descripción no está disponible."}
         </p>
 
