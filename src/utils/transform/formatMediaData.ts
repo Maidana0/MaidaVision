@@ -22,7 +22,7 @@ export const formatMediaData = (mediaArray: MovieResult[] | TVResult[]): Trendin
     overview: media.overview ?? "",
     title: isMovie(media) ? media.title : media.name,
     genres: getGenres(media.genre_ids, genresList),
-    media_type: isMovie(media) ? "Película" : "Serie",
+    media_type: isMovie(media) ? "pelicula" : "serie",
     release_date: (isMovie(media) ? media.release_date : media.first_air_date)?.slice(0, 4) ?? "",
     backdrop_url: media.backdrop_path
       ? `https://image.tmdb.org/t/p/w780${media.backdrop_path}`

@@ -9,5 +9,5 @@ interface TrendingMedia {
   title: string;
   genres: string[];
   release_date: string;
-  media_type: string;
+  media_type: "pelicula" | "serie";
 }

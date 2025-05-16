@@ -51,7 +51,7 @@ export const TrendingModal: FC = () => {
               {item.release_date}
             </Badge>
             <Badge variant="ghost" className="md:text-sm">
-              {item.media_type}
+              {item.media_type === "pelicula" ? "Película" : "Serie"}
             </Badge>
           </div>
 
@@ -69,7 +69,7 @@ export const TrendingModal: FC = () => {
         </p>
 
         <Button className="block ml-auto" onClick={() => {
-          router.push(`/peliculas/${item.id}`)
+          router.push(`/${item.media_type}s/${item.id}`)
           onClose()
         }}>
           Ver más
