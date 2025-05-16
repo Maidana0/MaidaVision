@@ -1,9 +1,8 @@
 import HeroSection from "maidana07/components/hero-section"
 import { Section } from "maidana07/components/ui/section"
-import { Button } from "maidana07/components/ui/button"
 import { Input } from "maidana07/components/ui/input"
 import { Search } from "lucide-react"
-import { FilterDialog } from "maidana07/components/media/filter-dialog"
+import { FilterDialog } from "maidana07/components/media/filter/filter-dialog"
 import SortSelect from "maidana07/components/media/sort-select"
 
 export default function MoviesPage() {

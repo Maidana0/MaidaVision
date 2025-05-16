@@ -30,33 +30,29 @@ const SortSelect = () => {
   })
 
   return (
-    <div>
-
-      <Select
-      // value={filters.sortBy}
-      // onValueChange={(value) => setFilters((prev: any) => ({ ...prev, sortBy: value }))}
-      >
-        <SelectTrigger className="gap-2" isButtonGhost>
-          <SlidersHorizontal className="h-4 w-4" />
-          <SelectValue placeholder="Ordenar" />
-        </SelectTrigger>
+    <Select
+    // value={filters.sortBy}
+    // onValueChange={(value) => setFilters((prev: any) => ({ ...prev, sortBy: value }))}
+    >
+      <SelectTrigger className="gap-2" isButtonGhost>
+        <SlidersHorizontal className="h-4 w-4" />
+        <SelectValue placeholder="Ordenar" />
+      </SelectTrigger>
 
 
-        <SelectContent>
-          <SelectGroup>
-            <SelectLabel>
-              Ordenar por
-            </SelectLabel>
-            {sortOptions.map((option, i) => (
-              <SelectItem key={option.value} value={option.value}>
-                {option.label}
-              </SelectItem>
-            ))}
-          </SelectGroup>
-        </SelectContent>
-      </Select>
-
-    </div>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>
+            Ordenar por
+          </SelectLabel>
+          {sortOptions.map((option, i) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
   )
 }
 
