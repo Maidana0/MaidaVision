@@ -8,6 +8,7 @@ import useDialogStore from "maidana07/store/use-dialog-store"
 import { useShallow } from "zustand/react/shallow"
 import GenresFilter from "./queries/genres-filter"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "maidana07/components/ui/select"
+import ReleaseYearFilter from "./queries/release-year-filter"
 
 export function FilterDialog({ isMovie = true }: { isMovie?: boolean }) {
 
@@ -66,10 +67,7 @@ export function FilterDialog({ isMovie = true }: { isMovie?: boolean }) {
 
       <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t my-5" />
 
-      <div>
-        <h4 className="text-lg font-semibold mb-4">Año de estreno: </h4>
-
-      </div>
+      <ReleaseYearFilter />
 
       <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t my-5" />
 
