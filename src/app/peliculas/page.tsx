@@ -4,11 +4,23 @@ import { Input } from "maidana07/components/ui/input"
 import { Search } from "lucide-react"
 import { FilterDialog } from "maidana07/components/media/filter/filter-dialog"
 import SortSelect from "maidana07/components/media/sort-select"
+import tmdbFetcher from "maidana07/lib/api/tmdb"
+import { Suspense } from "react"
+import Image from "next/image"
+import MediaPagination from "maidana07/components/media/media-pagination"
 
-export default function MoviesPage() {
+
+interface MoviesPageProps {
+  searchParams: Promise<{ [key: string]: string | undefined }>
+}
+
+export default async function MoviesPage({ searchParams }: MoviesPageProps) {
+  const { page } = await searchParams
+  const { data } = await tmdbFetcher.getDiscoverMovies({ page })
 
   return (
     <>
+
       <HeroSection
         title="Películas"
         description="Explora nuestra colección de películas y encuentra tu próxima historia favorita"
@@ -34,14 +46,46 @@ export default function MoviesPage() {
 
           {/* Grid de películas (placeholder) */}
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            {Array.from({ length: 10 }).map((_, i) => (
-              <div
-                key={i}
-                className="aspect-[2/3] rounded-lg bg-card animate-pulse"
-              />
-            ))}
+
+            <Suspense
+              fallback={
+                Array.from({ length: 10 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="aspect-[2/3] rounded-lg bg-card animate-pulse"
+                  />
+                ))
+              }
+            >
+              {data?.results?.map((movie, i) =>
+                <div key={`page:${page}-${i}`}>
+                  <Image
+                    alt={movie.title}
+                    className="aspect-[2/3] rounded-lg object-cover"
+                    width={185}
+                    height={278}
+                    quality={75}
+                    loading="lazy"
+                    title={movie.title}
+                    src={
+                      movie.poster_path
+                        ? `https://image.tmdb.org/t/p/w185${movie.poster_path}`
+                        : "https://placehold.co/185x278?text=No+Image"
+                    }
+                  />
+                </div>
+              )}
+            </Suspense>
+
           </div>
+
+
+          <MediaPagination
+            page={data?.page}
+            totalPages={Math.min(data?.total_pages ?? 1, 500)}
+          />
         </div>
+
       </Section>
     </>
   )

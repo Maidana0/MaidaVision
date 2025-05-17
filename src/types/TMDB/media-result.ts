@@ -77,12 +77,10 @@ interface TrendingTVResponse extends TMDBBaseResponse {
 }
 
 
-//  del historial
+interface DiscoverMovieResponse extends TMDBBaseResponse {
+  results: Omit<MovieResult, "media_type">[]
+}
 
-// interface HistoryItem {
-//   id: number;
-//   title: string;
-//   year?: string;
-//   poster_path: string | null;
-//   media_type: 'movie' | 'tv' | 'person';
-// }
+interface DiscoverTVResponse extends TMDBBaseResponse {
+  results: Omit<TVResult, "media_type">[]
+}
