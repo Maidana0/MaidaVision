@@ -4,10 +4,9 @@ import { Input } from "maidana07/components/ui/input"
 import { Search } from "lucide-react"
 import { FilterDialog } from "maidana07/components/media/filter/filter-dialog"
 import SortSelect from "maidana07/components/media/sort-select"
-import tmdbFetcher from "maidana07/lib/api/tmdb"
 import { Suspense } from "react"
-import Image from "next/image"
-import MediaPagination from "maidana07/components/media/media-pagination"
+import MediaGrid from "maidana07/components/media/media-grid"
+import { Skeleton } from "maidana07/components/ui/skeleton"
 
 
 interface MoviesPageProps {
@@ -16,7 +15,6 @@ interface MoviesPageProps {
 
 export default async function MoviesPage({ searchParams }: MoviesPageProps) {
   const { page } = await searchParams
-  const { data } = await tmdbFetcher.getDiscoverMovies({ page })
 
   return (
     <>
@@ -29,6 +27,7 @@ export default async function MoviesPage({ searchParams }: MoviesPageProps) {
 
       <Section className="bg-muted/30">
         <div className="max-w-7xl mx-auto px-4">
+
           {/* Barra de búsqueda y filtros */}
           <div className="flex flex-col md:flex-row gap-4 mb-8">
             <div className="relative flex-1">
@@ -44,49 +43,22 @@ export default async function MoviesPage({ searchParams }: MoviesPageProps) {
             </div>
           </div>
 
-          {/* Grid de películas (placeholder) */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+          <Suspense fallback={
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+              {Array.from({ length: 20 }).map((_, i) => (
+                <Skeleton
+                  key={i}
+                  className="aspect-[2/3] bg-card"
+                />
+              ))}
+            </div>
+          } >
+            <MediaGrid page={page} />
+          </Suspense>
 
-            <Suspense
-              fallback={
-                Array.from({ length: 10 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="aspect-[2/3] rounded-lg bg-card animate-pulse"
-                  />
-                ))
-              }
-            >
-              {data?.results?.map((movie, i) =>
-                <div key={`page:${page}-${i}`}>
-                  <Image
-                    alt={movie.title}
-                    className="aspect-[2/3] rounded-lg object-cover"
-                    width={185}
-                    height={278}
-                    quality={75}
-                    loading="lazy"
-                    title={movie.title}
-                    src={
-                      movie.poster_path
-                        ? `https://image.tmdb.org/t/p/w185${movie.poster_path}`
-                        : "https://placehold.co/185x278?text=No+Image"
-                    }
-                  />
-                </div>
-              )}
-            </Suspense>
-
-          </div>
-
-
-          <MediaPagination
-            page={data?.page}
-            totalPages={Math.min(data?.total_pages ?? 1, 500)}
-          />
         </div>
+      </Section >
 
-      </Section>
     </>
   )
 }

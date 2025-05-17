@@ -1,4 +1,3 @@
-"use client"
 
 import {
   Pagination,
@@ -33,7 +32,11 @@ const MediaPagination = ({ page = 1, totalPages = 1 }: { page?: number; totalPag
             Array.from({ length: Math.min(page + 2, totalPages) }).map((_, index) => {
               if (index + 1 < page - 2) return null
               return (
-                <PaginationItem key={index}>
+                <PaginationItem key={index} className={
+                  ((index + 1 > page + 1) || (index + 1 < page - 1))
+                    ? "hidden sm:block"
+                    : ""
+                }>
                   <PaginationLink href={`?page=${index + 1}`} isActive={page === index + 1}>
                     {index + 1}
                   </PaginationLink>
