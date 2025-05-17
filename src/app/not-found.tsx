@@ -3,12 +3,13 @@
 import { Button } from "maidana07/components/ui/button"
 import { Home, ArrowLeft } from "lucide-react"
 import Link from "next/link"
-import { useRouter, usePathname } from "next/navigation"
+import { useRouter, usePathname, useSearchParams } from "next/navigation"
 import { AnimatePresence, motion } from "framer-motion"
 
 export default function NotFound() {
   const router = useRouter()
   const path = usePathname()
+  const search = useSearchParams()
 
   return (
     <AnimatePresence>
@@ -20,7 +21,10 @@ export default function NotFound() {
           className="max-w-2xl mx-auto text-center md:space-y-12 space-y-6"
         >
           <p className="text-accent-foreground/50">
-            Dirección: <span className="underline underline-offset-2 ml-1"> {path.toString()}</span>
+            Dirección:
+            <span className="underline underline-offset-2 ml-1"> {
+              search?.get("busqueda") ? search.get("busqueda") : path.toString()
+            }</span>
           </p>
 
           <div className="space-y-6">

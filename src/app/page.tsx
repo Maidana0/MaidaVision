@@ -25,11 +25,11 @@ export default async function HomePage() {
     <>
       <Hero />
       <Suspense fallback={<Loader />}>
-        <TrendingCarousel heading="Series" items={formattedTV} href="/series" />
+        <TrendingCarousel heading="Series" items={formattedTV} href="/serie" />
       </Suspense>
       <Features />
       <Suspense fallback={<Loader />}>
-        <TrendingCarousel heading="Películas" items={formattedMovies} href="/peliculas" />
+        <TrendingCarousel heading="Películas" items={formattedMovies} href="/pelicula" />
       </Suspense>
       <Testimonials />
       <CallToAction />

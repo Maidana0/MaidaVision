@@ -7,21 +7,28 @@ import SortSelect from "maidana07/components/media/sort-select"
 import { Suspense } from "react"
 import MediaGrid from "maidana07/components/media/media-grid"
 import { Skeleton } from "maidana07/components/ui/skeleton"
+import { redirect } from "next/navigation"
 
 
-interface MoviesPageProps {
-  searchParams: Promise<{ [key: string]: string | undefined }>
+interface MediaPageProps {
+  searchParams: Promise<{ [key: string]: string | undefined }>,
+  params: Promise<{ media_type: "pelicula" | "serie" }>
 }
 
-export default async function MoviesPage({ searchParams }: MoviesPageProps) {
+export default async function MoviesPage({ searchParams, params }: MediaPageProps) {
   const { page } = await searchParams
+  const { media_type } = await params
+
+  if (media_type != "pelicula" && media_type != "serie") {
+    redirect(`/pagina-no-encontrada/error/parametro?busqueda=${media_type}`)
+  }
 
   return (
     <>
 
       <HeroSection
-        title="Películas"
-        description="Explora nuestra colección de películas y encuentra tu próxima historia favorita"
+        title={`${media_type === "pelicula" ? "Películas" : "Series"}`}
+        description={`Explora nuestra colección de ${media_type === "pelicula" ? "películas" : "series"} y encuentra tu próxima historia favorita`}
         showBackButton={false}
       />
 
@@ -33,8 +40,9 @@ export default async function MoviesPage({ searchParams }: MoviesPageProps) {
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4" />
               <Input
-                placeholder="Buscar películas..."
+                placeholder={`Buscar ${media_type === "pelicula" ? "películas" : "series"}...`}
                 className="pl-10"
+                disabled
               />
             </div>
             <div className="flex gap-2">
@@ -53,7 +61,7 @@ export default async function MoviesPage({ searchParams }: MoviesPageProps) {
               ))}
             </div>
           } >
-            <MediaGrid page={page} />
+            <MediaGrid page={page} media_type={media_type} />
           </Suspense>
 
         </div>

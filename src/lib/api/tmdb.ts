@@ -1,6 +1,8 @@
 import fetcher from "maidana07/utils/fetcher";
 
-const CACHE_TIME = 86400 * 3; // 3 días
+const CACHE_DAY_TIME = 86400; // 1 día
+const CACHE_TIME = CACHE_DAY_TIME * 3; // 3 días
+const CACHE_WEEK_TIME = CACHE_DAY_TIME * 7; // 1 semana
 
 interface TMDBResponse<T> {
   data?: T | null;
@@ -52,20 +54,23 @@ class TMDBFetcher {
   }
 
 
-  getTrendingMovies = async (): Promise<TMDBResponse<TrendingMovieResponse>> => {
-    const url = `${this.baseUrl}/trending/movie/day?${this.queryLanguage}`;
-    // 24 horas (86400 segundos);
-    return await this.fetch<TrendingMovieResponse>(url, "trending-movies", CACHE_TIME);
+  getTrendingMovies = async (
+    { time_window = "week", page = "1" }: { time_window?: "day" | "week", page?: string } = {}
+  ): Promise<TMDBResponse<TrendingMovieResponse>> => {
+    const url = `${this.baseUrl}/trending/movie/${time_window}?${this.queryLanguage}&page=${page}`;
+    return await this.fetch<TrendingMovieResponse>(url, "trending-movies", CACHE_WEEK_TIME);
   }
 
 
-  getTrendingTV = async (): Promise<TMDBResponse<TrendingTVResponse>> => {
-    const url = `${this.baseUrl}/trending/tv/day?${this.queryLanguage}`;
-    return await this.fetch<TrendingTVResponse>(url, "trending-tv", CACHE_TIME);
+  getTrendingTV = async (
+    { time_window = "week", page = "1" }: { time_window?: "day" | "week", page?: string } = {}
+  ): Promise<TMDBResponse<TrendingTVResponse>> => {
+    const url = `${this.baseUrl}/trending/tv/${time_window}?${this.queryLanguage}&page=${page}`;
+    return await this.fetch<TrendingTVResponse>(url, "trending-tv", CACHE_WEEK_TIME);
   }
 
 
-  getDiscoverMovies = async ({
+  getDiscoverMovie = async ({
     page = "1",
     sortBy = "popularity.desc",
     includeAdult = false,
@@ -92,6 +97,27 @@ class TMDBFetcher {
 
 
     return await this.fetch<DiscoverMovieResponse>(url, "discover-movies", CACHE_TIME);
+  }
+
+  getDiscoverTV = async (
+    {
+      page = "1",
+      sortBy = "popularity.desc",
+      includeAdult = false,
+      includeVideo = false,
+    }
+  ): Promise<TMDBResponse<DiscoverTVResponse>> => {
+    const filters = [
+      `sort_by=${sortBy}`,
+      `page=${page}`,
+      `include_adult=${includeAdult}`,
+      `include_video=${includeVideo}`,
+    ]
+
+    const url = `${this.baseUrl}/discover/tv?${this.queryLanguage}&include_null_first_air_dates=false&${filters.join("&")}`;
+
+
+    return await this.fetch<DiscoverTVResponse>(url, "discover-tvs", CACHE_TIME);
   }
 
 }

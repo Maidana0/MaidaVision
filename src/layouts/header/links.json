@@ -4,11 +4,11 @@
     "label": "Inicio"
   },
   {
-    "href": "/peliculas",
+    "href": "/pelicula",
     "label": "Películas"
   },
   {
-    "href": "/series",
+    "href": "/serie",
     "label": "Series"
   }
 ]

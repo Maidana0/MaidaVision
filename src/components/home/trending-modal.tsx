@@ -69,7 +69,7 @@ export const TrendingModal: FC = () => {
         </p>
 
         <Button className="block ml-auto" onClick={() => {
-          router.push(`/${item.media_type}s/${item.id}`)
+          router.push(`/${item.media_type}/${item.id}`)
           onClose()
         }}>
           Ver más
