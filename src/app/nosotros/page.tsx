@@ -4,31 +4,37 @@ import FeatureCard from "maidana07/components/cards/feature-card"
 import HeroSection from "maidana07/components/hero-section"
 import CustomLink from "maidana07/components/ui/custom-link"
 
-export default function AboutPage() {
-  const features = [
-    {
-      icon: <PlayCircle className="w-10 h-10" />,
-      title: "Streaming Unificado",
-      description: "Accede a todo el contenido de streaming desde una única plataforma intuitiva."
-    },
-    {
-      icon: <Users className="w-10 h-10" />,
-      title: "Comunidad Activa",
-      description: "Únete a miles de usuarios que comparten recomendaciones y reseñas."
-    },
-    {
-      icon: <Zap className="w-10 h-10" />,
-      title: "Búsqueda Instantánea",
-      description: "Encuentra el contenido que buscas en segundos, no en minutos."
-    }
-  ]
+const features = [
+  {
+    icon: <PlayCircle className="w-10 h-10" />,
+    title: "Streaming Unificado",
+    description: "Accede a todo el contenido de streaming desde una única plataforma intuitiva."
+  },
+  {
+    icon: <Users className="w-10 h-10" />,
+    title: "Comunidad Activa",
+    description: "Únete a miles de usuarios que comparten recomendaciones y reseñas."
+  },
+  {
+    icon: <Zap className="w-10 h-10" />,
+    title: "Búsqueda Instantánea",
+    description: "Encuentra el contenido que buscas en segundos, no en minutos."
+  }
+]
 
-  const stats = [
-    { value: "10K+", label: "Usuarios activos" },
-    { value: "50K+", label: "Títulos indexados" },
-    { value: "15+", label: "Plataformas" },
-    { value: "99%", label: "Satisfacción" }
-  ]
+const stats = [
+  { value: "10K+", label: "Usuarios activos" },
+  { value: "50K+", label: "Títulos indexados" },
+  { value: "15+", label: "Plataformas" },
+  { value: "99%", label: "Satisfacción" }
+]
+
+export const metadata = {
+  title: "Sobre MaidaVision",
+  description: "Descubre cómo MaidaVision está revolucionando el streaming, unificando tus plataformas favoritas en una sola experiencia. Conoce nuestra misión, valores y el equipo detrás de esta innovación."
+}
+
+export default function AboutPage() {
 
   return (
     <>

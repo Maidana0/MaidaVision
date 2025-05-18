@@ -22,7 +22,9 @@ export default async function HomePage() {
       </Suspense>
       <Testimonials />
       <CallToAction />
-      <TrendingModal />
+      <Suspense>
+        <TrendingModal />
+      </Suspense>
     </>
   )
 }

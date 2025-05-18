@@ -49,12 +49,12 @@ export default function NotFound() {
                 Volver
               </Button>
 
-              <Link href="/">
-                <Button variant="default" className="gap-2 w-28">
+              <Button variant="default" className="gap-2 w-28" asChild>
+                <Link href="/">
                   <Home className="h-4 w-4" />
                   Inicio
-                </Button>
-              </Link>
+                </Link>
+              </Button>
 
             </div>
 

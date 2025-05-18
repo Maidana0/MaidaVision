@@ -2,6 +2,7 @@ import { Section } from "maidana07/components/ui/section"
 import { ArrowLeft } from "lucide-react"
 import { FC } from "react"
 import CustomLink from "./ui/custom-link"
+import cn from "maidana07/utils/cn"
 
 interface HeroSectionProps {
   title: string
@@ -19,11 +20,11 @@ const HeroSection: FC<HeroSectionProps> = ({
   children
 }) => {
   return (
-    <Section className={className}>
+    <Section className={cn("md:pt-10 md:pb-11 pt-8 pb-0", className)}>
       <div className="max-w-7xl mx-auto px-4">
         {showBackButton && (
-          <CustomLink href="/" variant="ghost" className="mb-8">
-            <ArrowLeft className="mr-2 h-4 w-4" /> Volver al inicio
+          <CustomLink href="/" variant="ghost" className="mb-6 text-foreground/80 text-sm">
+            <ArrowLeft className="mr-2 h-4 w-4" /> Ir al Inicio
           </CustomLink>
         )}
 

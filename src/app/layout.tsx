@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 // import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "maidana07/components/ui/sonner"
@@ -7,6 +7,13 @@ import Footer from "maidana07/layouts/footer/footer";
 import { ThemeProvider } from "maidana07/providers/theme-provider";
 import CommandDialogSearch from "maidana07/components/search/command-dialog"
 import BgGradient from "maidana07/components/ui/bg-gradient"
+import { Suspense } from "react";
+
+export const viewport: Viewport = {
+  themeColor: "#690016b4",
+  width: "device-width",
+  initialScale: 1,
+}
 
 export const metadata: Metadata = {
   title: {
@@ -48,10 +55,6 @@ export const metadata: Metadata = {
     description: 'Descubre, busca y sigue tus películas y series favoritas',
     // images: ['/og-image.jpg'],
   },
-  // viewport: {
-  //   width: 'device-width',
-  //   initialScale: 1,
-  // },
   // icons: {
   //   icon: '/favicon.ico',
   //   apple: '/apple-icon.png',
@@ -84,9 +87,15 @@ export default function RootLayout({
           <BgGradient />
           <Header />
           <main>
-            {children}
-            <CommandDialogSearch />
-            <Toaster theme="dark" richColors position="bottom-right" />
+            <Suspense fallback={<div>cargando xd</div>}>
+              {children}
+            </Suspense>
+            <Suspense>
+              <CommandDialogSearch />
+            </Suspense>
+            <Suspense>
+              <Toaster theme="dark" richColors position="bottom-right" />
+            </Suspense>
           </main>
           <Footer />
         </ThemeProvider>

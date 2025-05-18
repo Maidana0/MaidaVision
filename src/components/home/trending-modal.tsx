@@ -24,7 +24,7 @@ export const TrendingModal: FC = () => {
       description={`Película o serie en tendencia: ${item.title} - En la posición de ${item.position} lugar.`}
       className="p-0 max-h-[85vh] !overflow-y-auto"
     >
-      <div className="relative aspect-video">
+      <div className="relative sm:aspect-video sm:min-h-auto min-h-[240px]">
         <Image
           src={item.backdrop_url || item.poster_url}
           alt={item.title}

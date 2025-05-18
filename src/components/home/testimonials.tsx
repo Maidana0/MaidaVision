@@ -6,20 +6,20 @@ const testimonials = [
   {
     quote: "Esta app me ayudó a encontrar mi serie favorita en segundos. ¡Increíble!",
     author: "María G.",
-    role: "Usuario Premium",
-    avatar: "https://i.pravatar.cc/150?img=1"
+    role: "Usuario frecuente",
+    avatar: "5"
   },
   {
     quote: "Ya no pierdo tiempo buscando en cada plataforma. Todo está aquí.",
     author: "Carlos R.",
     role: "Cinéfilo",
-    avatar: "https://i.pravatar.cc/150?img=2"
+    avatar: "11"
   },
   {
     quote: "La mejor herramienta para los amantes del streaming.",
     author: "Ana P.",
     role: "Crítica de cine",
-    avatar: "https://i.pravatar.cc/150?img=3"
+    avatar: "20"
   }
 ]
 
@@ -47,7 +47,7 @@ export function Testimonials() {
 
             <CardFooter className="gap-4">
               <Avatar className="size-10">
-                <AvatarImage src={testimonial.avatar} />
+                <AvatarImage src={`https://i.pravatar.cc/50?img=${testimonial.avatar}`} />
                 <AvatarFallback>{testimonial.author[0]}</AvatarFallback>
               </Avatar>
               <div className="text-sm">

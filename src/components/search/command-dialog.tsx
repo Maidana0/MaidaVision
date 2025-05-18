@@ -42,7 +42,7 @@ export default function CommandDialogSearch() {
       open={searchIsOpen}
       onOpenChange={(open) => setSearchIsOpen("search", open)}
       aria-label="Buscador de películas y series"
-      dialogContentClassName="lg:max-w-2xl"
+      dialogContentClassName="lg:max-w-2xl sm:top-[50%] top-[38%]"
       onClose={clearQuery}
       title='Buscador de MaidaVision'
       description='Busca películas y series por su título'
