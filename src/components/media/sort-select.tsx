@@ -1,10 +1,9 @@
 "use client"
-import { useState } from "react"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select"
 import { SlidersHorizontal } from "lucide-react"
 
 
-const sortOptions = [
+const sortOptions: { value: string; label: string }[] = [
   { value: 'none', label: 'Por defecto' },
   { value: 'title.desc', label: 'Por título (A-Z)' },
   { value: 'title.asc', label: 'Por título (Z-A)' },
@@ -21,13 +20,13 @@ const sortOptions = [
 
 const SortSelect = () => {
 
-  const [filters, setFilters] = useState<any>({
-    genre: [],
-    year: [],
-    rating: '',
-    language: 'es',
-    sortBy: 'popularity.desc'
-  })
+  // const [filters, setFilters] = useState<any>({
+  //   genre: [],
+  //   year: [],
+  //   rating: '',
+  //   language: 'es',
+  //   sortBy: 'popularity.desc'
+  // })
 
   return (
     <Select
@@ -45,7 +44,7 @@ const SortSelect = () => {
           <SelectLabel>
             Ordenar por
           </SelectLabel>
-          {sortOptions.map((option, i) => (
+          {sortOptions.map((option) => (
             <SelectItem key={option.value} value={option.value}>
               {option.label}
             </SelectItem>

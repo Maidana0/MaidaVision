@@ -7,7 +7,7 @@ import { Modal } from "../../ui/modal"
 import useDialogStore from "maidana07/store/use-dialog-store"
 import { useShallow } from "zustand/react/shallow"
 import GenresFilter from "./queries/genres-filter"
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "maidana07/components/ui/select"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "maidana07/components/ui/select"
 import ReleaseYearFilter from "./queries/release-year-filter"
 
 export function FilterDialog({ isMovie = true }: { isMovie?: boolean }) {
@@ -53,7 +53,7 @@ export function FilterDialog({ isMovie = true }: { isMovie?: boolean }) {
 
 
             <SelectContent>
-              {Array.from({ length: 5 }).map((option, i) => (
+              {Array.from({ length: 5 }).map((_, i) => (
                 <SelectItem key={i} value={`${i}`}>
                   {i}
                 </SelectItem>
