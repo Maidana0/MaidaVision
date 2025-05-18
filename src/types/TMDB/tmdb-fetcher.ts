@@ -25,7 +25,7 @@ export enum SortBy {
 }
 
 export interface GetDiscoverProps {
-  page: string;
+  page?: string;
   sortBy?: SortBy;
   includeAdult?: false;
   includeVideo?: false;

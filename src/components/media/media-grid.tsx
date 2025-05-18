@@ -2,6 +2,7 @@ import Image from "next/image"
 import tmdbFetcher from "maidana07/lib/api/tmdb"
 import MediaPagination from "./media-pagination"
 import Link from "next/link"
+import { GetDiscoverProps } from "maidana07/types/TMDB/tmdb-fetcher";
 
 
 function isMovie(media: Omit<MovieResult, "media_type"> | Omit<TVResult, "media_type">): media is Omit<MovieResult, "media_type"> {
@@ -11,7 +12,7 @@ function isMovie(media: Omit<MovieResult, "media_type"> | Omit<TVResult, "media_
 interface MediaGridProps {
   page?: string;
   media_type?: "pelicula" | "serie";
-  filters?: { [key: string]: string | undefined };
+  filters?: GetDiscoverProps;
 }
 
 export default async function MediaGrid({ page = "1", media_type = "pelicula", filters }: MediaGridProps) {

@@ -64,15 +64,15 @@ class TMDBFetcher {
   }
 
 
-  getDiscoverMovie = async (filters?: GetDiscoverProps): Promise<TMDBResponse<DiscoverMovieResponse>> => {
-    const queryFilters = filters ? filtersForDiscover(filters) : []
+  getDiscoverMovie = async (filters: GetDiscoverProps = {}): Promise<TMDBResponse<DiscoverMovieResponse>> => {
+    const queryFilters = filtersForDiscover(filters);
     const url = `${this.baseUrl}/discover/movie?${this.queryLanguage}&${queryFilters.join("&")}`;
 
     return await this.fetch<DiscoverMovieResponse>(url, "discover-movies", CACHE_TIME);
   }
 
-  getDiscoverTV = async (filters?: GetDiscoverProps): Promise<TMDBResponse<DiscoverTVResponse>> => {
-    const queryFilters = filters ? filtersForDiscover(filters, "tv") : []
+  getDiscoverTV = async (filters: GetDiscoverProps = {}): Promise<TMDBResponse<DiscoverTVResponse>> => {
+    const queryFilters = filtersForDiscover(filters, "tv");
     const url = `${this.baseUrl}/discover/tv?${this.queryLanguage}&include_null_first_air_dates=false&${queryFilters.join("&")}`;
 
     return await this.fetch<DiscoverTVResponse>(url, "discover-tvs", CACHE_TIME);
