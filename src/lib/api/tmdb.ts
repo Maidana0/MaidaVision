@@ -1,5 +1,5 @@
 import fetcher from "maidana07/utils/fetcher";
-import { BaseGetDiscoverProps, GetTrendingProps, SortBy, TMDBResponse } from "maidana07/types/TMDB/tmdb-fetcher";
+import { GetDiscoverProps, GetTrendingProps, SortBy, TMDBResponse } from "maidana07/types/TMDB/tmdb-fetcher";
 
 const CACHE_DAY_TIME = 86400; // 1 día
 const CACHE_TIME = CACHE_DAY_TIME * 3; // 3 días
@@ -64,55 +64,83 @@ class TMDBFetcher {
   }
 
 
-  getDiscoverMovie = async ({
-    page = "1",
-    sortBy = SortBy.POPULARITY_DESC,
-    includeAdult = false,
-    includeVideo = false,
-    // years = { minYear: 1900, maxYear: new Date().getFullYear() },
-    // genres = [],
-    // withWatchProviders = [],
-    // withOriginCountry = "",
-    // withOriginalLanguage = ""
-  }: BaseGetDiscoverProps): Promise<TMDBResponse<DiscoverMovieResponse>> => {
-    const filters = [
-      `sort_by=${sortBy}`,
-      `page=${page}`,
-      `include_adult=${includeAdult}`,
-      `include_video=${includeVideo}`,
-      // `with_genres=${genres.join(",")}`,
-      // `with_watch_providers=${withWatchProviders.join(",")}`,
-      // `primary_release_date.gte=${years.minYear}-01-01`,
-      // `primary_release_date.lte=${years.maxYear}-12-31`,
-      // `with_origin_country=${withOriginCountry}`,
-      // `with_original_language=${withOriginalLanguage}`
-    ];
-    const url = `${this.baseUrl}/discover/movie?${this.queryLanguage}&${filters.join("&")}`;
-
+  getDiscoverMovie = async (filters?: GetDiscoverProps): Promise<TMDBResponse<DiscoverMovieResponse>> => {
+    const queryFilters = filters ? filtersForDiscover(filters) : []
+    const url = `${this.baseUrl}/discover/movie?${this.queryLanguage}&${queryFilters.join("&")}`;
 
     return await this.fetch<DiscoverMovieResponse>(url, "discover-movies", CACHE_TIME);
   }
 
-  getDiscoverTV = async (
-    {
-      page = "1",
-      sortBy = SortBy.POPULARITY_DESC,
-      includeAdult = false,
-      includeVideo = false,
-    }: BaseGetDiscoverProps): Promise<TMDBResponse<DiscoverTVResponse>> => {
-    const filters = [
-      `sort_by=${sortBy}`,
-      `page=${page}`,
-      `include_adult=${includeAdult}`,
-      `include_video=${includeVideo}`,
-    ]
-
-    const url = `${this.baseUrl}/discover/tv?${this.queryLanguage}&include_null_first_air_dates=false&${filters.join("&")}`;
-
+  getDiscoverTV = async (filters?: GetDiscoverProps): Promise<TMDBResponse<DiscoverTVResponse>> => {
+    const queryFilters = filters ? filtersForDiscover(filters, "tv") : []
+    const url = `${this.baseUrl}/discover/tv?${this.queryLanguage}&include_null_first_air_dates=false&${queryFilters.join("&")}`;
 
     return await this.fetch<DiscoverTVResponse>(url, "discover-tvs", CACHE_TIME);
   }
 
+}
+
+function filtersForDiscover({
+  page = "1",
+  sortBy = SortBy.POPULARITY_DESC,
+  includeAdult = false,
+  includeVideo = false,
+  watchRegion = "AR",
+  withWatchProviders,
+  withGenres,
+  withOriginCountry,
+  withOriginalLanguage,
+  years,
+}: GetDiscoverProps, isFor: "movie" | "tv" = "movie") {
+
+  // --------------
+  // filtros por defecto (que pueden cambiar igual pero siempre son recibidos)
+  // --------------
+  const filtersToReturn = [
+    `sort_by=${sortBy}`,
+    `page=${page}`,
+    `include_adult=${includeAdult}`,
+    `include_video=${includeVideo}`,
+  ];
+
+
+  // --------------
+  // filtros opcionales (que no son enviados si no se reciben)
+  // --------------
+  if (withGenres) filtersToReturn.push(`with_genres=${withGenres.join(",")}`);
+  if (withOriginalLanguage) filtersToReturn.push(`with_original_language=${withOriginalLanguage}`);
+  if (withOriginCountry) filtersToReturn.push(`with_origin_country=${withOriginCountry}`);
+
+  if (withWatchProviders) {
+    filtersToReturn.push(
+      `watch_region=${watchRegion}`,
+      `with_watch_providers=${withWatchProviders.join(",")}`
+    )
+  };
+
+  if (years) {
+    const today = new Date();
+    const minDate = `${years.minYear}-01-01`
+    const maxDate = years.maxYear === today.getFullYear()
+      ? today.toISOString().split("T")[0]
+      : `${years.maxYear}-12-31`
+
+    if (isFor === "tv") {
+      filtersToReturn.push(
+        `first_air_date.gte=${minDate}`,
+        `first_air_date.lte=${maxDate}`
+      )
+    } else {
+      filtersToReturn.push(
+        `primary_release_date.gte=${minDate}`,
+        `primary_release_date.lte=${maxDate}`
+      )
+    }
+  };
+
+
+  // ------- RETORNO -------
+  return filtersToReturn;
 }
 
 const tmdbFetcher = new TMDBFetcher(process.env.TMDB_API_KEY ?? "");

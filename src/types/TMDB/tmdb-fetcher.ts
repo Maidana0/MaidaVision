@@ -24,9 +24,19 @@ export enum SortBy {
   REVENUE_ASC = "revenue.asc"
 }
 
-export interface BaseGetDiscoverProps {
+export interface GetDiscoverProps {
   page: string;
-  sortBy: SortBy;
-  includeAdult: false;
-  includeVideo: false;
+  sortBy?: SortBy;
+  includeAdult?: false;
+  includeVideo?: false;
+  withGenres?: string[];
+
+  withOriginalLanguage?: string;
+  withOriginCountry?: string;
+
+  watchRegion?: string;
+  withWatchProviders?: string[];
+
+
+  years?: { minYear: number; maxYear: number };
 }
