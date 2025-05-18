@@ -1,16 +1,10 @@
 import fetcher from "maidana07/utils/fetcher";
+import { BaseGetDiscoverProps, GetTrendingProps, SortBy, TMDBResponse } from "maidana07/types/TMDB/tmdb-fetcher";
 
 const CACHE_DAY_TIME = 86400; // 1 día
 const CACHE_TIME = CACHE_DAY_TIME * 3; // 3 días
 const CACHE_WEEK_TIME = CACHE_DAY_TIME * 7; // 1 semana
 
-interface TMDBResponse<T> {
-  data?: T | null;
-  error?: {
-    status: number;
-    message: string | null;
-  }
-}
 
 class TMDBFetcher {
   private apiKey: string;
@@ -55,7 +49,7 @@ class TMDBFetcher {
 
 
   getTrendingMovies = async (
-    { time_window = "week", page = "1" }: { time_window?: "day" | "week", page?: string } = {}
+    { time_window = "week", page = "1" }: GetTrendingProps = {}
   ): Promise<TMDBResponse<TrendingMovieResponse>> => {
     const url = `${this.baseUrl}/trending/movie/${time_window}?${this.queryLanguage}&page=${page}`;
     return await this.fetch<TrendingMovieResponse>(url, "trending-movies", CACHE_WEEK_TIME);
@@ -63,7 +57,7 @@ class TMDBFetcher {
 
 
   getTrendingTV = async (
-    { time_window = "week", page = "1" }: { time_window?: "day" | "week", page?: string } = {}
+    { time_window = "week", page = "1" }: GetTrendingProps = {}
   ): Promise<TMDBResponse<TrendingTVResponse>> => {
     const url = `${this.baseUrl}/trending/tv/${time_window}?${this.queryLanguage}&page=${page}`;
     return await this.fetch<TrendingTVResponse>(url, "trending-tv", CACHE_WEEK_TIME);
@@ -72,7 +66,7 @@ class TMDBFetcher {
 
   getDiscoverMovie = async ({
     page = "1",
-    sortBy = "popularity.desc",
+    sortBy = SortBy.POPULARITY_DESC,
     includeAdult = false,
     includeVideo = false,
     // years = { minYear: 1900, maxYear: new Date().getFullYear() },
@@ -80,7 +74,7 @@ class TMDBFetcher {
     // withWatchProviders = [],
     // withOriginCountry = "",
     // withOriginalLanguage = ""
-  }): Promise<TMDBResponse<DiscoverMovieResponse>> => {
+  }: BaseGetDiscoverProps): Promise<TMDBResponse<DiscoverMovieResponse>> => {
     const filters = [
       `sort_by=${sortBy}`,
       `page=${page}`,
@@ -102,11 +96,10 @@ class TMDBFetcher {
   getDiscoverTV = async (
     {
       page = "1",
-      sortBy = "popularity.desc",
+      sortBy = SortBy.POPULARITY_DESC,
       includeAdult = false,
       includeVideo = false,
-    }
-  ): Promise<TMDBResponse<DiscoverTVResponse>> => {
+    }: BaseGetDiscoverProps): Promise<TMDBResponse<DiscoverTVResponse>> => {
     const filters = [
       `sort_by=${sortBy}`,
       `page=${page}`,

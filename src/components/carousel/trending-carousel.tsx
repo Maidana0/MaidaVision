@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Parallax } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/parallax';
-import { CSSProperties, FC } from "react";
+import { CSSProperties, FC, Suspense } from "react";
 import CustomLink from "../ui/custom-link";
 import TrendingCard from "../cards/trending-card";
 
@@ -60,11 +60,13 @@ const TrendingCarousel: FC<TrendingCarouselProps> = ({ items, href = "#", headin
           style={{ '--swiper-theme-color': 'var(--primary' } as CSSProperties}
         >
 
-          {items.map((item, i) => (
-            <SwiperSlide key={`${item.id}-${i}`}>
-              <TrendingCard item={item} />
-            </SwiperSlide>
-          ))}
+          <Suspense>
+            {items.map((item, i) => (
+              <SwiperSlide key={`${item.id}-${i}`}>
+                <TrendingCard item={item} />
+              </SwiperSlide>
+            ))}
+          </Suspense>
 
           <div className="swiper-button-prev !text-white !opacity-60 hover:!opacity-100 absolute top-0 left-0 z-10 w-12 h-full items-center justify-center bg-gradient-to-r from-primary/40 to-transparent cursor-pointer sm:flex hidden">
             <span className="text-xl">&#10094;</span>
