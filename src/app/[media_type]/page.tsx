@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: MediaPageProps): Promise<Meta
   }
 }
 
-export default async function MoviesPage({ searchParams, params }: MediaPageProps) {
+export default async function MediaPage({ searchParams, params }: MediaPageProps) {
   const { media_type } = await params
 
   if (media_type != "pelicula" && media_type != "serie") {

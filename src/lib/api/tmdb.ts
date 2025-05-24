@@ -1,6 +1,8 @@
 import fetcher from "maidana07/utils/fetcher";
 import { GetDiscoverProps, GetTrendingProps, SortBy, TMDBResponse } from "maidana07/types/TMDB/tmdb-fetcher";
 
+const CACHE_MIN_TIME = 900; // 15 min
+const CACHE_HOUR_TIME = 3600; // 1 hora
 const CACHE_DAY_TIME = 86400; // 1 día
 const CACHE_TIME = CACHE_DAY_TIME * 3; // 3 días
 const CACHE_WEEK_TIME = CACHE_DAY_TIME * 7; // 1 semana
@@ -44,7 +46,7 @@ class TMDBFetcher {
 
   async multiSearch(query: string): Promise<TMDBResponse<SearchResponse | []>> {
     const url = `${this.baseUrl}/search/multi?query=${query}&${this.queryLanguage}&page=1&include_adult=false`;
-    return await this.fetch<SearchResponse>(url, "search", 3600);
+    return await this.fetch<SearchResponse>(url, "search", CACHE_MIN_TIME);
   }
 
 
@@ -68,14 +70,14 @@ class TMDBFetcher {
     const queryFilters = filtersForDiscover(filters);
     const url = `${this.baseUrl}/discover/movie?${this.queryLanguage}&${queryFilters.join("&")}`;
 
-    return await this.fetch<DiscoverMovieResponse>(url, "discover-movies", CACHE_TIME);
+    return await this.fetch<DiscoverMovieResponse>(url, "discover-movies", CACHE_MIN_TIME);
   }
 
   getDiscoverTV = async (filters: GetDiscoverProps = {}): Promise<TMDBResponse<DiscoverTVResponse>> => {
     const queryFilters = filtersForDiscover(filters, "tv");
     const url = `${this.baseUrl}/discover/tv?${this.queryLanguage}&include_null_first_air_dates=false&${queryFilters.join("&")}`;
 
-    return await this.fetch<DiscoverTVResponse>(url, "discover-tvs", CACHE_TIME);
+    return await this.fetch<DiscoverTVResponse>(url, "discover-tvs", CACHE_MIN_TIME);
   }
 
 }
