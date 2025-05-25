@@ -83,6 +83,22 @@ export default function AboutPage() {
           </CustomLink>
         </div>
       </Section>
+
+      <Section>
+        <div className="max-w-2xl mx-auto text-center px-4">
+          <img
+            src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"
+            alt="The Movie Database Logo"
+            className="mx-auto mb-6 h-10"
+            height={"40px"}
+            width={"308px"}
+            style={{ filter: "grayscale(0.80)" }}
+          />
+          <p className="text-muted-foreground text-lg">
+            MaidaVision utiliza la <span className="font-semibold">API de The Movie Database (TMDB)</span> para ofrecerte información actualizada, imágenes, sinopsis y detalles de miles de películas y series.
+          </p>
+        </div>
+      </Section>
     </>
   )
 }

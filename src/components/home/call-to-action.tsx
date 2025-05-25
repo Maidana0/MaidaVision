@@ -1,7 +1,7 @@
-import { Button } from "maidana07/components/ui/button"
 import { Section } from "../ui/section"
-import { ArrowRight, Search } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import CustomLink from "../ui/custom-link"
+import CallToActionButton from "./call-to-action-button"
 
 export function CallToAction() {
   return (
@@ -19,10 +19,7 @@ export function CallToAction() {
           </p>
           <div className="flex gap-4 justify-center">
 
-            <Button size="lg" className="gap-2">
-              <Search className="w-5 h-5" />
-              Comenzar ahora
-            </Button>
+            <CallToActionButton />
             <CustomLink href="/nosotros" size="lg" variant="outline" className="gap-2">
               Saber más
               <ArrowRight className="w-5 h-5" />

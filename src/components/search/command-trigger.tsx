@@ -7,7 +7,8 @@ import useDialogStore from 'maidana07/store/use-dialog-store';
 import { useShallow } from 'zustand/react/shallow';
 
 export default function CommandTrigger() {
-  const { openDialog } = useDialogStore(useShallow(state => ({ openDialog: state.openDialog })))
+  const openDialog = useDialogStore(useShallow(state => state.openDialog))
+
   return (
     <Button
       variant="outline"

@@ -103,4 +103,5 @@ body {
   min-height: 480px;
   justify-content: space-between;
   background-color: var(--background-light);
+  scroll-behavior: smooth;
 }
