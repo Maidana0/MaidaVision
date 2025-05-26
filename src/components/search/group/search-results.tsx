@@ -21,7 +21,9 @@ function SearchResults({ query, results, loading, error, onSelect }: SearchResul
     <AnimatePresence mode="wait">
       {query.length > 1 && !loading && results.length === 0 && (
         <CommandEmpty key="empty-results">
-          {error || 'No se encontraron resultados.'}
+          {error ? <span className="text-red-400 font-medium">
+            Ocurrió un error {error}
+          </span> : 'No se encontraron resultados.'}
         </CommandEmpty>
       )}
 

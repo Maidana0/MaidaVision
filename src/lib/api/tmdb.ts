@@ -1,5 +1,6 @@
 import fetcher from "maidana07/utils/fetcher";
-import { GetDiscoverProps, GetTrendingProps, SortBy, TMDBResponse } from "maidana07/types/TMDB/tmdb-fetcher";
+import { GetDiscoverProps, GetTrendingProps, SortBy } from "maidana07/types/TMDB/tmdb-fetcher";
+import { CustomResponse } from "maidana07/types/fetcher-types";
 
 const CACHE_MIN_TIME = 900; // 15 min
 const CACHE_HOUR_TIME = 3600; // 1 hora
@@ -23,28 +24,36 @@ class TMDBFetcher {
     };
   }
 
-  private async fetch<T>(url: string, tag: string = 'tmdb', revalidate?: number): Promise<TMDBResponse<T>> {
+  private async fetch<T>(
+    url: string,
+    tag: string = 'tmdb',
+    revalidate?: number,
+    successMessage?: string
+  ): Promise<CustomResponse<T>> {
     const response = await fetcher<T>({
       url,
       headers: this.headers,
       tags: [tag],
       revalidate,
-      errorMessage: 'Error al realizar la petición a TMDB',
+      errorMessage: 'Error during a request to TheMovieDB',
     });
 
     if (!response.success) {
       return {
-        error: {
-          status: 500,
-          message: response.message
-        }
+        success: false,
+        data: null,
+        message: response.message
       };
     }
 
-    return { data: response.data };
+    return {
+      success: true,
+      data: response.data,
+      message: `The request to TheMovieDB ${successMessage} was successful.`
+    };
   }
 
-  async multiSearch(query: string): Promise<TMDBResponse<SearchResponse | []>> {
+  async multiSearch(query: string): Promise<CustomResponse<SearchResponse | []>> {
     const url = `${this.baseUrl}/search/multi?query=${query}&${this.queryLanguage}&page=1&include_adult=false`;
     return await this.fetch<SearchResponse>(url, "search", CACHE_MIN_TIME);
   }
@@ -52,7 +61,7 @@ class TMDBFetcher {
 
   getTrendingMovies = async (
     { time_window = "week", page = "1" }: GetTrendingProps = {}
-  ): Promise<TMDBResponse<TrendingMovieResponse>> => {
+  ): Promise<CustomResponse<TrendingMovieResponse>> => {
     const url = `${this.baseUrl}/trending/movie/${time_window}?${this.queryLanguage}&page=${page}`;
     return await this.fetch<TrendingMovieResponse>(url, "trending-movies", CACHE_WEEK_TIME);
   }
@@ -60,20 +69,20 @@ class TMDBFetcher {
 
   getTrendingTV = async (
     { time_window = "week", page = "1" }: GetTrendingProps = {}
-  ): Promise<TMDBResponse<TrendingTVResponse>> => {
+  ): Promise<CustomResponse<TrendingTVResponse>> => {
     const url = `${this.baseUrl}/trending/tv/${time_window}?${this.queryLanguage}&page=${page}`;
     return await this.fetch<TrendingTVResponse>(url, "trending-tv", CACHE_WEEK_TIME);
   }
 
 
-  getDiscoverMovie = async (filters: GetDiscoverProps = {}): Promise<TMDBResponse<DiscoverMovieResponse>> => {
+  getDiscoverMovie = async (filters: GetDiscoverProps = {}): Promise<CustomResponse<DiscoverMovieResponse>> => {
     const queryFilters = filtersForDiscover(filters);
     const url = `${this.baseUrl}/discover/movie?${this.queryLanguage}&${queryFilters.join("&")}`;
 
     return await this.fetch<DiscoverMovieResponse>(url, "discover-movies", CACHE_MIN_TIME);
   }
 
-  getDiscoverTV = async (filters: GetDiscoverProps = {}): Promise<TMDBResponse<DiscoverTVResponse>> => {
+  getDiscoverTV = async (filters: GetDiscoverProps = {}): Promise<CustomResponse<DiscoverTVResponse>> => {
     const queryFilters = filtersForDiscover(filters, "tv");
     const url = `${this.baseUrl}/discover/tv?${this.queryLanguage}&include_null_first_air_dates=false&${queryFilters.join("&")}`;
 

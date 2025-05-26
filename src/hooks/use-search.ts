@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState, useTransition } from 'react';
 import useQueryParamStore from 'maidana07/store/use-query-param-store';
-import fetcher from 'maidana07/utils/fetcher';
 import useCache from './use-cache';
+import search from 'maidana07/services/search';
 
 const DEBOUNCE_DELAY = 350;
 const MIN_QUERY_LENGTH = 2;
@@ -31,12 +31,9 @@ export default function useSearch() {
     setLoading(true);
     setError(null);
 
-    const response = await fetcher<SearchResponse>({
-      url: `/api/tmdb/search?q=${encodeURIComponent(normalizedQuery)}`,
-      errorMessage: 'Error al realizar la búsqueda',
-      tags: ['search']
-    });
-
+    const response = await search(normalizedQuery)
+    console.log(response);
+    
     if (response.success && response.data) {
       const searchResults = response.data.results || [];
       setCached(normalizedQuery, searchResults);

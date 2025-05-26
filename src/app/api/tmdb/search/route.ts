@@ -6,17 +6,14 @@ export async function GET(request: Request) {
   const query = searchParams.get('q');
 
   if (!query) {
-    return NextResponse.json({ results: [] });
+    return NextResponse.json({
+      success: true,
+      data: { results: [] },
+      message: "Faltan parámetros (query) para buscar."
+    });
   }
 
-  const response = await tmdbFetcher.multiSearch(query);
+  const data = await tmdbFetcher.multiSearch(query);
 
-  if (response.error) {
-    return NextResponse.json(
-      { error: response.error.message },
-      { status: response.error.status }
-    );
-  }
-
-  return NextResponse.json(response.data);
+  return NextResponse.json(data);
 }

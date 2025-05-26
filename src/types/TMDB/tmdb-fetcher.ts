@@ -1,10 +1,3 @@
-export interface TMDBResponse<T> {
-  data?: T | null;
-  error?: {
-    status: number;
-    message: string | null;
-  }
-}
 
 export interface GetTrendingProps {
   time_window?: "day" | "week";

@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 
-interface FetcherProps extends RequestInit {
+export interface FetcherProps extends RequestInit {
   url: string | URL;
   tags?: string[];
   revalidate?: number;
@@ -8,7 +7,7 @@ interface FetcherProps extends RequestInit {
   errorMessage?: string | null;
 }
 
-interface CustomResponse<T> {
+export interface CustomResponse<T> {
   data: T | null;
   message: string | null;
   success: boolean;

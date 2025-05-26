@@ -1,3 +1,4 @@
+import { CustomResponse, FetcherProps } from "maidana07/types/fetcher-types";
 
 
 
@@ -21,7 +22,16 @@ const fetcher = async <T>({ url, tags = [], revalidate, errorMessage, successMes
     clearTimeout(timeout);
     const data = await response.json();
 
-    if (data.error) return { data: null, message: data.error, success: false }
+    if (data.error) return {
+      data: null,
+      message: data.error,
+      success: false
+    }
+
+    // En caso de volver a usar el fetcher en una petición al servidor
+    if (typeof data.success == "boolean" && typeof data.message == "string") {
+      return data;
+    }
 
     return {
       data: response.ok ? data : null,
