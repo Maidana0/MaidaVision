@@ -15,5 +15,9 @@ export async function GET(request: Request) {
 
   const data = await tmdbFetcher.multiSearch(query);
 
-  return NextResponse.json(data);
+  return NextResponse.json({
+    success: data.success,
+    data: data.data,
+    message: data.message
+  });
 }

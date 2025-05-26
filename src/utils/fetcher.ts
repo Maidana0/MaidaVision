@@ -17,28 +17,35 @@ const fetcher = async <T>({ url, tags = [], revalidate, errorMessage, successMes
       },
       next: { tags, revalidate }
     });
+    clearTimeout(timeout);
+
     if (!response.ok) throw new Error(`${response.status}: ${response.statusText}`);
 
-    clearTimeout(timeout);
     const data = await response.json();
 
-    if (data.error) return {
-      data: null,
-      message: data.error,
-      success: false
+    // Si la respuesta ya tiene success/data/message, simplemente retorna eso
+    if (typeof data.success === "boolean"
+      && "data" in data
+      && "message" in data
+    ) {
+      return {
+        data: data.data,
+        success: data.success,
+        message: data.success
+          ? successMessage ?? data.message
+          : errorMessage ?? data.message,
+      };
     }
 
-    // En caso de volver a usar el fetcher en una petición al servidor
-    if (typeof data.success == "boolean" && typeof data.message == "string") {
-      return data;
-    }
-
+    // Si no, adapta (esto solo debería pasar con APIs externas)
     return {
       data: response.ok ? data : null,
-      message: response.ok ?
-        successMessage || `${response.status}: ${response.statusText} - Operation successful`
-        : `${response.status}: ${response.statusText}`,
-      success: response.ok
+      success: response.ok,
+      message: response.ok
+        ? successMessage || response.status && response.statusText
+          ? `${response.status}: ${response.statusText} - Operation successful` : "OK"
+        : errorMessage || response.status && response.statusText
+          ? `${response.status}: ${response.statusText} - Operation failed` : "Error"
     };
   } catch (error) {
     clearTimeout(timeout);

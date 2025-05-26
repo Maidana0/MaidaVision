@@ -19,7 +19,7 @@ export default function CommandDialogSearch() {
     openSearchDialog: state.openDialog,
     closeSearchDialog: state.closeDialog
   })))
-  const { results, loading, error, searchQuery, setSearchQuery, clearQuery } = useSearch();
+  const { results, loading, message, searchQuery, setSearchQuery, clearQuery } = useSearch();
   const router = useRouter();
 
   // Atajo de teclado (Ctrl+K)
@@ -59,7 +59,7 @@ export default function CommandDialogSearch() {
             query={searchQuery}
             results={results}
             loading={loading}
-            error={error}
+            message={message ?? "Comenzar a buscar"}
             onSelect={handleSelect}
           />
 

@@ -12,18 +12,19 @@ interface SearchResultsProps {
   query: string;
   results: MultiSearchItem[];
   loading: boolean;
-  error: string | null;
+  message: string;
   onSelect: (item: MultiSearchItem) => void;
 }
 
-function SearchResults({ query, results, loading, error, onSelect }: SearchResultsProps) {
+function SearchResults({ query, results, loading, message, onSelect }: SearchResultsProps) {
   return (
     <AnimatePresence mode="wait">
       {query.length > 1 && !loading && results.length === 0 && (
         <CommandEmpty key="empty-results">
-          {error ? <span className="text-red-400 font-medium">
-            Ocurrió un error {error}
-          </span> : 'No se encontraron resultados.'}
+          {!loading && message.includes("error")
+            ? <span className={"text-red-400 font-medium"}> {message} </span>
+            : 'No se encontraron resultados.'
+          }
         </CommandEmpty>
       )}
 
@@ -32,7 +33,7 @@ function SearchResults({ query, results, loading, error, onSelect }: SearchResul
       {!loading && results.length > 0 && (
         <CustomListItems
           key="search-results"
-          heading="Resultados de búsqueda"
+          heading={message}
           nameList="results"
           listItems={results}
           onSelect={onSelect}

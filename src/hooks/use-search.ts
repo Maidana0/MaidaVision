@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState, useTransition } from 'react';
 import useQueryParamStore from 'maidana07/store/use-query-param-store';
 import useCache from './use-cache';
-import search from 'maidana07/services/search';
+import { search } from 'maidana07/services/search';
 
 const DEBOUNCE_DELAY = 350;
 const MIN_QUERY_LENGTH = 2;
@@ -10,7 +10,7 @@ export default function useSearch() {
   const { searchQuery, setSearchQuery, clearQuery } = useQueryParamStore();
   const [results, setResults] = useState<MultiSearchItem[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
   const { getCached, setCached } = useCache<MultiSearchItem[]>();
@@ -29,18 +29,16 @@ export default function useSearch() {
     }
 
     setLoading(true);
-    setError(null);
+    setMessage(null);
 
     const response = await search(normalizedQuery)
-    console.log(response);
-    
+
     if (response.success && response.data) {
       const searchResults = response.data.results || [];
       setCached(normalizedQuery, searchResults);
       startTransition(() => setResults(searchResults));
-    } else {
-      setError(response.message);
     }
+    setMessage(response.message);
     setLoading(false);
   }, [getCached, setCached]);
 
@@ -56,7 +54,7 @@ export default function useSearch() {
   return {
     results,
     loading: loading || isPending,
-    error,
+    message,
     clearQuery,
     searchQuery,
     setSearchQuery
