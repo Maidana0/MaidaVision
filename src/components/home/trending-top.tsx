@@ -4,13 +4,16 @@ import { formatMediaData } from "maidana07/utils/transform/formatMediaData";
 import { Section } from "../ui/section";
 
 const TrendingTop = async ({ trendingFor }: { trendingFor: "pelicula" | "serie" }) => {
-  const { data, error = undefined } = trendingFor === "pelicula"
+  const { data, success, message } = trendingFor === "pelicula"
     ? await tmdbFetcher.getTrendingMovies()
     : await tmdbFetcher.getTrendingTV();
 
-  if (error) {
+  if (!success) {
     return <Section className="bg-muted">
-      <p className="text-red-500 text-center"> {error.message} </p>
+      <p className="text-center flex flex-col gap-2">
+        Ocurrió un error al obtener los datos para el carousel de tendencias:
+        <span className="text-red-500 font-medium opacity-95"> {message}</span>
+      </p>
     </Section>
   }
 

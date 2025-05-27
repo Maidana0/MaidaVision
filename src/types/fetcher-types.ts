@@ -11,4 +11,5 @@ export interface CustomResponse<T> {
   data: T | null;
   message: string | null;
   success: boolean;
+  serverMessage?: string | null;
 }

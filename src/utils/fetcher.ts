@@ -6,7 +6,6 @@ const fetcher = async <T>({ url, tags = [], revalidate, errorMessage, successMes
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 8000); // 8s timeout
   try {
-
     const response = await fetch(url, {
       ...options,
       signal: controller.signal,
@@ -34,6 +33,7 @@ const fetcher = async <T>({ url, tags = [], revalidate, errorMessage, successMes
         message: data.success
           ? successMessage ?? data.message
           : errorMessage ?? data.message,
+        serverMessage: data.message
       };
     }
 
