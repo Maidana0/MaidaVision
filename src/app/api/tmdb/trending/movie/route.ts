@@ -1,8 +1,11 @@
 import tmdbFetcher from "maidana07/lib/api/tmdb";
 import { NextResponse } from "next/server";
 
-export async function GET() {
-  const data = await tmdbFetcher.getTrendingMovies()
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const page = searchParams.get('page') ?? "1";
+
+  const data = await tmdbFetcher.getTrendingMovies({ page })
 
   return NextResponse.json({
     success: data.success,

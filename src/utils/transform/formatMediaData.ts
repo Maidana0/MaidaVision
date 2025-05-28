@@ -4,6 +4,10 @@ function isMovie(media: MovieResult | TVResult): media is MovieResult {
   return 'title' in media;
 }
 
+export function mediaResultIsMovie(media: Omit<MovieResult, "media_type"> | Omit<TVResult, "media_type">): media is Omit<MovieResult, "media_type"> {
+  return 'title' in media
+}
+
 function getGenres(genreIds: number[] = [], genresList: { id: number, name: string }[]): string[] {
   return genreIds
     .map(id => genresList.find(g => g.id === id)?.name)

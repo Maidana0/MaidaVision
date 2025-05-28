@@ -3,8 +3,8 @@ import fetcher from "maidana07/utils/fetcher";
 
 
 
-export const trendingMovies = async (): Promise<CustomResponse<TrendingMovieResponse>> => {
-  const url = "/api/tmdb/trending/movie"
+export const trendingMovies = async (page: number): Promise<CustomResponse<TrendingMovieResponse>> => {
+  const url = `/api/tmdb/trending/movie?page=${page}`
   const data = await fetcher<TrendingMovieResponse>({
     url,
     successMessage: "Tendencias de películas obtenidas exitosamente",
@@ -18,8 +18,8 @@ export const trendingMovies = async (): Promise<CustomResponse<TrendingMovieResp
 
 
 
-export const trendingTVs = async (): Promise<CustomResponse<TrendingTVResponse>> => {
-  const url = "/api/tmdb/trending/tv"
+export const trendingTVs = async (page: number): Promise<CustomResponse<TrendingTVResponse>> => {
+  const url = `/api/tmdb/trending/tv?page=${page}`
   const data = await fetcher<TrendingTVResponse>({
     url,
     successMessage: "Tendencias de series obtenidas exitosamente",

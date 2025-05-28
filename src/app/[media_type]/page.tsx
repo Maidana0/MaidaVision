@@ -5,11 +5,14 @@ import { Search } from "lucide-react"
 import { FilterDialog } from "maidana07/components/media/filter/filter-dialog"
 import SortSelect from "maidana07/components/media/sort-select"
 import { Suspense } from "react"
-import MediaGrid from "maidana07/components/media/media-grid"
 import { Skeleton } from "maidana07/components/ui/skeleton"
 import { redirect } from "next/navigation"
 import { Metadata } from "next"
+import tmdbFetcher from "maidana07/lib/api/tmdb"
+import dynamic from "next/dynamic"
+import SkeletonMediaGrid from "maidana07/components/media/skeleton-media-grid"
 
+const MediaGridClient = dynamic(() => import("maidana07/components/media/dynamic-media-grid"), { loading: SkeletonMediaGrid })
 
 interface MediaPageProps {
   searchParams: Promise<{ [key: string]: string | undefined }>,
@@ -28,6 +31,9 @@ export async function generateMetadata({ params }: MediaPageProps): Promise<Meta
 
 export default async function MediaPage({ searchParams, params }: MediaPageProps) {
   const { media_type } = await params
+  const initialData = media_type === "pelicula"
+    ? tmdbFetcher.getTrendingMovies()
+    : tmdbFetcher.getTrendingTV()
 
   if (media_type != "pelicula" && media_type != "serie") {
     redirect(`/pagina-no-encontrada/error/parametro?busqueda=${media_type}`)
@@ -72,20 +78,8 @@ export default async function MediaPage({ searchParams, params }: MediaPageProps
             </div>
           </div>
 
-          <Suspense
-            fallback={
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                {Array.from({ length: 10 }).map((_, i) => (
-                  <Skeleton
-                    key={i}
-                    className="aspect-[2/3] bg-card"
-                  />
-                ))}
-              </div>
-            }
-          >
-            <MediaGrid media_type={media_type} searchParams={searchParams} />
-          </Suspense>
+
+          <MediaGridClient initialData={initialData} mediaType={media_type} />
 
         </div>
       </Section >

@@ -28,7 +28,7 @@ class TMDBFetcher {
     { url, tag, revalidate, requestMessage }
       : {
         url: string,
-        tag: string,
+        tag?: string,
         revalidate?: number,
         requestMessage?: string
       }
@@ -70,7 +70,10 @@ class TMDBFetcher {
   ): Promise<CustomResponse<TrendingMovieResponse>> => {
     const url = `${this.baseUrl}/trending/movie/${time_window}?${this.queryLanguage}&page=${page}`;
     return await this.fetch<TrendingMovieResponse>({
-      url, tag: "trending-movies", revalidate: CACHE_WEEK_TIME, requestMessage: "trending-movies"
+      url,
+      tag: page === "1" ? "trending-movies" : undefined,
+      revalidate: page === "1" ? (time_window === "week" ? CACHE_WEEK_TIME : CACHE_DAY_TIME) : undefined,
+      requestMessage: "trending-movies"
     });
   }
 
@@ -80,7 +83,10 @@ class TMDBFetcher {
   ): Promise<CustomResponse<TrendingTVResponse>> => {
     const url = `${this.baseUrl}/trending/tv/${time_window}?${this.queryLanguage}&page=${page}`;
     return await this.fetch<TrendingTVResponse>({
-      url, tag: "trending-tv", revalidate: CACHE_WEEK_TIME, requestMessage: "trending-tv"
+      url,
+      tag: page === "1" ? "trending-tv" : undefined,
+      revalidate: page === "1" ? (time_window === "week" ? CACHE_WEEK_TIME : CACHE_DAY_TIME) : undefined,
+      requestMessage: "trending-tv"
     });
   }
 
@@ -90,7 +96,10 @@ class TMDBFetcher {
     const url = `${this.baseUrl}/discover/movie?${this.queryLanguage}&${queryFilters.join("&")}`;
 
     return await this.fetch<DiscoverMovieResponse>({
-      url, tag: "discover-movies", revalidate: CACHE_MIN_TIME, requestMessage: "discover-movies"
+      url,
+      tag: "discover-movies",
+      revalidate: CACHE_MIN_TIME,
+      requestMessage: "discover-movies"
     });
   }
 
