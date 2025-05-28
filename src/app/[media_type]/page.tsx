@@ -2,9 +2,6 @@ import HeroSection from "maidana07/components/hero-section"
 import { Section } from "maidana07/components/ui/section"
 import { Input } from "maidana07/components/ui/input"
 import { Search } from "lucide-react"
-import { FilterDialog } from "maidana07/components/media/filter/filter-dialog"
-import SortSelect from "maidana07/components/media/sort-select"
-import { Suspense } from "react"
 import { Skeleton } from "maidana07/components/ui/skeleton"
 import { redirect } from "next/navigation"
 import { Metadata } from "next"
@@ -13,6 +10,14 @@ import dynamic from "next/dynamic"
 import SkeletonMediaGrid from "maidana07/components/media/skeleton-media-grid"
 
 const MediaGridClient = dynamic(() => import("maidana07/components/media/dynamic-media-grid"), { loading: SkeletonMediaGrid })
+
+const FilterDialog = dynamic(() => import("maidana07/components/media/filter/filter-dialog"), {
+  loading: () => <Skeleton className="h-9 w-[89px] dark:bg-input/30 bg-background rounded-md border border-input" />
+})
+
+const SortSelect = dynamic(() => import("maidana07/components/media/sort-select"), {
+  loading: () => <Skeleton className="h-9 w-[126px] dark:bg-input/30 bg-background rounded-md border border-input" />
+})
 
 interface MediaPageProps {
   searchParams: Promise<{ [key: string]: string | undefined }>,
@@ -29,7 +34,7 @@ export async function generateMetadata({ params }: MediaPageProps): Promise<Meta
   }
 }
 
-export default async function MediaPage({ searchParams, params }: MediaPageProps) {
+export default async function MediaPage({ params }: MediaPageProps) {
   const { media_type } = await params
   const initialData = media_type === "pelicula"
     ? tmdbFetcher.getTrendingMovies()
@@ -41,7 +46,6 @@ export default async function MediaPage({ searchParams, params }: MediaPageProps
 
   return (
     <>
-
       <HeroSection
         title={`${media_type === "pelicula" ? "Películas" : "Series"}`}
         description={`Explora nuestra colección de ${media_type === "pelicula" ? "películas" : "series"} y encuentra tu próxima historia favorita`}
@@ -62,28 +66,15 @@ export default async function MediaPage({ searchParams, params }: MediaPageProps
             </div>
 
             <div className="flex gap-2 ml-auto">
-
-              <Suspense fallback={
-                <Skeleton className="h-9 w-[89px] dark:bg-input/30 bg-background rounded-md border border-input" />
-              }>
-                <FilterDialog />
-              </Suspense>
-
-              <Suspense fallback={
-                <Skeleton className="h-9 w-[126px] dark:bg-input/30 bg-background rounded-md border border-input" />
-              }>
-                <SortSelect />
-              </Suspense>
-
+              <FilterDialog />
+              <SortSelect />
             </div>
           </div>
-
 
           <MediaGridClient initialData={initialData} mediaType={media_type} />
 
         </div>
       </Section >
-
     </>
   )
 }

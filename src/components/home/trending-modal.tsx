@@ -10,7 +10,7 @@ import Loader from "../ui/loader"
 import { Badge } from "../ui/badge"
 
 
-export const TrendingModal: FC = () => {
+const TrendingModal: FC = () => {
   const router = useRouter()
   const { isOpen, onClose, item, onOpenChange } = useTrendingModalStore()
 
@@ -80,3 +80,5 @@ export const TrendingModal: FC = () => {
     </Modal>
   )
 }
+
+export default TrendingModal

@@ -88,7 +88,7 @@ export default function RootLayout({
           <BgGradient />
           <Header />
           <main>
-            <Suspense fallback={<div>cargando xd</div>}>
+            <Suspense>
               {children}
             </Suspense>
             <Suspense>

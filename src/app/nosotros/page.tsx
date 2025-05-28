@@ -3,6 +3,7 @@ import { PlayCircle, Users, Zap, Github } from "lucide-react"
 import FeatureCard from "maidana07/components/cards/feature-card"
 import HeroSection from "maidana07/components/hero-section"
 import CustomLink from "maidana07/components/ui/custom-link"
+import Image from "next/image"
 
 const features = [
   {
@@ -86,12 +87,12 @@ export default function AboutPage() {
 
       <Section>
         <div className="max-w-2xl mx-auto text-center px-4">
-          <img
+          <Image
             src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"
             alt="The Movie Database Logo"
             className="mx-auto mb-6 h-10"
-            height={"40px"}
-            width={"308px"}
+            height={40}
+            width={308}
             style={{ filter: "grayscale(0.80)" }}
           />
           <p className="text-muted-foreground text-lg">

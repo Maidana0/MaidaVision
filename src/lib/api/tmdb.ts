@@ -3,9 +3,9 @@ import { GetDiscoverProps, GetTrendingProps, SortBy } from "maidana07/types/TMDB
 import { CustomResponse } from "maidana07/types/fetcher-types";
 
 const CACHE_MIN_TIME = 900; // 15 min
-const CACHE_HOUR_TIME = 3600; // 1 hora
+// const CACHE_HOUR_TIME = 3600; // 1 hora
 const CACHE_DAY_TIME = 86400; // 1 día
-const CACHE_TIME = CACHE_DAY_TIME * 3; // 3 días
+// const CACHE_TIME = CACHE_DAY_TIME * 3; // 3 días
 const CACHE_WEEK_TIME = CACHE_DAY_TIME * 7; // 1 semana
 
 

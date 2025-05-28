@@ -10,7 +10,7 @@ import GenresFilter from "./queries/genres-filter"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "maidana07/components/ui/select"
 import ReleaseYearFilter from "./queries/release-year-filter"
 
-export function FilterDialog({ isMovie = true }: { isMovie?: boolean }) {
+export default function FilterDialog({ isMovie = true }: { isMovie?: boolean }) {
 
   const { isOpen, onOpenChange } = useDialogStore(useShallow(state => ({
     isOpen: state.filter,
