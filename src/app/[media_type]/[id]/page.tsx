@@ -9,9 +9,12 @@ interface MediaDetailsPageProps {
 const page: FC<MediaDetailsPageProps> = async ({ params }) => {
   const { media_type, id } = await params;
 
-  if (media_type != "pelicula" && media_type != "serie") {
+  if (media_type != "pelicula" && media_type != "serie" && media_type != "persona") {
     redirect(`/pagina-no-encontrada/error/parametro?busqueda=${media_type}-${id}`)
   }
+
+  const mediaID = id.split("-")[0]
+
 
   return (
     <div>

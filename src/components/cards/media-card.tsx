@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { mediaResultIsMovie as isMovie } from "maidana07/utils/transform/formatMediaData"
 import Image from 'next/image'
+import { convertTitleToURL } from 'maidana07/utils/transform/stringDto'
 
 const MediaCard = ({ media, mediaType, priority }: {
   media: MovieResult | TVResult,
@@ -10,7 +11,11 @@ const MediaCard = ({ media, mediaType, priority }: {
   return (
     <Link
       className="aspect-[2/3] overflow-hidden rounded-lg bg-card transition-transform hover:scale-105"
-      href={`/${mediaType}/${media.id}`}
+      href={`/${mediaType}/${convertTitleToURL(
+        (isMovie(media) ? media.title : media.name)
+        , media.id
+      )
+        }`}
     >
       <Image
         alt={isMovie(media) ? media.title : media.name}

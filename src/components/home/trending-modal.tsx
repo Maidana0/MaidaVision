@@ -1,19 +1,17 @@
 "use client"
 
-import { Button } from "maidana07/components/ui/button"
 import { Modal } from "maidana07/components/ui/modal"
 import useTrendingModalStore from "maidana07/store/use-trending-modal-store"
 import Image from "next/image"
-import { useRouter } from "next/navigation"
 import { FC } from "react"
 import Loader from "../ui/loader"
 import { Badge } from "../ui/badge"
+import CustomLink from "../ui/custom-link"
+import { convertTitleToURL } from "maidana07/utils/transform/stringDto"
 
 
 const TrendingModal: FC = () => {
-  const router = useRouter()
   const { isOpen, onClose, item, onOpenChange } = useTrendingModalStore()
-
   if (!item) return;
 
   return (
@@ -68,12 +66,14 @@ const TrendingModal: FC = () => {
           {item.overview.length > 5 ? item.overview : "La descripción no está disponible."}
         </p>
 
-        <Button className="block ml-auto" onClick={() => {
-          router.push(`/${item.media_type}/${item.id}`)
-          onClose()
-        }}>
+        <CustomLink
+          className="block ml-auto w-fit"
+          href={`/${item.media_type}/${convertTitleToURL(item.title, item.id)}`}
+          variant={"button"}
+          onClick={onClose}
+        >
           Ver más
-        </Button>
+        </CustomLink>
 
       </div>
 

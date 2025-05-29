@@ -8,3 +8,12 @@ export function translateMediaType(mediaType: string, plural: boolean = false): 
     default: return 'Desconocido';
   }
 }
+
+export function convertTitleToURL(title: string, id: number): String {
+  const newTitle = title
+    .toLowerCase()
+    .split(" ")
+    .join("-")
+
+  return `${id}-${newTitle}`;
+}
