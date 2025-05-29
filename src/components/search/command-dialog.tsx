@@ -1,9 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { useCallback } from 'react';
 import { Command, CommandDialog, CommandInput, CommandList } from 'maidana07/components/ui/command';
-import useSearchStore from 'maidana07/store/use-search-store';
 import useSearch from 'maidana07/hooks/use-search';
 import useHotkey from 'maidana07/hooks/use-hot-key';
 import useDialogStore from 'maidana07/store/use-dialog-store';
@@ -13,29 +10,15 @@ import { useShallow } from 'zustand/react/shallow';
 
 
 export default function CommandDialogSearch() {
-  const { searchIsOpen, setSearchIsOpen, openSearchDialog, closeSearchDialog } = useDialogStore(useShallow(state => ({
+  const { searchIsOpen, setSearchIsOpen, openSearchDialog } = useDialogStore(useShallow(state => ({
     searchIsOpen: state.search,
     setSearchIsOpen: state.setIsOpen,
     openSearchDialog: state.openDialog,
-    closeSearchDialog: state.closeDialog
   })))
   const { results, loading, message, searchQuery, setSearchQuery, clearQuery } = useSearch();
-  const router = useRouter();
 
   // Atajo de teclado (Ctrl+K)
   useHotkey(() => openSearchDialog('search'));
-
-  const handleSelect = useCallback((item: MultiSearchItem) => {
-    useSearchStore.getState().addToHistory({
-      title: item.title || item.name,
-      year: item.release_date?.slice(0, 4) || item.first_air_date?.slice(0, 4) || item.year,
-      id: item.id,
-      poster_path: item.poster_path,
-      media_type: item.media_type,
-    });
-    closeSearchDialog("search");
-    router.push(`/movie/${item.id}`);
-  }, [closeSearchDialog, router]);
 
   return (
     <CommandDialog
@@ -60,10 +43,9 @@ export default function CommandDialogSearch() {
             results={results}
             loading={loading}
             message={message ?? "Comenzar a buscar"}
-            onSelect={handleSelect}
           />
 
-          {!searchQuery && (<SearchHistory onSelect={handleSelect} />)}
+          {!searchQuery && (<SearchHistory />)}
         </CommandList>
       </Command>
     </CommandDialog>

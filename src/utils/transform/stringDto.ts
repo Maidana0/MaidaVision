@@ -1,6 +1,6 @@
 
 
-export function translateMediaType(mediaType: string, plural: boolean = false): string {
+export function translateMediaType(mediaType?: string, plural: boolean = false): string {
   switch (mediaType) {
     case 'movie': return `Película${plural ? 's' : ''}`;
     case 'tv': return `Serie${plural ? 's' : ''}`;

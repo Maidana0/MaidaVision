@@ -13,10 +13,9 @@ interface SearchResultsProps {
   results: MultiSearchItem[];
   loading: boolean;
   message: string;
-  onSelect: (item: MultiSearchItem) => void;
 }
 
-function SearchResults({ query, results, loading, message, onSelect }: SearchResultsProps) {
+function SearchResults({ query, results, loading, message }: SearchResultsProps) {
   return (
     <AnimatePresence mode="wait">
       {query.length > 1 && !loading && results.length === 0 && (
@@ -36,7 +35,6 @@ function SearchResults({ query, results, loading, message, onSelect }: SearchRes
           heading={message}
           nameList="results"
           listItems={results}
-          onSelect={onSelect}
         />
       )}
     </AnimatePresence>

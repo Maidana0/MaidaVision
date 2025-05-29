@@ -1,12 +1,11 @@
 import { ReactNode } from "react";
-import SearchCard from "./search-card";
+import SearchCommand from "./search-command";
 import { translateMediaType } from "maidana07/utils/transform/stringDto";
 import { CommandGroup } from "maidana07/components/ui/command"
 
 interface SearchResultsProps {
   listItems: MultiSearchItem[];
   heading: string;
-  onSelect: (item: MultiSearchItem) => void;
   children?: ReactNode;
   nameList?: string;
 }
@@ -20,7 +19,7 @@ const myCallback = ({ media_type }: MultiSearchItem) => {
 }
 
 
-const CustomListItems = ({ listItems, heading, onSelect, nameList = "list", children = "" }: SearchResultsProps) => {
+const CustomListItems = ({ listItems, heading, nameList = "list", children = "" }: SearchResultsProps) => {
 
   const groupedByMediaType: GroupedByMediaType = Object.groupBy(listItems, myCallback)
 
@@ -40,14 +39,13 @@ const CustomListItems = ({ listItems, heading, onSelect, nameList = "list", chil
             </div>
             {
               groupedByMediaType[type].map((item, i) => (
-                <SearchCard
+                <SearchCommand
                   id={item.id ?? i}
                   key={`${nameList}-${item.id}-${i}`}
                   type={item.media_type}
                   title={item.title || item.name || "Desconocido"}
                   year={item.year || item.release_date || item.first_air_date}
                   image={item.poster_path || item.profile_path}
-                  onSelect={() => onSelect(item)}
                   known_for_department={item.known_for_department}
                 />
               ))

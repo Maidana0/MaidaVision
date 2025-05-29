@@ -10,11 +10,7 @@ const CustomListItems = dynamic(() => import('./custom-list-items'), {
   loading: () => <Loader />
 })
 
-interface SearchHistoryProps {
-  onSelect: (item: MultiSearchItem) => void;
-}
-
-function SearchHistory({ onSelect }: SearchHistoryProps) {
+function SearchHistory() {
   const { history, clearHistory } = useSearchStore(
     useShallow(state => ({
       history: state.history,
@@ -30,7 +26,6 @@ function SearchHistory({ onSelect }: SearchHistoryProps) {
       heading="Búsquedas recientes"
       nameList="history"
       listItems={history}
-      onSelect={onSelect}
     >
       <CommandItem
         key="clear-history"
