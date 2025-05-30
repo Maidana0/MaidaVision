@@ -1,4 +1,4 @@
-import { Skeleton } from '../ui/skeleton'
+import { Skeleton } from 'maidana07/components/ui/skeleton'
 
 const SkeletonMediaGrid = () => {
   return (
