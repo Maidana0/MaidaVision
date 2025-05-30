@@ -1,4 +1,4 @@
-import Loader from "../ui/loader"
+import Loader from "../../ui/loader"
 
 const LoadMoreTrigger = ({ isLoading, error, ref }: {
   isLoading: boolean

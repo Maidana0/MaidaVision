@@ -8,6 +8,8 @@
 
 @layer base {
   :root {
+    /* --font-family: 'Segoe UI', Roboto, sans-serif; */
+
     --primary: oklch(0.645 0.246 16.439);
 
     --primary-foreground: oklch(0.969 0.015 12.422);
@@ -28,6 +30,8 @@
 }
 
 @theme {
+  /* --default-font-family: 'Segoe UI', Roboto, sans-serif; */
+
   --color-background: var(--background-light);
   --color-foreground: var(--background-dark);
   --color-card: var(--background-light);

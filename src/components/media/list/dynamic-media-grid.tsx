@@ -4,7 +4,7 @@ import { useInfinityScroll } from "maidana07/hooks/use-infinity-scroll"
 import { trendingMovies, trendingTVs } from "maidana07/services/trending"
 import { GetDiscoverProps } from "maidana07/types/TMDB/tmdb-fetcher"
 import { CustomResponse } from "maidana07/types/fetcher-types"
-import MediaCard from "../cards/media-card"
+import MediaCard from "../../cards/media-card"
 import LoadMoreTrigger from "./load-more-trigger"
 
 interface MediaGridProps {

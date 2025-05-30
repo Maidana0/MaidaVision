@@ -7,9 +7,9 @@ import { redirect } from "next/navigation"
 import { Metadata } from "next"
 import tmdbFetcher from "maidana07/lib/api/tmdb"
 import dynamic from "next/dynamic"
-import SkeletonMediaGrid from "maidana07/components/media/skeleton-media-grid"
+import SkeletonMediaGrid from "maidana07/components/media/list/skeleton-media-grid"
 
-const MediaGridClient = dynamic(() => import("maidana07/components/media/dynamic-media-grid"), { loading: SkeletonMediaGrid })
+const MediaGridClient = dynamic(() => import("maidana07/components/media/list/dynamic-media-grid"), { loading: SkeletonMediaGrid })
 
 const FilterDialog = dynamic(() => import("maidana07/components/media/filter/filter-dialog"), {
   loading: () => <Skeleton className="h-9 w-[89px] dark:bg-input/30 bg-background rounded-md border border-input" />
