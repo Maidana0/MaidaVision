@@ -1,4 +1,5 @@
-import { MaintenanceNotice } from "maidana07/components/maintenance-notice"
+// import tmdbFetcher from "maidana07/lib/api/tmdb";
+// import { translateMediaTypeToOriginal } from "maidana07/utils/transform/stringDto";
 import { redirect } from "next/navigation";
 import { FC } from "react"
 
@@ -14,17 +15,13 @@ const page: FC<MediaDetailsPageProps> = async ({ params }) => {
   }
 
   const mediaID = id.split("-")[0]
-
+  // const data = await tmdbFetcher.getMediaDetails({
+  //   id: mediaID,
+  //   mediaType: translateMediaTypeToOriginal(media_type),
+  // })
 
   return (
-    <div>
-      <MaintenanceNotice
-        title="Página en construcción"
-        description="Estamos construyendo algo asombroso"
-        type="construction"
-        estimatedTime="Indefinido"
-      />
-    </div>
+    <>    </>
   )
 }
 

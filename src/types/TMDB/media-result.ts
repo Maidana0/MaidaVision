@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-
+type MediaType = 'movie' | 'tv' | 'person' | 'unknown';
 
 // BASES
 interface BaseMediaResult {
   id: number;
-  media_type: 'movie' | 'tv' | 'person';
+  media_type: MediaType;
   popularity: number;
   overview?: string;
   poster_path?: string | null;
@@ -54,7 +54,7 @@ interface MultiSearchItem extends Partial<BaseMediaResult>, Partial<PersonResult
   original_name?: string;
   first_air_date?: string;
   year?: string;
-  media_type: 'movie' | 'tv' | 'person';
+  media_type: MediaType;
 }
 
 
