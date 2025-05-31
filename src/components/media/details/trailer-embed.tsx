@@ -1,4 +1,11 @@
-'use client'
+import { Button } from "maidana07/components/ui/button"
+import { validateYouTubeVideo } from "maidana07/lib/api/youtube"
+import dynamic from "next/dynamic"
+
+const Modal = dynamic(async () => {
+  const module = await import("maidana07/components/ui/modal")
+  return module.Modal
+})
 
 interface TrailerEmbedProps {
   videos: {
@@ -6,26 +13,46 @@ interface TrailerEmbedProps {
     site: string
     type: string
     name: string
+    iso_639_1: string
   }[]
 }
 
-export function TrailerEmbed({ videos }: TrailerEmbedProps) {
-  const trailer = videos.find((v) => v.site === 'YouTube' && v.type === 'Trailer')
+export async function TrailerEmbed({ videos }: TrailerEmbedProps) {
+  const spanish = videos.find(
+    (v) => v.site === "YouTube" && v.type === "Trailer" && v.iso_639_1 === "es"
+  )
+  const english = videos.find(
+    (v) => v.site === "YouTube" && v.type === "Trailer" && v.iso_639_1 === "en"
+  )
 
-  if (!trailer) return null
+  let selected = spanish ?? english
+  if (!selected) return null
+
+  const isValid = await validateYouTubeVideo(selected.key)
+
+  // Si español no es válido, probar inglés
+  if (!isValid && spanish && english) {
+    const fallbackValid = await validateYouTubeVideo(english.key)
+    if (fallbackValid) selected = english
+    else return null
+  } else if (!isValid) return null
 
   return (
-    <section className="my-8">
-      <h2 className="text-xl font-semibold mb-4">Tráiler</h2>
-      <div className="aspect-video w-full rounded-lg overflow-hidden shadow-lg">
-        <iframe
-          title={trailer.name}
-          src={`https://www.youtube.com/embed/${trailer.key}`}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          className="w-full h-full"
-        />
-      </div>
-    </section>
+    <Modal
+      withTrigger
+      trigger={<Button>  Ver Trailer   </Button>}
+      className="p-0 aspect-video overflow-hidden max-w-[calc(100%-1rem)] border-0 shadow-2xl"
+      title={selected.name}
+      description={"Trailer desde Youtube"}
+      key={selected.key}
+    >
+      <iframe
+        title={selected.name}
+        src={`https://www.youtube.com/embed/${selected.key}`}
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+        className="w-full h-full rounded-lg"
+      />
+    </Modal>
   )
 }

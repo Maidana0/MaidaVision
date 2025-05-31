@@ -52,28 +52,28 @@ const MediaDetailPage: FC<MediaDetailsPageProps> = async ({ params }) => {
   } = data as any
 
   return (
-    <div className="space-y-12">
+    <>
       <MediaHeader
+        genres={genres}
         backdropPath={backdrop_path}
         posterPath={poster_path}
         title={name}
         tagline={tagline}
+        trailerButton={<TrailerEmbed videos={videos?.results || []} />}
+        providers={providers.results['AR'] || {}}
+      />
+
+      <MediaInfo
+        firstAirDate={first_air_date}
+        lastAirDate={last_air_date}
+        voteAverage={vote_average}
+        voteCount={vote_count}
+        language={original_language}
+        status={status}
+        overview={overview}
       />
 
       <section className="px-4 md:px-8 lg:px-16 space-y-8">
-        <p className="max-w-3xl text-base text-muted-foreground">{overview}</p>
-
-        <MediaInfo
-          genres={genres}
-          firstAirDate={first_air_date}
-          lastAirDate={last_air_date}
-          voteAverage={vote_average}
-          voteCount={vote_count}
-          language={original_language}
-          status={status}
-        />
-
-        <StreamingAvailability providers={providers['AR'] || {}} />
 
         {last_episode_to_air && <EpisodeInfo episode={last_episode_to_air} />}
 
@@ -81,11 +81,9 @@ const MediaDetailPage: FC<MediaDetailsPageProps> = async ({ params }) => {
 
         <ProductionInfo companies={production_companies} />
 
-        <TrailerEmbed videos={videos?.results || []} />
-
         {/* <Recommendations items={recommendations?.results || []} /> */}
       </section>
-    </div>
+    </>
   )
 }
 

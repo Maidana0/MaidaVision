@@ -1,44 +1,56 @@
+import { Section } from "maidana07/components/ui/section";
+
 interface MediaInfoProps {
-  genres: { id: number; name: string }[]
   firstAirDate: string
   lastAirDate: string
   voteAverage: number
   voteCount: number
   language: string
   status: string
+  overview: string
 }
 
 export function MediaInfo({
-  genres,
   firstAirDate,
   lastAirDate,
   voteAverage,
   voteCount,
   language,
   status,
+  overview
 }: MediaInfoProps) {
+  const itemsInfo = [
+    { title: "Idioma Original", content: language.toUpperCase() },
+    { title: "Valoración", content: `${voteAverage.toFixed(1)} (${voteCount} votos)` },
+    { title: "Fechas", content: `${firstAirDate} → ${lastAirDate}` },
+    { title: "Estado", content: status },
+  ]
+
   return (
-    <section className="grid md:grid-cols-3 gap-6 p-6 bg-card rounded-lg shadow-md">
-      <div>
-        <h3 className="font-semibold">Géneros</h3>
-        <p className="text-muted-foreground">{genres.map((g) => g.name).join(', ')}</p>
+    <Section className="flex flex-col-reverse md:flex-col gap-6 !py-6 max-w-5xl mx-auto">
+
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+        {
+          itemsInfo.map(({ title, content }) => (
+            <div className="bg-card rounded-lg shadow-md p-6" key={title}>
+              <h3 className="font-semibold">{title}</h3>
+              <p className="text-muted-foreground">{content}</p>
+            </div>
+          ))
+        }
       </div>
-      <div>
-        <h3 className="font-semibold">Idioma Original</h3>
-        <p className="text-muted-foreground uppercase">{language}</p>
+
+      <div className="px-6">
+        <h3 className="text-xl font-semibold">Descripción</h3>
+        {
+          overview.split("\n\n").map((paragraph, i) => (
+            <p key={i} className="text-lg text-foreground leading-7 shadow-md mt-4">
+              {paragraph}
+            </p>
+          ))
+        }
       </div>
-      <div>
-        <h3 className="font-semibold">Fechas</h3>
-        <p className="text-muted-foreground">{firstAirDate} → {lastAirDate}</p>
-      </div>
-      <div>
-        <h3 className="font-semibold">Estado</h3>
-        <p className="text-muted-foreground">{status}</p>
-      </div>
-      <div>
-        <h3 className="font-semibold">Valoración</h3>
-        <p className="text-muted-foreground">{voteAverage.toFixed(1)} ({voteCount} votos)</p>
-      </div>
-    </section>
+
+    </Section>
   )
 }

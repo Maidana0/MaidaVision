@@ -15,5 +15,6 @@ export async function GET<T>(request: Request) {
   }
 
   const data = await tmdbFetcher.getMediaDetails({ mediaType, id })
+
   return NextResponse.json(data)
 }

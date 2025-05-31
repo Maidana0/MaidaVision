@@ -37,3 +37,27 @@ export const formatMediaData = (mediaArray: MovieResult[] | TVResult[]): Trendin
   })
   );
 };
+
+
+
+export function translateGenres(
+  { originalGenresList, type }: {
+    originalGenresList: { id: number, name: string }[],
+    type: "tv" | "movie"
+  }): string[] {
+  if (type === "tv") {
+    return originalGenresList
+      .map(({ id, name }) => genres.tv.find(g => g.id === id)?.name)
+      .filter(Boolean) as string[];
+  } else if (type === "movie") {
+    return originalGenresList
+      .map(({ id, name }) => genres.movie.find(g => g.id === id)?.name)
+      .filter(Boolean) as string[];
+  }
+
+  return []
+}
+
+// return genreIds
+//   .map(id => genresList.find(g => g.id === id)?.name)
+//   .filter(Boolean) as string[];

@@ -116,7 +116,7 @@ class TMDBFetcher {
 
   getMediaDetails = async ({ mediaType, id }: { mediaType: MediaType, id: string }) => {
     const url = `${this.baseUrl}/${mediaType}/${id}?${this.queryLanguage}&append_to_response
-=watch/providers,videos,recommendations&locale=AR`
+=watch/providers,aggregate_credits,videos,recommendations&locale=AR&include_video_language=es-MX,en`
 
     return await this.fetch({
       url,
@@ -126,8 +126,8 @@ class TMDBFetcher {
     })
   }
 
-  getMediaImages = async ({ mediaType, id }: { mediaType: MediaType, id: string }) => {
-    const url = `${this.baseUrl}/${mediaType}/${id}/images?${this.queryLanguage}&include_image_language=es`
+  getMediaImages = async ({ mediaType, id, includeImageLanguage = ["es"] }: { mediaType: MediaType, id: string, includeImageLanguage: string[] }) => {
+    const url = `${this.baseUrl}/${mediaType}/${id}/images?${this.queryLanguage}&include_image_language=${includeImageLanguage.join(",")}`
 
     return await this.fetch({ url })
   }
