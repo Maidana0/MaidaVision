@@ -1,20 +1,19 @@
-import tmdbFetcher from "maidana07/lib/api/tmdb";
-import { translateMediaTypeToOriginal } from "maidana07/utils/transform/stringDto";
 import { redirect } from "next/navigation";
 import { FC } from "react"
 import {
   MediaHeader,
   MediaInfo,
-  StreamingAvailability,
   EpisodeInfo,
   SeasonList,
   ProductionInfo,
   TrailerEmbed,
 } from 'maidana07/components/media/details'
+import tmdbFetcher from "maidana07/lib/api/tmdb";
+import { translateMediaTypeToOriginal } from "maidana07/utils/transform/stringDto";
 
 
 interface MediaDetailsPageProps {
-  params: Promise<{ media_type: "pelicula" | "serie", id: string }>
+  params: Promise<{ media_type: "pelicula" | "serie" | "persona", id: string }>
 }
 
 const MediaDetailPage: FC<MediaDetailsPageProps> = async ({ params }) => {
@@ -25,10 +24,19 @@ const MediaDetailPage: FC<MediaDetailsPageProps> = async ({ params }) => {
   }
 
   const mediaID = id.split("-")[0]
-  const { data } = await tmdbFetcher.getMediaDetails({
+  const data = await tmdbFetcher.getMediaDetails({
     id: mediaID,
     mediaType: translateMediaTypeToOriginal(media_type),
   })
+
+  if (!data.success) {
+    return (<div className="p-12">
+      <h1>Ocurrio un error.</h1>
+      <p className="bg-card w-2xl mx-auto p-6 mt-6">
+        {JSON.stringify(data)}
+      </p>
+    </div>)
+  }
 
   const {
     name,
@@ -49,7 +57,7 @@ const MediaDetailPage: FC<MediaDetailsPageProps> = async ({ params }) => {
     production_companies,
     videos,
     recommendations,
-  } = data as any
+  } = data.data as any
 
   return (
     <>

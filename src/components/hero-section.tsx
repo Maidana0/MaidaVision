@@ -9,6 +9,7 @@ interface HeroSectionProps {
   description?: string
   showBackButton?: boolean
   className?: string
+  h1ClassName?: string
   children?: React.ReactNode
 }
 
@@ -17,6 +18,7 @@ const HeroSection: FC<HeroSectionProps> = ({
   description,
   showBackButton = true,
   className = "",
+  h1ClassName = "",
   children
 }) => {
   return (
@@ -28,7 +30,7 @@ const HeroSection: FC<HeroSectionProps> = ({
           </CustomLink>
         )}
 
-        <h1 className="text-4xl md:text-6xl font-bold mb-6">
+        <h1 className={`text-4xl md:text-6xl font-bold mb-6 ${h1ClassName}`}>
           {title}
         </h1>
         {description && (
