@@ -12,7 +12,7 @@ const RecommendationsCarousel = ({ items, type, title }: { items: MediaRecommend
       <h3 className="text-xl font-semibold">
         {title}
       </h3>
-      <Carousel loop={false} rounded={false}>
+      <Carousel loop={false}>
         {
           items.map((item) => (
             <SwiperSlide key={item.id}>

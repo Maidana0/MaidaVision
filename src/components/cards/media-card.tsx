@@ -14,18 +14,25 @@ const MediaCard = ({ media, mediaType, priority, withDescription = false, withSc
 }) => {
   return (
     <Link
-      className="aspect-[2/3] overflow-hidden bg-card"
+      className="overflow-hidden bg-card relative block group rounded"
+      style={{
+        aspectRatio: '2/3',
+        width: "185px",
+        height: "272px",
+      }}
       href={`/${mediaType}/${convertTitleToURL(
         (isMovie(media) ? media.title : media.name)
         , media.id
       )
         }`}
     >
+      <div className='swiper-lazy-preloader' />
+
       <Image
         alt={isMovie(media) ? media.title : media.name}
-        className={`object-cover size-full ${withScale && "transition-transform duration-300 hover:scale-[1.04]"}`}
+        className={`object-cover size-full brightness-95 ${withScale && "transition-transform duration-300 hover:scale-[1.04]"}`}
         width={185}
-        height={278}
+        height={272}
         quality={75}
         loading={priority ? "eager" : "lazy"}
         priority={priority}

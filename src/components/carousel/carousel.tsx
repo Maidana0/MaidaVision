@@ -21,7 +21,7 @@ const breakpoints = {
   1280: { slidesPerView: 6, slidesPerGroup: 6 },
 }
 
-const Carousel = ({ children, loop = false, rounded }: { children: ReactNode, loop?: boolean, rounded?: boolean }) => {
+const Carousel = ({ children, loop = false }: { children: ReactNode, loop?: boolean }) => {
 
   return (
 
@@ -36,7 +36,7 @@ const Carousel = ({ children, loop = false, rounded }: { children: ReactNode, lo
         lazyPreloadPrevNext={1}
         parallax={true}
         navigation={navigation}
-        className={`${rounded ? "rounded-xl" : ""} overflow-visible`}
+        className={`rounded overflow-visible`}
         breakpoints={breakpoints}
         style={{ '--swiper-theme-color': 'var(--primary' } as CSSProperties}
       >
@@ -45,11 +45,11 @@ const Carousel = ({ children, loop = false, rounded }: { children: ReactNode, lo
           {children}
         </Suspense>
 
-        <div className="swiper-button-prev !text-white !opacity-60 hover:!opacity-100 absolute top-0 left-0 z-10 w-12 h-full items-center justify-center bg-gradient-to-r from-primary/40 to-transparent cursor-pointer sm:flex hidden">
+        <div className="swiper-button-prev !text-white !opacity-60 hover:!opacity-100 absolute top-0 left-0 z-10 w-12 h-full items-center justify-center bg-gradient-to-r from-primary to-transparent cursor-pointer sm:flex hidden">
           <span className="text-2xl">&#10094;</span>
         </div>
 
-        <div className="swiper-button-next !text-white !opacity-60 hover:!opacity-100 absolute top-0 right-0 z-10 w-12 h-full sm:flex items-center justify-center bg-gradient-to-l from-primary/40 to-transparent cursor-pointer hidden">
+        <div className="swiper-button-next !text-white !opacity-60 hover:!opacity-100 absolute top-0 right-0 z-10 w-12 h-full sm:flex items-center justify-center bg-gradient-to-l from-primary to-transparent cursor-pointer hidden">
           <span className="text-2xl">&#10095;</span>
         </div>
       </Swiper>
