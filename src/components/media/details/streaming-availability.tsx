@@ -37,10 +37,9 @@ const section = (title: string, list?: Provider[]) => (
 )
 
 export default function StreamingAvailability({ providers }: StreamingAvailabilityProps) {
-
   return (
-    <div className="space-y-4 md:px-5 px-2.5">
-      {section('Streaming', providers.flatrate)}
+    <div className="space-y-4 sm:px-0 px-2.5 sm:text-white text-foreground">
+      {section('Disponible en', providers.flatrate)}
       {section('Comprar', providers.buy)}
       {section('Alquilar', providers.rent)}
     </div>

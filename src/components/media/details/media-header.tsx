@@ -37,7 +37,7 @@ export default function MediaHeader({ genres, backdropPath, posterPath, title, t
       <div className={`
           sm:absolute sm:inset-0 flex flex-col 
           sm:flex-row items-center justify-start 
-          sm:gap-6 gap-2.5 px-6 z-10 
+          sm:gap-6 gap-2.5 max-w-5xl w-[calc(100%-2rem)] mx-auto z-10 
         `}
       >
         <Image

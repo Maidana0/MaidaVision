@@ -1,3 +1,4 @@
+import { MultiSearchItem } from 'maidana07/types/TMDB/media-result';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 

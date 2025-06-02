@@ -15,7 +15,15 @@ TVResult
   first_air_date?: string;
 */
 
-interface TVDetails extends TVResult {
+import { BaseMediaResult, BaseMovieAndTVResult } from "../media-result";
+import { Companies, Genres, ProductionCountries, SpokenLanguages, TVStatus, MediaVideo, WatchProviderItem } from "./common/common-types";
+export interface TVResult extends BaseMovieAndTVResult, BaseMediaResult {
+  name: string;
+  original_name: string;
+  first_air_date?: string;
+}
+
+export interface TVDetails extends TVResult {
   adult: boolean;
   created_by: CreatedBy[];
   episode_run_time: number[];
@@ -42,7 +50,7 @@ interface TVDetails extends TVResult {
     };
   };
   videos: {
-    results: Video[]
+    results: MediaVideo[]
   };
   recommendations: {
     results: MediaRecommendation[];
@@ -83,17 +91,7 @@ type EpisodeToAir = {
 }
 
 
-type Companies = {
-  id: number;
-  logo_path: string | null;
-  name: string;
-  origin_country: string;
-}
 
-type ProductionCountries = {
-  iso_3166_1: string;
-  name: string;
-}
 
 type Season = {
   air_date: string;
@@ -106,54 +104,8 @@ type Season = {
   vote_average: number;
 }
 
-type SpokenLanguages = {
-  english_name: string;
-  iso_639_1: string;
-  name: string;
-}
 
-enum TVStatus {
-  "Returning Series",
-  "Planned",
-  "In Production",
-  "Ended",
-  "Cancelled",
-  "Pilot",
-}
-
-type WatchProviderItem = {
-  link: string;
-  flatrate: Array<{
-    logo_path: string;
-    provider_id: number;
-    provider_name: string;
-  }>;
-  rent: Array<{
-    logo_path: string;
-    provider_id: number;
-    provider_name: string;
-  }>;
-  buy: Array<{
-    logo_path: string;
-    provider_id: number;
-    provider_name: string;
-  }>;
-}
-
-type Video = {
-  iso_639_1: string;
-  iso_3166_1: string;
-  name: string;
-  key: string;
-  site: string;
-  size: number;
-  type: string;
-  official: boolean;
-  published_at: string;
-  id: string;
-}
-
-interface MediaRecommendation extends TVResult {
+export interface MediaRecommendation extends TVResult {
   adult: boolean;
   original_title: string;
   release_date: string;

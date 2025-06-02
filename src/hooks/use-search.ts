@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState, useTransition } from 'react';
 import useQueryParamStore from 'maidana07/store/use-query-param-store';
 import useCache from './use-cache';
 import { search } from 'maidana07/services/search';
+import { MultiSearchItem } from 'maidana07/types/TMDB/media-result';
 
 const DEBOUNCE_DELAY = 350;
 const MIN_QUERY_LENGTH = 2;

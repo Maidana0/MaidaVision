@@ -1,4 +1,6 @@
 import genres from "maidana07/lib/api/genres.json"
+import { MovieResult } from "maidana07/types/TMDB/media/movie-detail";
+import { TVResult } from "maidana07/types/TMDB/media/tv-detail";
 
 function isMovie(media: MovieResult | TVResult): media is MovieResult {
   return 'title' in media;
@@ -57,7 +59,3 @@ export function translateGenres(
 
   return []
 }
-
-// return genreIds
-//   .map(id => genresList.find(g => g.id === id)?.name)
-//   .filter(Boolean) as string[];

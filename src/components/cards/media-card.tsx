@@ -2,6 +2,8 @@ import Link from 'next/link'
 import { mediaResultIsMovie as isMovie } from "maidana07/utils/transform/formatMediaData"
 import Image from 'next/image'
 import { convertTitleToURL } from 'maidana07/utils/transform/stringDto'
+import { TVResult } from 'maidana07/types/TMDB/media/tv-detail'
+import { MovieResult } from 'maidana07/types/TMDB/media/movie-detail'
 
 const MediaCard = ({ media, mediaType, priority }: {
   media: MovieResult | TVResult,

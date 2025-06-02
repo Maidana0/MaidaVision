@@ -8,6 +8,7 @@ import {
   TrailerEmbed,
 } from 'maidana07/components/media/details'
 import tmdbFetcher from "maidana07/lib/api/tmdb";
+import { TVDetails } from 'maidana07/types/TMDB/media/tv-detail';
 
 
 const MediaDetailPage = async ({ params }: { params: Promise<{ id: string }> }) => {

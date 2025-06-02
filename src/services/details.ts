@@ -1,4 +1,5 @@
 import { CustomResponse } from "maidana07/types/fetcher-types";
+import { MediaType } from "maidana07/types/TMDB/media/common/common-types";
 import fetcher from "maidana07/utils/fetcher";
 
 

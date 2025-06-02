@@ -2,6 +2,8 @@ import fetcher from "maidana07/utils/fetcher";
 import { GetDiscoverProps, GetTrendingProps } from "maidana07/types/TMDB/tmdb-fetcher";
 import { CustomResponse } from "maidana07/types/fetcher-types";
 import { filtersForDiscover } from "maidana07/utils/transform/filtersForDiscover";
+import { DiscoverMovieResponse, DiscoverTVResponse, SearchResponse, TrendingMovieResponse, TrendingTVResponse } from "maidana07/types/TMDB/media-result";
+import { MediaType } from "maidana07/types/TMDB/media/common/common-types";
 
 const CACHE_MIN_TIME = 900; // 15 min
 const CACHE_HOUR_TIME = 3600; // 1 hora

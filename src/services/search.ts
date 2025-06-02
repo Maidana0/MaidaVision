@@ -1,4 +1,5 @@
 import { CustomResponse } from "maidana07/types/fetcher-types";
+import { SearchResponse } from "maidana07/types/TMDB/media-result";
 import fetcher from "maidana07/utils/fetcher";
 
 export async function search(query: string): Promise<CustomResponse<SearchResponse>> {

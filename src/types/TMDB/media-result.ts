@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-type MediaType = 'movie' | 'tv' | 'person';
-type Genres = { id: number; name: string }
+import { MediaType } from "./media/common/common-types";
+import { MovieResult } from "./media/movie-detail";
+import { PersonResult } from "./media/person-detail";
+import { TVResult } from "./media/tv-detail";
 
 // BASES
-interface BaseMediaResult {
+export interface BaseMediaResult {
   id: number;
   media_type: MediaType;
   popularity: number;
@@ -13,39 +15,15 @@ interface BaseMediaResult {
   backdrop_path?: string | null;
 }
 
-interface BaseMovieAndTVResult {
+export interface BaseMovieAndTVResult {
   genre_ids: number[];
   vote_average: number;
   vote_count: number;
   original_language: string;
 }
 
-
-//  ESPECIFICOS
-interface MovieResult extends BaseMovieAndTVResult, BaseMediaResult {
-  adult: boolean;
-  title: string;
-  original_title: string;
-  release_date?: string;
-  video: boolean;
-}
-
-interface TVResult extends BaseMovieAndTVResult, BaseMediaResult {
-  name: string;
-  original_name: string;
-  first_air_date?: string;
-}
-
-interface PersonResult {
-  known_for: Array<MovieResult | TVResult>;
-  profile_path: string;
-  gender: number;
-  known_for_department: string;
-}
-
-
 // GENERALIZADO
-interface MultiSearchItem extends Partial<BaseMediaResult>, Partial<PersonResult>, Partial<BaseMovieAndTVResult> {
+export interface MultiSearchItem extends Partial<BaseMediaResult>, Partial<PersonResult>, Partial<BaseMovieAndTVResult> {
   adult?: boolean;
   original_title?: string;
   release_date?: string;
@@ -67,21 +45,21 @@ interface TMDBBaseResponse {
 }
 
 
-interface SearchResponse extends TMDBBaseResponse {
+export interface SearchResponse extends TMDBBaseResponse {
   results: MultiSearchItem[];
 }
-interface TrendingMovieResponse extends TMDBBaseResponse {
+export interface TrendingMovieResponse extends TMDBBaseResponse {
   results: MovieResult[];
 }
-interface TrendingTVResponse extends TMDBBaseResponse {
+export interface TrendingTVResponse extends TMDBBaseResponse {
   results: TVResult[];
 }
 
 
-interface DiscoverMovieResponse extends TMDBBaseResponse {
+export interface DiscoverMovieResponse extends TMDBBaseResponse {
   results: Omit<MovieResult, "media_type">[]
 }
 
-interface DiscoverTVResponse extends TMDBBaseResponse {
+export interface DiscoverTVResponse extends TMDBBaseResponse {
   results: Omit<TVResult, "media_type">[]
 }

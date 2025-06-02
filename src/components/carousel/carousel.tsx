@@ -13,8 +13,8 @@ const navigation = {
 
 }
 const breakpoints = {
-  320: { slidesPerView: 1.7, slidesPerGroup: 1, centeredSlides: true },
-  480: { slidesPerView: 2.6, slidesPerGroup: 2, centeredSlides: true },
+  320: { slidesPerView: 1.7, slidesPerGroup: 1 },
+  480: { slidesPerView: 2.6, slidesPerGroup: 2 },
   560: { slidesPerView: 3, slidesPerGroup: 3 },
   640: { slidesPerView: 3.5, slidesPerGroup: 3 },
   1024: { slidesPerView: 5, slidesPerGroup: 5 },
@@ -46,11 +46,11 @@ const Carousel = ({ children, loop = false, rounded }: { children: ReactNode, lo
         </Suspense>
 
         <div className="swiper-button-prev !text-white !opacity-60 hover:!opacity-100 absolute top-0 left-0 z-10 w-12 h-full items-center justify-center bg-gradient-to-r from-primary/40 to-transparent cursor-pointer sm:flex hidden">
-          <span className="text-xl">&#10094;</span>
+          <span className="text-2xl">&#10094;</span>
         </div>
 
         <div className="swiper-button-next !text-white !opacity-60 hover:!opacity-100 absolute top-0 right-0 z-10 w-12 h-full sm:flex items-center justify-center bg-gradient-to-l from-primary/40 to-transparent cursor-pointer hidden">
-          <span className="text-xl">&#10095;</span>
+          <span className="text-2xl">&#10095;</span>
         </div>
       </Swiper>
     </div>
