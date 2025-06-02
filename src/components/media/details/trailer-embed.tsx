@@ -17,7 +17,7 @@ interface TrailerEmbedProps {
   }[]
 }
 
-export async function TrailerEmbed({ videos }: TrailerEmbedProps) {
+export default async function TrailerEmbed({ videos }: TrailerEmbedProps) {
   const spanish = videos.find(
     (v) => v.site === "YouTube" && v.type === "Trailer" && v.iso_639_1 === "es"
   )

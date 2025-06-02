@@ -6,11 +6,11 @@ interface MediaInfoProps {
   voteAverage: number
   voteCount: number
   language: string
-  status: string
+  status: TVStatus
   overview: string
 }
 
-export function MediaInfo({
+export default function MediaInfo({
   firstAirDate,
   lastAirDate,
   voteAverage,

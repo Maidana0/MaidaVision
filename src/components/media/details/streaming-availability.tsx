@@ -36,7 +36,7 @@ const section = (title: string, list?: Provider[]) => (
   )
 )
 
-export function StreamingAvailability({ providers }: StreamingAvailabilityProps) {
+export default function StreamingAvailability({ providers }: StreamingAvailabilityProps) {
 
   return (
     <div className="space-y-4 md:px-5 px-2.5">

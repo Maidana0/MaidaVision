@@ -18,7 +18,8 @@ const SortSelect = dynamic(() => import("maidana07/components/media/sort-select"
 export default async function MediaLayout({
   children }: { children: React.ReactNode }) {
   const headersList = await headers()
-  const pathname = new URL(headersList.get("referer") || "").pathname
+  const referer = headersList.get("referer") || ""
+  const pathname = new URL(referer).pathname
   const media = pathname.includes("pelicula") ? "películas" : "series"
 
   return <>

@@ -1,8 +1,21 @@
+import dynamic from 'next/dynamic'
 
-export { MediaHeader } from './media-header'
-export { MediaInfo } from './media-info'
-export { StreamingAvailability } from './streaming-availability'
-export { EpisodeInfo } from './episode-info'
-export { SeasonList } from './season-list'
-export { ProductionInfo } from './production-info'
-export { TrailerEmbed } from './trailer-embed'
+const MediaHeader = dynamic(() => import("maidana07/components/media/details/media-header"), {})
+const StreamingAvailability = dynamic(() => import("maidana07/components/media/details/streaming-availability"), {})
+const EpisodeInfo = dynamic(() => import("maidana07/components/media/details/episode-info"), {})
+const SeasonList = dynamic(() => import("maidana07/components/media/details/season-list"), {})
+const ProductionInfo = dynamic(() => import("maidana07/components/media/details/production-info"), {})
+const TrailerEmbed = dynamic(() => import("maidana07/components/media/details/trailer-embed"), {})
+const MediaInfo = dynamic(() => import("maidana07/components/media/details/media-info"), {})
+
+
+
+export {
+  MediaHeader,
+  StreamingAvailability,
+  EpisodeInfo,
+  SeasonList,
+  ProductionInfo,
+  TrailerEmbed,
+  MediaInfo
+}

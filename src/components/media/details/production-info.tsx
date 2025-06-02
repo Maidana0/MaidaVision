@@ -7,7 +7,7 @@ interface Company {
   origin_country: string
 }
 
-export function ProductionInfo({ companies }: { companies: Company[] }) {
+export default function ProductionInfo({ companies }: { companies: Company[] }) {
   return (
     <section className="mt-8">
       <h2 className="text-xl font-semibold mb-4">Producción</h2>

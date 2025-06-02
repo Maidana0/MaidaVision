@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-type MediaType = 'movie' | 'tv' | 'person' | 'unknown';
+type MediaType = 'movie' | 'tv' | 'person';
+type Genres = { id: number; name: string }
 
 // BASES
 interface BaseMediaResult {

@@ -1,15 +1,6 @@
 import Image from 'next/image'
 
-interface Season {
-  id: number
-  name: string
-  overview: string
-  poster_path: string
-  episode_count: number
-  season_number: number
-}
-
-export function SeasonList({ seasons }: { seasons: Season[] }) {
+export default function SeasonList({ seasons }: { seasons: Season[] }) {
   return (
     <section className="space-y-6">
       <h2 className="text-xl font-semibold">Temporadas</h2>

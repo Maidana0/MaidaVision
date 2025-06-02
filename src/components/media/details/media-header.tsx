@@ -5,26 +5,27 @@ import { ReactNode, Suspense } from 'react'
 import { Skeleton } from 'maidana07/components/ui/skeleton'
 import { translateGenres } from 'maidana07/utils/transform/formatMediaData'
 import { Badge } from "maidana07/components/ui/badge"
-import { StreamingAvailability, ProvidersTypes } from './streaming-availability'
+import { ProvidersTypes } from './streaming-availability'
+import { StreamingAvailability } from "maidana07/components/media/details"
 
 interface MediaHeaderProps {
   genres: { id: number; name: string }[]
-  backdropPath: string
-  posterPath: string
+  backdropPath?: string | null
+  posterPath?: string | null
   title: string
   tagline?: string
   trailerButton?: ReactNode
   providers: ProvidersTypes
 }
 
-export function MediaHeader({ genres, backdropPath, posterPath, title, tagline, trailerButton, providers }: MediaHeaderProps) {
+export default function MediaHeader({ genres, backdropPath, posterPath, title, tagline, trailerButton, providers }: MediaHeaderProps) {
   const genresList = translateGenres({ originalGenresList: genres, type: "tv" })
 
   return (
     <div className="relative">
       <div className="relative w-full h-[45dvh] sm:min-h-[375px] min-h-[300px] sm:h-[65dvh]" >
         <Image
-          src={`https://image.tmdb.org/t/p/original${backdropPath}`}
+          src={backdropPath ? `https://image.tmdb.org/t/p/original${backdropPath}` : `https://placehold.co/640x480?text=${title}`}
           alt={title}
           fill
           className="object-cover brightness-50"
@@ -40,7 +41,7 @@ export function MediaHeader({ genres, backdropPath, posterPath, title, tagline, 
         `}
       >
         <Image
-          src={`https://image.tmdb.org/t/p/w300${posterPath}`}
+          src={posterPath ? `https://image.tmdb.org/t/p/w300${posterPath}` : "https://placehold.co/240x360?text=No+Image"}
           alt={title}
           width={240}
           height={360}

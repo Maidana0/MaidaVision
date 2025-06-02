@@ -1,15 +1,6 @@
 import Image from 'next/image'
 
-interface Episode {
-  name: string
-  overview: string
-  still_path: string
-  air_date: string
-  episode_number: number
-  season_number: number
-}
-
-export function EpisodeInfo({ episode }: { episode: Episode }) {
+export default function EpisodeInfo({ episode }: { episode: EpisodeToAir }) {
   return (
     <div className="bg-card rounded-lg p-6 shadow-md grid md:grid-cols-3 gap-6">
       <div className="md:col-span-1">
