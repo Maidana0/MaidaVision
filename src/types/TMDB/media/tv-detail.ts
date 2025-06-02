@@ -15,7 +15,7 @@ TVResult
   first_air_date?: string;
 */
 
-import { BaseMediaResult, BaseMovieAndTVResult } from "../media-result";
+import { BaseMediaResult, BaseMovieAndTVResult, TMDBBaseResponse } from "../media-result";
 import { Companies, Genres, ProductionCountries, SpokenLanguages, TVStatus, MediaVideo, WatchProviderItem } from "./common/common-types";
 export interface TVResult extends BaseMovieAndTVResult, BaseMediaResult {
   name: string;
@@ -52,12 +52,8 @@ export interface TVDetails extends TVResult {
   videos: {
     results: MediaVideo[]
   };
-  recommendations: {
-    results: MediaRecommendation[];
-    page: number;
-    total_results: number;
-    total_pages: number;
-  };
+  recommendations: TMDBBaseResponse<MediaRecommendation[]>;
+  similar: TMDBBaseResponse<MediaRecommendation[]>;
   aggregate_credits: {
     cast: Cast[];
     crew: Crew[];

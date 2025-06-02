@@ -38,28 +38,24 @@ export interface MultiSearchItem extends Partial<BaseMediaResult>, Partial<Perso
 
 
 // RESPUESTA DE PETICIONES
-interface TMDBBaseResponse {
+export interface TMDBBaseResponse<T> {
+  results: T
   page: number;
   total_pages: number;
   total_results: number;
 }
 
 
-export interface SearchResponse extends TMDBBaseResponse {
-  results: MultiSearchItem[];
+export interface SearchResponse extends TMDBBaseResponse<MultiSearchItem[]> {
 }
-export interface TrendingMovieResponse extends TMDBBaseResponse {
-  results: MovieResult[];
+export interface TrendingMovieResponse extends TMDBBaseResponse<MovieResult[]> {
 }
-export interface TrendingTVResponse extends TMDBBaseResponse {
-  results: TVResult[];
+export interface TrendingTVResponse extends TMDBBaseResponse<TVResult[]> {
 }
 
 
-export interface DiscoverMovieResponse extends TMDBBaseResponse {
-  results: Omit<MovieResult, "media_type">[]
+export interface DiscoverMovieResponse extends TMDBBaseResponse<Omit<MovieResult, "media_type">[]> {
 }
 
-export interface DiscoverTVResponse extends TMDBBaseResponse {
-  results: Omit<TVResult, "media_type">[]
+export interface DiscoverTVResponse extends TMDBBaseResponse<Omit<TVResult, "media_type">[]> {
 }

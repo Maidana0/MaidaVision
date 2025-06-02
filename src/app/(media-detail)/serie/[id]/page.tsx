@@ -48,6 +48,7 @@ const MediaDetailPage = async ({ params }: { params: Promise<{ id: string }> }) 
     production_companies,
     videos,
     recommendations,
+    similar
   } = data.data
 
   return (
@@ -82,7 +83,19 @@ const MediaDetailPage = async ({ params }: { params: Promise<{ id: string }> }) 
 
       </section>
 
-      <RecommendationsCarousel type={"tv"} items={recommendations.results} />
+      <div className='bg-muted pt-16 pb-20 space-y-10'>
+        <RecommendationsCarousel
+          type={"tv"}
+          items={recommendations.results}
+          title={"Podría interesarte"}
+        />
+
+        <RecommendationsCarousel
+          type={"tv"}
+          items={similar.results}
+          title={"Similares"}
+        />
+      </div>
     </>
   )
 }

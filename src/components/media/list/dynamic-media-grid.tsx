@@ -6,6 +6,9 @@ import { GetDiscoverProps } from "maidana07/types/TMDB/tmdb-fetcher"
 import { CustomResponse } from "maidana07/types/fetcher-types"
 import MediaCard from "maidana07/components/cards/media-card"
 import LoadMoreTrigger from "./load-more-trigger"
+import { TrendingMovieResponse, TrendingTVResponse } from "maidana07/types/TMDB/media-result"
+import { TVResult } from "maidana07/types/TMDB/media/tv-detail"
+import { MovieResult } from "maidana07/types/TMDB/media/movie-detail"
 
 interface MediaGridProps {
   mediaType?: "pelicula" | "serie"
@@ -59,7 +62,9 @@ export default function DynamicMediaGrid({
             priority={i < 15}
             key={media.id}
             media={media}
-            mediaType={mediaType} />
+            mediaType={mediaType}
+            withScale
+          />
         ))}
       </div>
 
