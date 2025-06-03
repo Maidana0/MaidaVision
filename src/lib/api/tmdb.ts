@@ -74,8 +74,8 @@ class TMDBFetcher {
     const url = `${this.baseUrl}/trending/movie/${time_window}?${this.queryLanguage}&page=${page}`;
     return await this.fetch<TrendingMovieResponse>({
       url,
-      tag: page === "1" ? "trending-movies" : undefined,
-      revalidate: page === "1" ? (time_window === "week" ? CACHE_WEEK_TIME : CACHE_DAY_TIME) : undefined,
+      tag: Number(page) < 2 ? "trending-movies" : undefined,
+      revalidate: Number(page) < 2 ? (time_window === "week" ? CACHE_WEEK_TIME : CACHE_DAY_TIME) : undefined,
       requestMessage: "trending-movies"
     });
   }
@@ -87,8 +87,8 @@ class TMDBFetcher {
     const url = `${this.baseUrl}/trending/tv/${time_window}?${this.queryLanguage}&page=${page}`;
     return await this.fetch<TrendingTVResponse>({
       url,
-      tag: page === "1" ? "trending-tv" : undefined,
-      revalidate: page === "1" ? (time_window === "week" ? CACHE_WEEK_TIME : CACHE_DAY_TIME) : undefined,
+      tag: Number(page) < 2 ? "trending-tv" : undefined,
+      revalidate: Number(page) < 2 ? (time_window === "week" ? CACHE_WEEK_TIME : CACHE_DAY_TIME) : undefined,
       requestMessage: "trending-tv"
     });
   }

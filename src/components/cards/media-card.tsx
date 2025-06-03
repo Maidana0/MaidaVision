@@ -14,12 +14,8 @@ const MediaCard = ({ media, mediaType, priority, withDescription = false, withSc
 }) => {
   return (
     <Link
-      className="overflow-hidden bg-card relative block group rounded"
-      style={{
-        aspectRatio: '2/3',
-        width: "185px",
-        height: "272px",
-      }}
+      className="overflow-hidden bg-card relative block group rounded w-[185px] max-h-[272px] h-auto  max-w-full"
+      style={{ aspectRatio: '2/3' }}
       href={`/${mediaType}/${convertTitleToURL(
         (isMovie(media) ? media.title : media.name)
         , media.id
