@@ -6,7 +6,7 @@ const SkeletonMediaGrid = () => {
       {Array.from({ length: 20 }).map((_, i) => (
         <Skeleton
           key={i}
-          className="aspect-[2/3] bg-card"
+          className="overflow-hidden bg-card relative block group rounded w-[185px] max-h-[272px] h-auto  max-w-full aspect-[2/3]"
         />
       ))}
     </div>)

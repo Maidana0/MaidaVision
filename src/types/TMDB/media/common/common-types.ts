@@ -13,7 +13,7 @@ export enum TVStatus {
 }
 
 
-export type Companies = {
+export type Company = {
   id: number;
   logo_path: string | null;
   name: string;

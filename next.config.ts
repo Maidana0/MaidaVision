@@ -7,6 +7,11 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'image.tmdb.org',
+        pathname: '/t/p/w45/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'image.tmdb.org',
         pathname: '/t/p/w92/**',
       },
       {
@@ -17,12 +22,7 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'image.tmdb.org',
-        pathname: '/t/p/w780/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'image.tmdb.org',
-        pathname: '/t/p/original/**',
+        pathname: '/t/p/w200/**',
       },
       {
         protocol: 'https',
@@ -37,7 +37,12 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'image.tmdb.org',
-        pathname: '/t/p/w200/**',
+        pathname: '/t/p/w780/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'image.tmdb.org',
+        pathname: '/t/p/original/**',
       },
       {
         protocol: 'https',

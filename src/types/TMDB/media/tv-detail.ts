@@ -16,7 +16,7 @@ TVResult
 */
 
 import { BaseMediaResult, BaseMovieAndTVResult, TMDBBaseResponse } from "../media-result";
-import { Companies, Genres, ProductionCountries, SpokenLanguages, TVStatus, MediaVideo, WatchProviderItem } from "./common/common-types";
+import { Company, Genres, ProductionCountries, SpokenLanguages, TVStatus, MediaVideo, WatchProviderItem } from "./common/common-types";
 export interface TVResult extends BaseMovieAndTVResult, BaseMediaResult {
   name: string;
   original_name: string;
@@ -34,11 +34,11 @@ export interface TVDetails extends TVResult {
   last_air_date: string;
   last_episode_to_air: EpisodeToAir | null;
   next_episode_to_air: EpisodeToAir | null;
-  networks: Companies[];
+  networks: Company[];
   number_of_episodes: number;
   number_of_seasons: number;
   origin_country: string[];
-  production_companies: Companies[];
+  production_companies: Company[];
   production_countries: ProductionCountries[];
   seasons: Season[];
   spoken_languages: SpokenLanguages[];
@@ -71,7 +71,7 @@ type CreatedBy = {
   profile_path: string | null;
 }
 
-type EpisodeToAir = {
+export type EpisodeToAir = {
   id: number;
   name: string;
   overview: string;
@@ -89,7 +89,7 @@ type EpisodeToAir = {
 
 
 
-type Season = {
+export type Season = {
   air_date: string;
   episode_count: number;
   id: number;

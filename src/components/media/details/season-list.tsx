@@ -1,8 +1,10 @@
+import { Section } from 'maidana07/components/ui/section'
+import { Season } from 'maidana07/types/TMDB/media/tv-detail'
 import Image from 'next/image'
 
 export default function SeasonList({ seasons }: { seasons: Season[] }) {
   return (
-    <section className="space-y-6">
+    <Section className="space-y-6 !py-6 max-w-5xl w-[calc(100%-2rem)] mx-auto">
       <h2 className="text-xl font-semibold">Temporadas</h2>
       <div className="grid md:grid-cols-2 gap-4">
         {seasons.map((s) => (
@@ -22,6 +24,6 @@ export default function SeasonList({ seasons }: { seasons: Season[] }) {
           </div>
         ))}
       </div>
-    </section>
+    </Section>
   )
 }

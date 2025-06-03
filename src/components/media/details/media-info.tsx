@@ -42,8 +42,8 @@ export default function MediaInfo({
         }
       </div>
 
-      <div className="">
-        <h3 className="text-xl font-semibold">Descripción</h3>
+      <div>
+        <h2 className="text-xl font-semibold">Descripción</h2>
         {
           overview.split("\n\n").map((paragraph, i) => (
             <p key={i} className="text-lg text-foreground leading-7 mt-4">

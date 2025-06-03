@@ -73,15 +73,11 @@ const MediaDetailPage = async ({ params }: { params: Promise<{ id: string }> }) 
         overview={overview ?? "No disponible."}
       />
 
-      <section className="px-4 md:px-8 lg:px-16 space-y-8">
+      {last_episode_to_air && <EpisodeInfo episode={last_episode_to_air} />}
 
-        {last_episode_to_air && <EpisodeInfo episode={last_episode_to_air} />}
+      <SeasonList seasons={seasons} />
 
-        <SeasonList seasons={seasons} />
-
-        <ProductionInfo companies={production_companies} />
-
-      </section>
+      <ProductionInfo companies={production_companies} />
 
       <div className='bg-muted pt-16 pb-20 space-y-10'>
         <RecommendationsCarousel
