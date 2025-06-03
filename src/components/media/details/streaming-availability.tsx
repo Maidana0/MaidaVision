@@ -21,12 +21,15 @@ const section = (title: string, list?: Provider[]) => (
       <h3 className="text-xl font-semibold">{title}</h3>
       <div className="flex flex-wrap gap-4 mt-3">
         {list.map((prov) => (
-          <div key={prov.provider_name} className="w-11 h-11 relative" title={prov.provider_name}>
+          <div key={prov.provider_name} className="w-9 h-9 relative" title={prov.provider_name}>
             <Image
-              src={`https://image.tmdb.org/t/p/w45${prov.logo_path}`}
+              src={(prov.logo_path && prov.logo_path != null)
+                ? `https://image.tmdb.org/t/p/w45${prov.logo_path}`
+                : `https://placehold.co/45?text=${prov.provider_name}`
+              }
               alt={prov.provider_name}
-              width={44}
-              height={44}
+              width={45}
+              height={45}
               className="rounded"
             />
           </div>

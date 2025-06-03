@@ -8,18 +8,24 @@ export default function SeasonList({ seasons }: { seasons: Season[] }) {
       <h2 className="text-xl font-semibold">Temporadas</h2>
       <div className="grid md:grid-cols-2 gap-4">
         {seasons.map((s) => (
-          <div key={s.id} className="flex gap-4 bg-card rounded-lg p-4 shadow">
-            <Image
-              src={`https://image.tmdb.org/t/p/w200${s.poster_path}`}
-              alt={s.name}
-              width={100}
-              height={150}
-              className="rounded"
-            />
-            <div>
-              <h3 className="font-bold text-lg">{s.name}</h3>
-              <p className="text-muted-foreground text-sm mb-2">Episodios: {s.episode_count}</p>
-              <p className="text-sm">{s.overview}</p>
+          <div key={s.id} className="flex bg-card rounded-lg overflow-hidden shadow">
+            <div className="aspect-[2/3] min-w-[113px] max-h-[171px] bg-red-500">
+              <Image
+                src={s.poster_path && s.poster_path != null
+                  ? `https://image.tmdb.org/t/p/w154${s.poster_path}`
+                  : "https://placehold.co/113x171?text=No+Image"}
+                alt={s.name}
+                width={113}
+                height={171}
+                className="object-cover w-full h-full"
+              />
+            </div>
+            <div className="p-4 pl-3 flex flex-col justify-between">
+              <div>
+                <h3 className="font-bold text-lg">{s.name}</h3>
+                <p className="text-muted-foreground text-sm mb-2">Episodios: {s.episode_count}</p>
+              </div>
+              <p className="text-sm line-clamp-4">{s.overview}</p>
             </div>
           </div>
         ))}

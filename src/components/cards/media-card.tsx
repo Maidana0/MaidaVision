@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { mediaResultIsMovie as isMovie } from "maidana07/utils/transform/formatMediaData"
 import Image from 'next/image'
-import { convertTitleToURL } from 'maidana07/utils/transform/stringDto'
+import { convertTitleToURL, translateMediaType } from 'maidana07/utils/transform/stringDto'
 import { TVResult } from 'maidana07/types/TMDB/media/tv-detail'
 import { MovieResult } from 'maidana07/types/TMDB/media/movie-detail'
 
@@ -15,7 +15,7 @@ const MediaCard = ({ media, mediaType, priority, withDescription = false, withSc
   return (
     <Link
       className="overflow-hidden bg-card relative block group rounded w-[185px] max-h-[272px] h-auto aspect-[2/3] max-w-full"
-      href={`/${mediaType}/${convertTitleToURL(
+      href={`/${translateMediaType(mediaType).toLowerCase()}/${convertTitleToURL(
         (isMovie(media) ? media.title : media.name)
         , media.id
       )

@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import SearchCommand from "./search-command";
 import { translateMediaType } from "maidana07/utils/transform/stringDto";
 import { CommandGroup } from "maidana07/components/ui/command"
+import { MultiSearchItem } from "maidana07/types/TMDB/media-result";
 
 interface SearchResultsProps {
   listItems: MultiSearchItem[];

@@ -10,7 +10,7 @@ export default function ProductionInfo({ companies }: { companies: Company[] }) 
       <div className="flex flex-wrap gap-6">
         {companies.map((company) => (
           <div key={company.id} className="bg-white/90 flex rounded-full justify-center items-center gap-2 text-center w-[100px] h-[100px] p-1 hover:bg-" title={company.name}>
-            {company.logo_path
+            {(company.logo_path && company.logo_path != null)
               ? (
                 <Image
                   src={`https://image.tmdb.org/t/p/w92${company.logo_path}`}

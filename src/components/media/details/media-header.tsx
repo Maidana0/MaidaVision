@@ -7,6 +7,7 @@ import { translateGenres } from 'maidana07/utils/transform/formatMediaData'
 import { Badge } from "maidana07/components/ui/badge"
 import { ProvidersTypes } from './streaming-availability'
 import { StreamingAvailability } from "maidana07/components/media/details"
+import { HeartPlusIcon } from 'lucide-react'
 
 interface MediaHeaderProps {
   genres: { id: number; name: string }[]
@@ -25,7 +26,11 @@ export default function MediaHeader({ genres, backdropPath, posterPath, title, t
     <div className="relative">
       <div className="relative w-full h-[45dvh] sm:min-h-[375px] min-h-[300px] sm:h-[65dvh]" >
         <Image
-          src={backdropPath ? `https://image.tmdb.org/t/p/original${backdropPath}` : `https://placehold.co/640x480?text=${title}`}
+          src={
+            (backdropPath && backdropPath != null)
+              ? `https://image.tmdb.org/t/p/original${backdropPath}`
+              : `https://placehold.co/640x480?text=${title}`
+          }
           alt={title}
           fill
           className="object-cover brightness-50"
@@ -41,7 +46,10 @@ export default function MediaHeader({ genres, backdropPath, posterPath, title, t
         `}
       >
         <Image
-          src={posterPath ? `https://image.tmdb.org/t/p/w300${posterPath}` : "https://placehold.co/240x360?text=No+Image"}
+          src={
+            (posterPath && posterPath != null)
+              ? `https://image.tmdb.org/t/p/w300${posterPath}`
+              : "https://placehold.co/240x360?text=No+Image"}
           alt={title}
           width={240}
           height={360}
@@ -68,7 +76,7 @@ export default function MediaHeader({ genres, backdropPath, posterPath, title, t
             {
               trailerButton && <Suspense fallback={<Skeleton className='h-9 w-[96px] bg-primary' />}>{trailerButton}</Suspense>
             }
-            < Button variant="outline" > Agregar a favoritos </Button>
+            < Button variant="outline" title={"Agregar a favoritos"}><HeartPlusIcon className="size-5" /></Button>
           </div>
 
           <StreamingAvailability providers={providers} />

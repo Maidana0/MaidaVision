@@ -44,6 +44,7 @@ const MediaDetailPage = async ({ params }: { params: Promise<{ id: string }> }) 
     status,
     'watch/providers': providers,
     last_episode_to_air,
+    next_episode_to_air,
     seasons,
     production_companies,
     videos,
@@ -73,7 +74,10 @@ const MediaDetailPage = async ({ params }: { params: Promise<{ id: string }> }) 
         overview={overview ?? "No disponible."}
       />
 
-      {last_episode_to_air && <EpisodeInfo episode={last_episode_to_air} />}
+      <div className='flex flex-wrap'>
+        {last_episode_to_air && <EpisodeInfo episode={last_episode_to_air} />}
+        {next_episode_to_air && <EpisodeInfo episode={next_episode_to_air} isNextEpisode />}
+      </div>
 
       <SeasonList seasons={seasons} />
 
