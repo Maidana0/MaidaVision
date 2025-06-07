@@ -25,7 +25,7 @@ export interface TVResult extends BaseMovieAndTVResult, BaseMediaResult {
 
 export interface TVDetails extends TVResult {
   adult: boolean;
-  created_by: CreatedBy[];
+  created_by: CreatedBy[] | [];
   episode_run_time: number[];
   genres: Genres[];
   homepage: string | null;
@@ -63,7 +63,7 @@ export interface TVDetails extends TVResult {
 
 
 
-type CreatedBy = {
+export type CreatedBy = {
   id: number;
   credit_id: string;
   name: string;
@@ -109,7 +109,7 @@ export interface MediaRecommendation extends TVResult {
   video: boolean; vote_average: number;
 }
 
-interface Cast extends CastAndCrew {
+export interface Cast extends CastAndCrew {
   roles: {
     credit_id: string;
     character: string;
@@ -130,7 +130,7 @@ type CastAndCrew = {
   total_episode_count: number
 }
 
-interface Crew extends CastAndCrew {
+export interface Crew extends CastAndCrew {
   jobs: {
     credit_id: string;
     job: string;

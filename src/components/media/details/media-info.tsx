@@ -24,7 +24,17 @@ export default function MediaInfo({
   const itemsInfo = [
     { title: "Idioma Original", content: language.toUpperCase() },
     { title: "Valoración", content: `${voteAverage.toFixed(1)} (${voteCount} votos)` },
-    { title: "Fechas", content: `${firstAirDate} → ${lastAirDate}` },
+    {
+      title: "Fechas", content: [
+        <span aria-label="fecha de estreno" key={"fecha de estreno"} className="block mb-0.5 text-xs">
+          <strong className="mr-7">Estreno:</strong>
+          {new Date(firstAirDate).toLocaleDateString()}</span>,
+        <span aria-label="fecha de finalización" key={"fecha de finalización"} className="block text-xs mb-[-6px]">
+          <strong className="mr-1">Finalización:</strong>
+          {new Date(lastAirDate).toLocaleDateString()}
+        </span>
+      ]
+    },
     { title: "Estado", content: translateStatusMedia(status) },
   ]
 
@@ -34,7 +44,7 @@ export default function MediaInfo({
       <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
         {
           itemsInfo.map(({ title, content }) => (
-            <div className="bg-card rounded-lg shadow-md p-6" key={title}>
+            <div className="bg-card rounded-lg shadow-md p-5" key={title}>
               <h3 className="font-semibold">{title}</h3>
               <p className="text-muted-foreground">{content}</p>
             </div>

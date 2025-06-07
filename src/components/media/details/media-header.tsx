@@ -8,6 +8,7 @@ import { Badge } from "maidana07/components/ui/badge"
 import { ProvidersTypes } from './streaming-availability'
 import { StreamingAvailability } from "maidana07/components/media/details"
 import { HeartPlusIcon } from 'lucide-react'
+import CustomLink from 'maidana07/components/ui/custom-link'
 
 interface MediaHeaderProps {
   genres: { id: number; name: string }[]
@@ -17,9 +18,10 @@ interface MediaHeaderProps {
   tagline?: string
   trailerButton?: ReactNode
   providers: ProvidersTypes
+  homepage?: String | null;
 }
 
-export default function MediaHeader({ genres, backdropPath, posterPath, title, tagline, trailerButton, providers }: MediaHeaderProps) {
+export default function MediaHeader({ genres, backdropPath, posterPath, title, tagline, trailerButton, homepage, providers }: MediaHeaderProps) {
   const genresList = translateGenres({ originalGenresList: genres, type: "tv" })
 
   return (
@@ -45,18 +47,25 @@ export default function MediaHeader({ genres, backdropPath, posterPath, title, t
           sm:gap-6 gap-2.5 max-w-5xl w-[calc(100%-2rem)] mx-auto z-10 
         `}
       >
-        <Image
-          src={
-            (posterPath && posterPath != null)
-              ? `https://image.tmdb.org/t/p/w300${posterPath}`
-              : "https://placehold.co/240x360?text=No+Image"}
-          alt={title}
-          width={240}
-          height={360}
-          quality={100}
-          priority
-          className="rounded-lg shadow-lg sm:mt-0 mt-[-280px] z-10"
-        />
+        <div className="text-center z-10 sm:mt-0 mt-[-280px] min-w-[240px] max-h-[360px] relative">
+          <Image
+            src={
+              (posterPath && posterPath != null)
+                ? `https://image.tmdb.org/t/p/w300${posterPath}`
+                : "https://placehold.co/240x360?text=No+Image"}
+            alt={title}
+            width={240}
+            height={360}
+            quality={100}
+            priority
+            className="rounded-lg shadow-lg"
+          />
+          {homepage && homepage != null
+            ? <CustomLink size="sm" aria-label="homepage" className="bg-muted/40 absolute top-1 left-1 font-normal truncate max-w-[240px] text-xs" href={homepage.toString()} target="_blank">
+              Sitio web
+            </CustomLink>
+            : ""}
+        </div>
         <div className="w-full text-center sm:text-left space-y-2 sm:space-y-5" >
 
           <div className="max-w-2xl flex gap-2 flex-wrap  sm:justify-start justify-center">

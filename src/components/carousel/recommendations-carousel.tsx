@@ -5,6 +5,7 @@ import Carousel from "./carousel"
 import MediaCard from "../cards/media-card"
 import { MediaType } from 'maidana07/types/TMDB/media/common/common-types';
 import { MediaRecommendation } from 'maidana07/types/TMDB/media/tv-detail';
+import { translateMediaType } from 'maidana07/utils/transform/stringDto';
 
 const RecommendationsCarousel = ({ items, type, title }: { items: MediaRecommendation[], type: MediaType, title: string }) => {
   return (
@@ -17,7 +18,7 @@ const RecommendationsCarousel = ({ items, type, title }: { items: MediaRecommend
           items.map((item) => (
             <SwiperSlide key={item.id}>
               <MediaCard
-                mediaType={type}
+                mediaType={translateMediaType(type).toLowerCase()}
                 media={item}
                 priority={false}
                 withDescription

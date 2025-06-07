@@ -1,12 +1,5 @@
 import RecommendationsCarousel from 'maidana07/components/carousel/recommendations-carousel';
-import {
-  MediaHeader,
-  MediaInfo,
-  EpisodeInfo,
-  SeasonList,
-  ProductionInfo,
-  TrailerEmbed,
-} from 'maidana07/components/media/details'
+import * as details from 'maidana07/components/media/details'
 import tmdbFetcher from "maidana07/lib/api/tmdb";
 import { TVDetails } from 'maidana07/types/TMDB/media/tv-detail';
 
@@ -49,22 +42,26 @@ const MediaDetailPage = async ({ params }: { params: Promise<{ id: string }> }) 
     production_companies,
     videos,
     recommendations,
-    similar
+    similar,
+    aggregate_credits,
+    created_by,
+    homepage
   } = data.data
 
   return (
     <>
-      <MediaHeader
+      <details.MediaHeader
         genres={genres}
         backdropPath={backdrop_path}
         posterPath={poster_path}
         title={name}
         tagline={tagline}
-        trailerButton={<TrailerEmbed videos={videos?.results || []} />}
+        trailerButton={<details.TrailerEmbed videos={videos?.results || []} />}
         providers={providers.results['AR'] || {}}
+        homepage={homepage}
       />
 
-      <MediaInfo
+      <details.MediaInfo
         firstAirDate={first_air_date ?? "Desconocido"}
         lastAirDate={last_air_date}
         voteAverage={vote_average}
@@ -74,14 +71,20 @@ const MediaDetailPage = async ({ params }: { params: Promise<{ id: string }> }) 
         overview={overview ?? "No disponible."}
       />
 
+      <details.CreditsSection
+        created_by={created_by}
+        cast={aggregate_credits.cast}
+        crew={aggregate_credits.crew}
+      />
+
       <div className='flex flex-wrap'>
-        {last_episode_to_air && <EpisodeInfo episode={last_episode_to_air} />}
-        {next_episode_to_air && <EpisodeInfo episode={next_episode_to_air} isNextEpisode />}
+        {last_episode_to_air && <details.EpisodeInfo episode={last_episode_to_air} />}
+        {next_episode_to_air && <details.EpisodeInfo episode={next_episode_to_air} isNextEpisode />}
       </div>
 
-      <SeasonList seasons={seasons} />
+      <details.SeasonList seasons={seasons} />
 
-      <ProductionInfo companies={production_companies} />
+      <details.ProductionInfo companies={production_companies} />
 
       <div className='bg-muted pt-16 pb-20 space-y-10'>
         <RecommendationsCarousel

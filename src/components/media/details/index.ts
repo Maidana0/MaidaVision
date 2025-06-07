@@ -7,7 +7,7 @@ const SeasonList = dynamic(() => import("maidana07/components/media/details/seas
 const ProductionInfo = dynamic(() => import("maidana07/components/media/details/production-info"), {})
 const TrailerEmbed = dynamic(() => import("maidana07/components/media/details/trailer-embed"), {})
 const MediaInfo = dynamic(() => import("maidana07/components/media/details/media-info"), {})
-
+const CreditsSection = dynamic(() => import("maidana07/components/media/details/credits/creditsSection"), {})
 
 
 export {
@@ -17,5 +17,6 @@ export {
   SeasonList,
   ProductionInfo,
   TrailerEmbed,
-  MediaInfo
+  MediaInfo,
+  CreditsSection
 }
