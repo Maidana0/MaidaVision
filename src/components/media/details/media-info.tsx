@@ -12,6 +12,26 @@ interface MediaInfoProps {
   overview: string
 }
 
+function statusToDate(status: TVStatus, dates: { firstAirDate: string, lastAirDate: string }) {
+  const firstDate = new Date(dates.firstAirDate).toLocaleDateString()
+  const lastDate = new Date(dates.lastAirDate).toLocaleDateString()
+
+  switch (status) {
+    case TVStatus["Returning Series"]:
+      return "Desde " + firstDate;
+    case TVStatus.Ended:
+      return "Desde " + firstDate + " hasta " + lastDate;
+    case TVStatus["In Production"]:
+      return "En producción desde " + firstDate;
+    case TVStatus.Planned:
+      return "Planeada para " + firstDate;
+    case TVStatus.Pilot:
+      return "Piloto emitido en " + firstDate;
+    default:
+      return firstDate + " - " + lastDate;
+  }
+}
+
 export default function MediaInfo({
   firstAirDate,
   lastAirDate,
@@ -24,18 +44,8 @@ export default function MediaInfo({
   const itemsInfo = [
     { title: "Idioma Original", content: language.toUpperCase() },
     { title: "Valoración", content: `${voteAverage.toFixed(1)} (${voteCount} votos)` },
-    {
-      title: "Fechas", content: [
-        <span aria-label="fecha de estreno" key={"fecha de estreno"} className="block mb-0.5 text-xs">
-          <strong className="mr-7">Estreno:</strong>
-          {new Date(firstAirDate).toLocaleDateString()}</span>,
-        <span aria-label="fecha de finalización" key={"fecha de finalización"} className="block text-xs mb-[-6px]">
-          <strong className="mr-1">Finalización:</strong>
-          {new Date(lastAirDate).toLocaleDateString()}
-        </span>
-      ]
-    },
     { title: "Estado", content: translateStatusMedia(status) },
+    { title: "Fechas", content: statusToDate(status, { firstAirDate, lastAirDate }) },
   ]
 
   return (
