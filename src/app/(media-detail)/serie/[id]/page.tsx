@@ -50,7 +50,7 @@ const MediaDetailPage = async ({ params }: { params: Promise<{ id: string }> }) 
 
   return (
     <>
-      {/* 
+
       <details.MediaHeader
         genres={genres}
         backdropPath={backdrop_path}
@@ -71,14 +71,14 @@ const MediaDetailPage = async ({ params }: { params: Promise<{ id: string }> }) 
         status={status}
         overview={overview ?? "No disponible."}
       />
-*/}
+
       <details.CreditsSection
         created_by={created_by}
         cast={aggregate_credits.cast}
         crew={aggregate_credits.crew}
       />
 
-      {/* 
+
       <div className='flex flex-wrap'>
         {last_episode_to_air && <details.EpisodeInfo episode={last_episode_to_air} />}
         {next_episode_to_air && <details.EpisodeInfo episode={next_episode_to_air} isNextEpisode />}
@@ -95,13 +95,14 @@ const MediaDetailPage = async ({ params }: { params: Promise<{ id: string }> }) 
           title={"Podría interesarte"}
         />
 
-        <RecommendationsCarousel
+        {similar.results.length > 0 && <RecommendationsCarousel
           type={"tv"}
           items={similar.results}
           title={"Similares"}
         />
+        }
       </div>
-      */}
+
     </>
   )
 }

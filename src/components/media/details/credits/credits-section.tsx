@@ -1,18 +1,21 @@
 import { Section } from "maidana07/components/ui/section"
-import CreatedBy, { CreatedByProps } from "./created-by"
-import Cast, { CastProps } from "./cast"
-import Crew, { CrewProps } from "./crew"
 import { FC, Suspense } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "maidana07/components/ui/tabs"
 import { Skeleton } from "maidana07/components/ui/skeleton"
+import CreditsList from "./credits-list"
+import { Cast, CreatedBy, Crew } from "maidana07/types/TMDB/media/tv-detail"
 
-interface CreditsProps extends CreatedByProps, CrewProps, CastProps { }
-
+interface CreditsProps {
+  created_by: CreatedBy[];
+  crew: Crew[];
+  cast: Cast[];
+}
+const credits: ("created_by" | "cast" | "crew")[] = ["created_by", "cast", "crew"]
 const CreditsSection: FC<CreditsProps> = ({ created_by, crew, cast }) => {
   return (
-    <Section className="flex flex-col gap-6 !py-6 max-w-5xl w-[calc(100%-2rem)] mx-auto">
+    <Section className="flex flex-col gap-6 !pt-6 !pb-0 max-w-5xl w-[calc(100%-2rem)] mx-auto min-h-[60dvh]">
       <Suspense fallback={<Skeleton className="w-56 min-h-9" />}>
-        <Tabs defaultValue={"cast"}>
+        <Tabs defaultValue={"cast"} className="relative">
 
           <TabsList>
 
@@ -31,19 +34,27 @@ const CreditsSection: FC<CreditsProps> = ({ created_by, crew, cast }) => {
 
           </TabsList>
 
-          <TabsContent value="created_by">
-            <CreatedBy created_by={created_by} />
-          </TabsContent>
-          <TabsContent value="cast">
-            <Cast cast={cast} />
-          </TabsContent>
-          <TabsContent value="crew">
-            <Crew crew={crew} />
-          </TabsContent>
+          {credits.map((credit_value) => (
+            <TabsContent
+              key={credit_value}
+              value={credit_value}
+            >
+              <CreditsList
+                items={
+                  credit_value === "created_by"
+                    ? created_by
+                    : credit_value === "cast"
+                      ? cast
+                      : crew
+                }
+                type={credit_value}
+              />
+            </TabsContent>
+          ))}
 
         </Tabs>
       </Suspense>
-    </Section>
+    </Section >
   )
 }
 
