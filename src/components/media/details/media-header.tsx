@@ -19,10 +19,11 @@ interface MediaHeaderProps {
   trailerButton?: ReactNode
   providers: ProvidersTypes
   homepage?: String | null;
+  type: "tv" | "movie";
 }
 
-export default function MediaHeader({ genres, backdropPath, posterPath, title, tagline, trailerButton, homepage, providers }: MediaHeaderProps) {
-  const genresList = translateGenres({ originalGenresList: genres, type: "tv" })
+export default function MediaHeader({ genres, backdropPath, posterPath, title, tagline, trailerButton, homepage, providers, type }: MediaHeaderProps) {
+  const genresList = translateGenres({ originalGenresList: genres, type })
 
   return (
     <div className="relative">

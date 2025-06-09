@@ -12,6 +12,14 @@ export enum TVStatus {
   "Pilot" = "Pilot"
 }
 
+export enum MovieStatus {
+  "Rumored" = "Rumored",
+  "Planned" = "Planned",
+  "In Production" = "In Production",
+  "Post Production" = "Post Production",
+  "Released" = "Released",
+  "Canceled" = "Cancele",
+}
 
 export type Company = {
   id: number;

@@ -1,20 +1,3 @@
-/*
-TVResult
-  id: number;
-  media_type: MediaType;
-  popularity: number;
-  overview?: string;
-  poster_path?: string | null;
-  backdrop_path?: string | null;
-  genre_ids: number[];
-  vote_average: number;
-  vote_count: number;
-  original_language: string;
-  name: string;
-  original_name: string;
-  first_air_date?: string;
-*/
-
 import { BaseMediaResult, BaseMovieAndTVResult, TMDBBaseResponse } from "../media-result";
 import { Company, Genres, ProductionCountries, SpokenLanguages, TVStatus, MediaVideo, WatchProviderItem } from "./common/common-types";
 export interface TVResult extends BaseMovieAndTVResult, BaseMediaResult {

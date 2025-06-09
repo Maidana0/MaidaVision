@@ -118,7 +118,7 @@ class TMDBFetcher {
 
   getMediaDetails = async <T>({ mediaType, id }: { mediaType: MediaType, id: string }) => {
     const url = `${this.baseUrl}/${mediaType}/${id}?${this.queryLanguage}&append_to_response
-=watch/providers,aggregate_credits,videos,recommendations,similar&locale=AR&include_video_language=es-MX,en`
+=watch/providers,aggregate_credits,credits,videos,recommendations,similar&locale=AR&include_video_language=es-MX,en`
 
     return await this.fetch<T>({
       url,

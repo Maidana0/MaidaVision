@@ -6,12 +6,14 @@ import CreditsList from "./credits-list"
 import { Cast, CreatedBy, Crew } from "maidana07/types/TMDB/media/tv-detail"
 
 interface CreditsProps {
-  created_by: CreatedBy[];
+  created_by?: CreatedBy[];
   crew: Crew[];
   cast: Cast[];
+  type?: "tv" | "movie"
 }
 const credits: ("created_by" | "cast" | "crew")[] = ["created_by", "cast", "crew"]
-const CreditsSection: FC<CreditsProps> = ({ created_by, crew, cast }) => {
+
+const CreditsSection: FC<CreditsProps> = ({ type = "tv", created_by, crew, cast }) => {
   return (
     <Section className="flex flex-col gap-6 !pt-6 !pb-0 max-w-5xl w-[calc(100%-2rem)] mx-auto min-h-[60dvh]">
       <Suspense fallback={<Skeleton className="w-56 min-h-9" />}>
@@ -48,6 +50,7 @@ const CreditsSection: FC<CreditsProps> = ({ created_by, crew, cast }) => {
                       : crew
                 }
                 type={credit_value}
+                mediaType={type}
               />
             </TabsContent>
           ))}

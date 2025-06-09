@@ -1,18 +1,22 @@
 import { Section } from "maidana07/components/ui/section";
-import { TVStatus } from "maidana07/types/TMDB/media/common/common-types";
+import { MovieStatus, TVStatus } from "maidana07/types/TMDB/media/common/common-types";
 import { translateStatusMedia } from "maidana07/utils/transform/stringDto";
 
 interface MediaInfoProps {
-  firstAirDate: string
-  lastAirDate: string
-  voteAverage: number
-  voteCount: number
-  language: string
-  status: TVStatus
-  overview: string
+  dates: {
+    firstAirDate?: string;
+    lastAirDate?: string;
+    release_date?: string;
+  };
+  voteAverage: number;
+  voteCount: number;
+  language: string;
+  status: TVStatus | MovieStatus;
+  overview: string;
+  type?: "movie" | "tv";
 }
 
-function statusToDate(status: TVStatus, dates: { firstAirDate: string, lastAirDate: string }) {
+function statusToDate(status: TVStatus | MovieStatus, dates: { firstAirDate: string, lastAirDate: string }) {
   const firstDate = new Date(dates.firstAirDate).toLocaleDateString()
   const lastDate = new Date(dates.lastAirDate).toLocaleDateString()
 
@@ -33,19 +37,23 @@ function statusToDate(status: TVStatus, dates: { firstAirDate: string, lastAirDa
 }
 
 export default function MediaInfo({
-  firstAirDate,
-  lastAirDate,
+  dates: {
+    firstAirDate = "Desconocido",
+    lastAirDate = "Desconocido",
+    release_date = "Desconocido"
+  },
   voteAverage,
   voteCount,
   language,
   status,
-  overview
+  overview,
+  type = "tv"
 }: MediaInfoProps) {
   const itemsInfo = [
     { title: "Idioma Original", content: language.toUpperCase() },
     { title: "Valoración", content: `${voteAverage.toFixed(1)} (${voteCount} votos)` },
-    { title: "Estado", content: translateStatusMedia(status) },
-    { title: "Fechas", content: statusToDate(status, { firstAirDate, lastAirDate }) },
+    { title: "Estado", content: translateStatusMedia(status, type) },
+    { title: type === "movie" ? "Estreno" : "Fechas", content: type === "movie" ? new Date(release_date).toLocaleDateString() : statusToDate(status, { firstAirDate, lastAirDate }) },
   ]
 
   return (

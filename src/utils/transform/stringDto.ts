@@ -1,4 +1,4 @@
-import { MediaType, TVStatus } from "maidana07/types/TMDB/media/common/common-types";
+import { MediaType, MovieStatus, TVStatus } from "maidana07/types/TMDB/media/common/common-types";
 
 
 export function translateMediaTypeToOriginal(mediaType?: string): MediaType | "????" {
@@ -29,7 +29,19 @@ export function convertTitleToURL(title: string, id: number): String {
 }
 
 
-export function translateStatusMedia(status: TVStatus) {
+export function translateStatusMedia(status: TVStatus | MovieStatus, type: "movie" | "tv" = "tv") {
+  if (type === "movie") {
+    switch (status) {
+      case MovieStatus.Released: return 'Estrenada';
+      case MovieStatus.Rumored: return "Rumoreada";
+      case MovieStatus.Planned: return "Planeada";
+      case MovieStatus["In Production"]: return "En Producción";
+      case MovieStatus["Post Production"]: return "Post Producción";
+      case MovieStatus.Canceled: return "Cancelada";
+      default: return 'Desconocido';
+    }
+  }
+
   switch (status) {
     case TVStatus['Returning Series']: return 'En emisión';
     case TVStatus.Planned: return 'Planeada';

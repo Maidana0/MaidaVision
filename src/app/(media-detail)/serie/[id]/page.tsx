@@ -29,8 +29,8 @@ const MediaDetailPage = async ({ params }: { params: Promise<{ id: string }> }) 
     tagline,
     overview,
     genres,
-    first_air_date,
-    last_air_date,
+    first_air_date: firstAirDate,
+    last_air_date: lastAirDate,
     vote_average,
     vote_count,
     original_language,
@@ -60,11 +60,11 @@ const MediaDetailPage = async ({ params }: { params: Promise<{ id: string }> }) 
         trailerButton={<details.TrailerEmbed videos={videos?.results || []} />}
         providers={providers.results['AR'] || {}}
         homepage={homepage}
+        type="tv"
       />
 
       <details.MediaInfo
-        firstAirDate={first_air_date ?? "Desconocido"}
-        lastAirDate={last_air_date}
+        dates={{ firstAirDate, lastAirDate }}
         voteAverage={vote_average}
         voteCount={vote_count}
         language={original_language}

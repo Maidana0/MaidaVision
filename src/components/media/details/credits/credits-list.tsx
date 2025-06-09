@@ -6,12 +6,28 @@ import { AnimatePresence, motion } from "framer-motion";
 import PersonCard from 'maidana07/components/cards/person-card';
 
 interface CreditsListProps {
-  items?: Array<CreatedBy | Crew | Cast>,
-  type: "created_by" | "crew" | "cast"
+  items?: Array<CreatedBy | Crew | Cast>;
+  mediaType?: "tv" | "movie";
+  type: "created_by" | "crew" | "cast";
+}
+
+// eslint-disable-next-line  @typescript-eslint/ban-ts-comment
+// @ts-ignore
+function getDescription(type: "created_by" | "crew" | "cast", person: any, mediaType: "tv" | "movie" = "tv"): string {
+  if (type === "created_by") return "Creador";
+  if (mediaType && mediaType === "movie") {
+    if (type === "cast") return person.character
+    if (type === "crew") return person.job
+  }
+  if (mediaType === "tv") {
+    if (type === "cast") return person.roles[0]?.character ?? "";
+    return person.jobs[0]?.job ?? ""
+  }
+  return " "
 }
 
 
-const CreditsList: FC<CreditsListProps> = ({ items, type }) => {
+const CreditsList: FC<CreditsListProps> = ({ items, type, mediaType }) => {
   if (!items) return null;
   if (items.length === 0) return null;
 
@@ -27,8 +43,9 @@ const CreditsList: FC<CreditsListProps> = ({ items, type }) => {
           .map((person, i) => (
             <PersonCard
               key={person.id + "-" + i}
-              arrayType={type}
-              person={person}
+              name={person.name}
+              image={person.profile_path}
+              description={getDescription(type, person, mediaType)}
             />
           ))}
 
@@ -44,8 +61,9 @@ const CreditsList: FC<CreditsListProps> = ({ items, type }) => {
                   transition={{ duration: 0.2, delay: i * 0.1 }}
                 >
                   <PersonCard
-                    arrayType={type}
-                    person={person}
+                    name={person.name}
+                    image={person.profile_path}
+                    description={getDescription(type, person, mediaType)}
                   />
                 </motion.div>
               ))}
