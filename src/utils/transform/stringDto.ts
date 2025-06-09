@@ -10,7 +10,15 @@ export function translateMediaTypeToOriginal(mediaType?: string): MediaType | "?
   }
 }
 
-export function translateMediaType(mediaType?: string, plural: boolean = false): string {
+export function translateMediaType(mediaType?: string, plural: boolean = false, toLink: boolean = false): string {
+  if (toLink) {
+    switch (mediaType) {
+      case 'movie': return "pelicula";
+      case 'tv': return "serie";
+      case 'person': return "persona";
+      default: return 'not-found';
+    }
+  }
   switch (mediaType) {
     case 'movie': return `Película${plural ? 's' : ''}`;
     case 'tv': return `Serie${plural ? 's' : ''}`;

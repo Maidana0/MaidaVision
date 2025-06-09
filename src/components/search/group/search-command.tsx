@@ -29,7 +29,7 @@ const SearchCommand: FC<SearchCardProps> = ({
       media_type: type,
     });
     closeSearchDialog("search");
-    router.push(`/${translateMediaType(type).toLowerCase()
+    router.push(`/${translateMediaType(type, false, true)
       }/${convertTitleToURL(
         title ?? "",
         Number(id))

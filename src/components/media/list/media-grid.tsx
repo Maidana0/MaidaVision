@@ -4,6 +4,8 @@ import MediaPagination from "./media-pagination"
 import Link from "next/link"
 import { GetDiscoverProps } from "maidana07/types/TMDB/tmdb-fetcher";
 import { Suspense } from "react";
+import { MovieResult } from "maidana07/types/TMDB/media/movie-detail";
+import { TVResult } from "maidana07/types/TMDB/media/tv-detail";
 
 
 function isMovie(media: Omit<MovieResult, "media_type"> | Omit<TVResult, "media_type">): media is Omit<MovieResult, "media_type"> {

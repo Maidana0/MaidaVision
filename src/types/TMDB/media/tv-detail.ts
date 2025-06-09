@@ -1,5 +1,5 @@
 import { BaseMediaResult, BaseMovieAndTVResult, TMDBBaseResponse } from "../media-result";
-import { Company, Genres, ProductionCountries, SpokenLanguages, TVStatus, MediaVideo, WatchProviderItem } from "./common/common-types";
+import { Company, Genres, ProductionCountries, SpokenLanguages, TVStatus, MediaVideo, WatchProviderItem, CreatedBy } from "./common/common-types";
 export interface TVResult extends BaseMovieAndTVResult, BaseMediaResult {
   name: string;
   original_name: string;
@@ -44,15 +44,6 @@ export interface TVDetails extends TVResult {
   tagline?: string;
 }
 
-
-
-export type CreatedBy = {
-  id: number;
-  credit_id: string;
-  name: string;
-  gender: number;
-  profile_path: string | null;
-}
 
 export type EpisodeToAir = {
   id: number;

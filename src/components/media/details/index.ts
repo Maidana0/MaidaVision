@@ -8,6 +8,7 @@ const ProductionInfo = dynamic(() => import("maidana07/components/media/details/
 const TrailerEmbed = dynamic(() => import("maidana07/components/media/details/trailer-embed"), {})
 const MediaInfo = dynamic(() => import("maidana07/components/media/details/media-info"), {})
 const CreditsSection = dynamic(() => import("maidana07/components/media/details/credits/credits-section"), {})
+const CollectionBanner = dynamic(() => import("maidana07/components/media/details/collection-banner"), {})
 
 
 export {
@@ -18,5 +19,6 @@ export {
   ProductionInfo,
   TrailerEmbed,
   MediaInfo,
-  CreditsSection
+  CreditsSection,
+  CollectionBanner
 }

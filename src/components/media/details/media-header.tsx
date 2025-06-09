@@ -9,6 +9,7 @@ import { ProvidersTypes } from './streaming-availability'
 import { StreamingAvailability } from "maidana07/components/media/details"
 import { HeartPlusIcon } from 'lucide-react'
 import CustomLink from 'maidana07/components/ui/custom-link'
+import { minutesToHours } from 'maidana07/utils/transform/numberToString'
 
 interface MediaHeaderProps {
   genres: { id: number; name: string }[]
@@ -20,9 +21,10 @@ interface MediaHeaderProps {
   providers: ProvidersTypes
   homepage?: String | null;
   type: "tv" | "movie";
+  runtime?: number;
 }
 
-export default function MediaHeader({ genres, backdropPath, posterPath, title, tagline, trailerButton, homepage, providers, type }: MediaHeaderProps) {
+export default function MediaHeader({ genres, backdropPath, posterPath, title, tagline, trailerButton, homepage, providers, type, runtime }: MediaHeaderProps) {
   const genresList = translateGenres({ originalGenresList: genres, type })
 
   return (
@@ -52,14 +54,14 @@ export default function MediaHeader({ genres, backdropPath, posterPath, title, t
           <Image
             src={
               (posterPath && posterPath != null)
-                ? `https://image.tmdb.org/t/p/w300${posterPath}`
+                ? `https://image.tmdb.org/t/p/w500${posterPath}`
                 : "https://placehold.co/240x360?text=No+Image"}
             alt={title}
             width={240}
             height={360}
             quality={100}
             priority
-            className="rounded-lg shadow-lg"
+            className="rounded-lg"
           />
           {homepage && homepage != null
             ? <CustomLink size="sm" aria-label="homepage" className="bg-muted/40 absolute top-1 left-1 font-normal truncate max-w-[240px] text-xs" href={homepage.toString()} target="_blank">
@@ -78,8 +80,17 @@ export default function MediaHeader({ genres, backdropPath, posterPath, title, t
           </div>
 
           <div>
-            <h1 className="text-4xl font-bold sm:text-white text-foreground">{title}</h1>
-            {tagline && <p className="text-lg mt-2 text-muted-foreground italic"> "{tagline}" </p>}
+            <h1 className="text-4xl font-bold sm:text-white text-foreground">
+              {title}
+              {runtime && (<span title="Duración" className="ml-2 text-muted-foreground text-sm">
+                ({minutesToHours(runtime)})
+              </span>)}
+            </h1>
+            {tagline && (
+              <Badge variant={"outline"} className="backdrop-blur-sm text-lg mt-2 text-muted-foreground italic">
+                "{tagline}"
+              </Badge>
+            )}
           </div>
 
           <div className="mt-4 flex gap-3 justify-center sm:justify-start" >

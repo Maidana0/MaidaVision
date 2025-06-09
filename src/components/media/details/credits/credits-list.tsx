@@ -1,12 +1,14 @@
 "use client"
-import { Cast, CreatedBy, Crew } from 'maidana07/types/TMDB/media/tv-detail';
+import { Cast, Crew } from "maidana07/types/TMDB/media/tv-detail";
+import { CreatedBy } from "maidana07/types/TMDB/media/common/common-types"
 import { FC, useState } from "react";
 import { Button } from "maidana07/components/ui/button";
 import { AnimatePresence, motion } from "framer-motion";
-import PersonCard from 'maidana07/components/cards/person-card';
+import PersonCard from "maidana07/components/cards/person-card";
+import { MovieCast, MovieCrew } from "maidana07/types/TMDB/media/movie-detail"
 
 interface CreditsListProps {
-  items?: Array<CreatedBy | Crew | Cast>;
+  items?: Array<CreatedBy | Crew | Cast | MovieCast | MovieCrew>;
   mediaType?: "tv" | "movie";
   type: "created_by" | "crew" | "cast";
 }

@@ -3,12 +3,14 @@ import { FC, Suspense } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "maidana07/components/ui/tabs"
 import { Skeleton } from "maidana07/components/ui/skeleton"
 import CreditsList from "./credits-list"
-import { Cast, CreatedBy, Crew } from "maidana07/types/TMDB/media/tv-detail"
+import { Cast, Crew } from "maidana07/types/TMDB/media/tv-detail"
+import { CreatedBy } from "maidana07/types/TMDB/media/common/common-types"
+import { MovieCast, MovieCrew } from "maidana07/types/TMDB/media/movie-detail"
 
 interface CreditsProps {
   created_by?: CreatedBy[];
-  crew: Crew[];
-  cast: Cast[];
+  crew: Crew[] | MovieCast[];
+  cast: Cast[] | MovieCrew[];
   type?: "tv" | "movie"
 }
 const credits: ("created_by" | "cast" | "crew")[] = ["created_by", "cast", "crew"]

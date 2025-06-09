@@ -2,6 +2,7 @@ import { CommandEmpty } from 'maidana07/components/ui/command';
 import { AnimatePresence } from 'framer-motion';
 import Loader from 'maidana07/components/ui/loader';
 import dynamic from 'next/dynamic';
+import { MultiSearchItem } from 'maidana07/types/TMDB/media-result';
 
 const CustomListItems = dynamic(() => import('./custom-list-items'), {
   ssr: false,
