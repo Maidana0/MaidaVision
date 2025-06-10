@@ -49,11 +49,11 @@ export function translateGenres(
   }): string[] {
   if (type === "tv") {
     return originalGenresList
-      .map(({ id, name }) => genres.tv.find(g => g.id === id)?.name)
+      .map(({ id }) => genres.tv.find(g => g.id === id)?.name)
       .filter(Boolean) as string[];
   } else if (type === "movie") {
     return originalGenresList
-      .map(({ id, name }) => genres.movie.find(g => g.id === id)?.name)
+      .map(({ id }) => genres.movie.find(g => g.id === id)?.name)
       .filter(Boolean) as string[];
   }
 

@@ -27,7 +27,7 @@ export function translateMediaType(mediaType?: string, plural: boolean = false, 
   }
 }
 
-export function convertTitleToURL(title: string, id: number): String {
+export function convertTitleToURL(title: string, id: number): string {
   const newTitle = title
     .toLowerCase()
     .split(" ")

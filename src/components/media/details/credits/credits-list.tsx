@@ -6,6 +6,7 @@ import { Button } from "maidana07/components/ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 import PersonCard from "maidana07/components/cards/person-card";
 import { MovieCast, MovieCrew } from "maidana07/types/TMDB/media/movie-detail"
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 
 interface CreditsListProps {
   items?: Array<CreatedBy | Crew | Cast | MovieCast | MovieCrew>;
@@ -30,10 +31,10 @@ function getDescription(type: "created_by" | "crew" | "cast", person: any, media
 
 
 const CreditsList: FC<CreditsListProps> = ({ items, type, mediaType }) => {
+  const [loadMore, setLoadMore] = useState<boolean>(false);
   if (!items) return null;
   if (items.length === 0) return null;
 
-  const [loadMore, setLoadMore] = useState<Boolean>(false);
 
   return (
     <div className="w-full text-center">

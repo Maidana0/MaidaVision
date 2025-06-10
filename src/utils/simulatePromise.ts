@@ -10,3 +10,5 @@ const simulatePromise = (time: number = 3000, valor: boolean = true) => {
     }, time);
   });
 };
+
+export default simulatePromise

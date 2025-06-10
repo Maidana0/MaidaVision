@@ -2,8 +2,13 @@ import RecommendationsCarousel from 'maidana07/components/carousel/recommendatio
 import * as details from 'maidana07/components/media/details'
 import tmdbFetcher from 'maidana07/lib/api/tmdb';
 import { MovieDetails } from 'maidana07/types/TMDB/media/movie-detail';
+import { Metadata } from "next"
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 
 
+export const metadata: Metadata = {
+  title: "Película"
+}
 
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params

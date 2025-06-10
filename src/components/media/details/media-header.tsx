@@ -19,7 +19,7 @@ interface MediaHeaderProps {
   tagline?: string
   trailerButton?: ReactNode
   providers: ProvidersTypes
-  homepage?: String | null;
+  homepage?: string | null;
   type: "tv" | "movie";
   runtime?: number;
 }
@@ -88,7 +88,7 @@ export default function MediaHeader({ genres, backdropPath, posterPath, title, t
             </h1>
             {tagline && (
               <Badge variant={"outline"} className="backdrop-blur-sm text-lg mt-2 text-muted-foreground italic">
-                "{tagline}"
+                &quot;{tagline}&quot;
               </Badge>
             )}
           </div>

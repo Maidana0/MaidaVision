@@ -3,8 +3,8 @@ import { validateYouTubeVideo } from "maidana07/lib/api/youtube"
 import dynamic from "next/dynamic"
 
 const Modal = dynamic(async () => {
-  const module = await import("maidana07/components/ui/modal")
-  return module.Modal
+  const myModule = await import("maidana07/components/ui/modal")
+  return myModule.Modal
 })
 
 interface TrailerEmbedProps {

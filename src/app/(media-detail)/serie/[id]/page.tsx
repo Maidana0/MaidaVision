@@ -3,6 +3,12 @@ import * as details from 'maidana07/components/media/details'
 import tmdbFetcher from "maidana07/lib/api/tmdb";
 import { TVDetails } from 'maidana07/types/TMDB/media/tv-detail';
 
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Serie"
+}
+
 
 const MediaDetailPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
