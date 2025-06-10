@@ -15,9 +15,9 @@ export default async function HomePage() {
   return (
     <>
       <Hero />
-      <TrendingTop trendingFor="pelicula" />
+      <TrendingTop trendingFor="peliculas" />
       <Features />
-      <TrendingTop trendingFor="serie" />
+      <TrendingTop trendingFor="series" />
       <Testimonials />
       <CallToAction />
       <TrendingModal />

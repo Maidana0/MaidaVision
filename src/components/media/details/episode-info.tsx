@@ -15,7 +15,7 @@ export default function EpisodeInfo({ episode, isNextEpisode }: { episode: Episo
                 : "/images/image-not-found.png"
             }
             alt={episode.name}
-            quality={75}
+            quality={100}
             width={328}
             height={185}
             className="object-cover h-full w-full"

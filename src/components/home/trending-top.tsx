@@ -3,8 +3,8 @@ import TrendingCarousel from "../carousel/trending-carousel"
 import { formatMediaData } from "maidana07/utils/transform/formatMediaData";
 import { Section } from "../ui/section";
 
-const TrendingTop = async ({ trendingFor }: { trendingFor: "pelicula" | "serie" }) => {
-  const { data, success, message } = trendingFor === "pelicula"
+const TrendingTop = async ({ trendingFor }: { trendingFor: "peliculas" | "series" }) => {
+  const { data, success, message } = trendingFor === "peliculas"
     ? await tmdbFetcher.getTrendingMovies()
     : await tmdbFetcher.getTrendingTV();
 
@@ -20,7 +20,7 @@ const TrendingTop = async ({ trendingFor }: { trendingFor: "pelicula" | "serie" 
   const trendingTop = data?.results?.slice(0, 10) ?? [];
   const formattedItems = formatMediaData(trendingTop)
 
-  if (trendingFor === "pelicula") {
+  if (trendingFor === "peliculas") {
     return <TrendingCarousel
       heading={"Peliculas"}
       href={`/${trendingFor}`}
@@ -28,7 +28,7 @@ const TrendingTop = async ({ trendingFor }: { trendingFor: "pelicula" | "serie" 
     />
   }
 
-  else if (trendingFor === "serie") {
+  else if (trendingFor === "series") {
     return <TrendingCarousel
       heading={"Series"}
       href={`/${trendingFor}`}

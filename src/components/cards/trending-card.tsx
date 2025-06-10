@@ -26,7 +26,7 @@ const TrendingCard: FC<{ item: TrendingMedia }> = ({ item }) => {
         className={`swiper-lazy w-full h-full object-cover transition-all duration-500 dark:sm:opacity-70 dark:sm:group-hover:opacity-100 hover:scale-105`}
         width={185}
         height={278}
-        quality={90}
+        quality={100}
       />
       <div className='absolute bottom-0 left-0 right-0 px-2 py-2 w-fit'>
         <span className="font-medium truncate font md:text-5xl text-4xl text-white text-shadow-lg/50 text-shadow-primary" >

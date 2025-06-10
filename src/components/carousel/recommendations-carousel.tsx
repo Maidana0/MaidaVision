@@ -18,7 +18,7 @@ const RecommendationsCarousel = ({ items, type, title }: { items: MediaRecommend
           items.map((item) => (
             <SwiperSlide key={item.id}>
               <MediaCard
-                mediaType={translateMediaType(type).toLowerCase()}
+                mediaType={translateMediaType(type, false, true)}
                 media={item}
                 priority={false}
                 withDescription

@@ -20,7 +20,7 @@ const MediaDetailPage = async ({ params }: { params: Promise<{ id: string }> }) 
   })
 
   if (!data.success || !data.data) {
-    return (<div className="p-12">
+    return (<div className="p-12 w-full max-w-4xl">
       <h1>Ocurrio un error.</h1>
       <p className="bg-card w-2xl mx-auto p-6 mt-6">
         {JSON.stringify(data)}
@@ -95,17 +95,18 @@ const MediaDetailPage = async ({ params }: { params: Promise<{ id: string }> }) 
       <details.ProductionInfo companies={production_companies} />
 
       <div className='bg-muted pt-16 pb-20 space-y-10'>
-        <RecommendationsCarousel
+        {recommendations.results.length > 0 && (<RecommendationsCarousel
           type={"tv"}
           items={recommendations.results}
           title={"Podría interesarte"}
-        />
+        />)
+        }
 
-        {similar.results.length > 0 && <RecommendationsCarousel
+        {similar.results.length > 0 && (<RecommendationsCarousel
           type={"tv"}
           items={similar.results}
           title={"Similares"}
-        />
+        />)
         }
       </div>
 

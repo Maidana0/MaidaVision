@@ -28,7 +28,7 @@ const MediaCard = ({ media, mediaType, priority, withDescription = false, withSc
         className={`object-cover size-full brightness-95 ${withScale && "transition-transform duration-300 hover:scale-[1.04]"}`}
         width={185}
         height={272}
-        quality={75}
+        quality={100}
         loading={priority ? "eager" : "lazy"}
         priority={priority}
         title={isMovie(media) ? media.title : media.name}

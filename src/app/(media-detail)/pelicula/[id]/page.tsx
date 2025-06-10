@@ -20,7 +20,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   })
 
   if (!data.success || !data.data) {
-    return (<div className="p-12">
+    return (<div className="p-12 w-full max-w-4xl">
       <h1>Ocurrio un error.</h1>
       <p className="bg-card w-2xl mx-auto p-6 mt-6">
         {JSON.stringify(data)}
@@ -90,14 +90,15 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
       <details.CollectionBanner belongs_to_collection={belongs_to_collection} />
 
       <div className='bg-muted pt-16 pb-20 space-y-10'>
-        <RecommendationsCarousel
-          type={"tv"}
+        {recommendations.results.length > 0 && (<RecommendationsCarousel
+          type={"movie"}
           items={recommendations.results as any}
           title={"Podría interesarte"}
-        />
+        />)
+        }
 
         {similar.results.length > 0 && <RecommendationsCarousel
-          type={"tv"}
+          type={"movie"}
           items={similar.results as any}
           title={"Similares"}
         />
