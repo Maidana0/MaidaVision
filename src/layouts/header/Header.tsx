@@ -13,8 +13,8 @@ import { Skeleton } from "maidana07/components/ui/skeleton"
 const Header = async () => {
 
   return (
-    <header className="w-full sticky top-0 z-50 backdrop-blur-md">
-      <div className="flex items-center justify-between px-3 py-2">
+    <header className="w-full sticky top-0 z-50">
+      <div className="flex items-center justify-between px-3 py-2 bg-background border-b border-b-input">
         <div className="flex items-center">
           <Suspense>
             <MobileMenu />

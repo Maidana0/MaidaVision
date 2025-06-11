@@ -3,11 +3,12 @@ import { Button } from "maidana07/components/ui/button"
 import { Section } from "../ui/section"
 import { Play } from "lucide-react"
 import CallToActionButton from "./call-to-action-button"
+import BgGradient from "maidana07/components/ui/bg-gradient"
 
 export function Hero() {
   return (
     <Section className="relative overflow-hidden">
-
+      <BgGradient />
       <div className="relative max-w-5xl mx-auto text-center md:pt-24 pt-6">
 
         <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50 p-3">

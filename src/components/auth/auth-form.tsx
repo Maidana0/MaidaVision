@@ -44,7 +44,11 @@ const AuthForm: FC<Props> = ({ type, onSubmitAction, submitText = "Enviar" }) =>
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className={`${type === "register"
+          ? "grid grid-cols-1 w-full md:grid-cols-2 gap-6" : "space-y-6"
+          }`}>
         {serverError && (
           <div className="text-sm text-red-500 font-medium text-center">
             {serverError}
@@ -90,7 +94,7 @@ const AuthForm: FC<Props> = ({ type, onSubmitAction, submitText = "Enviar" }) =>
             <FormItem>
               <FormLabel>Contraseña</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="••••••••" {...field} />
+                <Input type="password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -105,7 +109,7 @@ const AuthForm: FC<Props> = ({ type, onSubmitAction, submitText = "Enviar" }) =>
               <FormItem>
                 <FormLabel>Confirmar contraseña</FormLabel>
                 <FormControl>
-                  <Input type="password" placeholder="••••••••" {...field} />
+                  <Input type="password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -113,7 +117,7 @@ const AuthForm: FC<Props> = ({ type, onSubmitAction, submitText = "Enviar" }) =>
           />
         )}
 
-        <Button type="submit" className="w-full" disabled={isPending}>
+        <Button type="submit" className="w-full col-span-full max-w-4/6 block mx-auto" disabled={isPending}>
           {isPending ? "Cargando..." : submitText}
         </Button>
       </form>

@@ -13,7 +13,7 @@ export default function CommandTrigger() {
     <Button
       variant="outline"
       onClick={() => openDialog("search")}
-      className="p-2 text-muted-foreground hover:text-accent-foreground sm:min-w-[200px] min-w-7/12 hover:bg-transparent transition-colors"
+      className="p-2 text-muted-foreground hover:text-accent-foreground sm:min-w-[200px] min-w-7/12  transition-colors"
     >
       <Search className="w-5 h-5" />
       Buscar

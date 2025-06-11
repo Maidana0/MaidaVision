@@ -1,9 +1,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "maidana07/components/ui/card"
-import GithubLogin from "./buttons/github-login"
-import GoogleLogin from "./buttons/google-login"
 import Link from "next/link"
 import AuthForm from "./auth-form"
 import loginAction from "maidana07/actions/login-action"
+import ContinueWith from "./continue-with"
 
 const LoginForm = () => {
 
@@ -23,17 +22,7 @@ const LoginForm = () => {
             submitText="Iniciar Sesión"
           />
 
-
-          <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
-            <span className="bg-card text-muted-foreground relative z-10 px-2">
-              Or continue with
-            </span>
-          </div>
-
-          <div className="flex flex-col gap-4">
-            <GithubLogin />
-            <GoogleLogin />
-          </div>
+          <ContinueWith />
 
           <div className="text-center text-sm">
             ¿No tenés cuenta?{" "}

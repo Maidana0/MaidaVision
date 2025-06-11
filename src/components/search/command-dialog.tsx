@@ -7,6 +7,7 @@ import useDialogStore from 'maidana07/store/use-dialog-store';
 import SearchResults from './group/search-results';
 import SearchHistory from './group/search-history';
 import { useShallow } from 'zustand/react/shallow';
+import CustomLink from '../ui/custom-link';
 
 
 export default function CommandDialogSearch() {
@@ -45,6 +46,13 @@ export default function CommandDialogSearch() {
             message={message ?? "Comenzar a buscar"}
           />
 
+          {!loading && searchQuery && results.length > 20 && (
+            <div className="after:border-border relative text-center after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t-4 col-span-full my-4">
+              <CustomLink href={`/buscar?q=${searchQuery}`} className="bg-card  text-muted-foreground relative z-10 p-3">
+                Ver más resultados
+              </CustomLink>
+            </div>
+          )}
           {!searchQuery && (<SearchHistory />)}
         </CommandList>
       </Command>

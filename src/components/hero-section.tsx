@@ -3,6 +3,7 @@ import { ArrowLeft } from "lucide-react"
 import { FC } from "react"
 import CustomLink from "./ui/custom-link"
 import cn from "maidana07/utils/cn"
+import BgGradient from "maidana07/components/ui/bg-gradient"
 
 interface HeroSectionProps {
   title: string
@@ -23,6 +24,7 @@ const HeroSection: FC<HeroSectionProps> = ({
 }) => {
   return (
     <Section className={cn("md:pt-10 md:pb-11 pt-8 pb-0", className)}>
+      <BgGradient />
       <div className="max-w-7xl mx-auto px-4">
         {showBackButton && (
           <CustomLink href="/" variant="ghost" className="mb-6 text-foreground/80 text-sm">

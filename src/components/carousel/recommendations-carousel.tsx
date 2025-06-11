@@ -22,6 +22,7 @@ const RecommendationsCarousel = ({ items, type, title }: { items: MediaRecommend
                 media={item}
                 priority={false}
                 withDescription
+                isForCarousel
               />
             </SwiperSlide>
           ))

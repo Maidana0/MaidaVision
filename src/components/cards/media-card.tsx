@@ -5,12 +5,13 @@ import { convertTitleToURL } from 'maidana07/utils/transform/stringDto'
 import { TVResult } from 'maidana07/types/TMDB/media/tv-detail'
 import { MovieResult } from 'maidana07/types/TMDB/media/movie-detail'
 
-const MediaCard = ({ media, mediaType, priority, withDescription = false, withScale = false }: {
+const MediaCard = ({ media, mediaType, priority, withDescription = false, withScale = false, isForCarousel = false }: {
   media: MovieResult | TVResult,
   mediaType: string,
   priority?: boolean,
   withDescription?: boolean
-  withScale?: boolean
+  withScale?: boolean,
+  isForCarousel?: boolean
 }) => {
   return (
     <Link
@@ -21,7 +22,7 @@ const MediaCard = ({ media, mediaType, priority, withDescription = false, withSc
       )
         }`}
     >
-      <div className='swiper-lazy-preloader' />
+      {isForCarousel && (<div className='swiper-lazy-preloader' />)}
 
       <Image
         alt={isMovie(media) ? media.title : media.name}
