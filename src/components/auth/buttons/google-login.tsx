@@ -16,7 +16,7 @@ const GoogleLogin = () => {
             fill="currentColor"
           />
         </svg>
-        Login with Google
+       Continúa con Google
       </Button>
     </form>
   )

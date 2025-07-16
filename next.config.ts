@@ -56,7 +56,6 @@ const nextConfig: NextConfig = {
     ],
   },
   transpilePackages: ['framer-motion'],
-  dangerouslyAllowSVG: true,
 };
 
 export default nextConfig;
