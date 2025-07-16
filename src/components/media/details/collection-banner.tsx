@@ -14,23 +14,28 @@ const CollectionBanner = ({ belongs_to_collection }: { belongs_to_collection?: B
       className="relative aspect-video w-full min-h-[375px]"
       aria-label="Colección de películas a la cúal pertenece"
     >
-      <Image
-        src={`https://image.tmdb.org/t/p/original${backdrop_path}`}
-        alt={name}
-        fill
-        className='object-cover brightness-75'
-      />
-
-      <div className="relative w-full h-full content-center">
+     { 
+        backdrop_path != null && (
         <Image
-          src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+          src={`https://image.tmdb.org/t/p/original${backdrop_path}`}
           alt={name}
-          width={240}
-          height={360}
-          quality={100}
-          className="rounded-lg m-auto"
-        />
-      </div>
+          fill
+          className='object-cover brightness-75 content-center'
+      />)
+     }
+
+       {poster_path != null && (
+          <div className="relative w-full h-full content-center">
+              <Image
+                src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+                alt={name}
+                width={240}
+                height={360}
+                quality={100}
+                className="rounded-lg m-auto"
+            />
+          </div>
+      ) }
     </section>
   )
 }

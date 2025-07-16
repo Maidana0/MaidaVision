@@ -17,7 +17,7 @@ export default function ProductionInfo({ companies }: { companies: Company[] }) 
                   alt={company.name}
                   width={80}
                   height={80}
-                  className="object-contain max-h-[calc(100%-20px)]"
+                  className="object-contain max-h-[calc(100%-20px)] text-black/90"
                 />
               )
               :
