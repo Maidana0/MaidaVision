@@ -8,6 +8,7 @@ import { Input } from "maidana07/components/ui/input";
 import { Button } from "maidana07/components/ui/button";
 import { z } from "zod";
 import { FC, useState, useTransition } from "react";
+import PasswordInput from "./password-input";
 
 interface Props {
   type: "login" | "register";
@@ -87,33 +88,17 @@ const AuthForm: FC<Props> = ({ type, onSubmitAction, submitText = "Enviar" }) =>
           )}
         />
 
-        <FormField
+        <PasswordInput
           control={form.control}
           name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Contraseña</FormLabel>
-              <FormControl>
-                <Input type="password" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label="Contraseña"
         />
 
         {type === "register" && (
-          <FormField
+          <PasswordInput
             control={form.control}
             name="confirmPassword"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Confirmar contraseña</FormLabel>
-                <FormControl>
-                  <Input type="password" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Confirmar contraseña"
           />
         )}
 
