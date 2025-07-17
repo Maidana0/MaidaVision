@@ -6,7 +6,7 @@ import cn from "maidana07/utils/cn"
 import BgGradient from "maidana07/components/ui/bg-gradient"
 
 interface HeroSectionProps {
-  title: string
+  title?: string
   description?: string
   showBackButton?: boolean
   className?: string
@@ -32,9 +32,13 @@ const HeroSection: FC<HeroSectionProps> = ({
           </CustomLink>
         )}
 
-        <h1 className={`text-4xl md:text-6xl font-bold mb-6 ${h1ClassName}`}>
-          {title}
-        </h1>
+       {
+        title && (
+          <h1 className={`text-4xl md:text-6xl font-bold mb-6 ${h1ClassName}`}>
+            {title}
+          </h1>
+        )
+       }
         {description && (
           <p className="text-xl text-muted-foreground max-w-2xl">
             {description}
