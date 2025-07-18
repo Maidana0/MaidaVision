@@ -4,6 +4,7 @@ import { CustomResponse } from "maidana07/types/fetcher-types";
 import { filtersForDiscover } from "maidana07/utils/transform/filtersForDiscover";
 import { DiscoverMovieResponse, DiscoverTVResponse, SearchResponse, TrendingMovieResponse, TrendingTVResponse } from "maidana07/types/TMDB/media-result";
 import { MediaType } from "maidana07/types/TMDB/media/common/common-types";
+import { SearchProps } from "maidana07/types/TMDB/search";
 
 const CACHE_MIN_TIME = 900; // 15 min
 const CACHE_HOUR_TIME = 3600; // 1 hora
@@ -60,8 +61,11 @@ class TMDBFetcher {
     };
   }
 
-  async multiSearch(query: string): Promise<CustomResponse<SearchResponse | []>> {
-    const url = `${this.baseUrl}/search/multi?query=${query}&${this.queryLanguage}&page=1&include_adult=false`;
+  async multiSearch(query: string, { type = "multi", page = 1 }: SearchProps = {}): Promise<CustomResponse<SearchResponse | []>> {
+    const searchParams = `?query=${query}&${this.queryLanguage}&page=${page}&include_adult=false`
+    const correctType = ["multi", "person", "tv", "movie"].includes(type) ? type : "multi";
+    const url = `${this.baseUrl}/search/${correctType}${searchParams}`;
+
     return await this.fetch<SearchResponse>({
       url, tag: "search", revalidate: CACHE_MIN_TIME, requestMessage: "search"
     });

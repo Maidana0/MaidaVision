@@ -1,5 +1,6 @@
 "use client"
 import { Select, SelectContent as SelectContentUI, SelectItem, SelectTrigger, SelectValue } from 'maidana07/components/ui/select';
+import { MediaTypes } from 'maidana07/types/TMDB/search';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 type SelectContentProps = {
@@ -10,7 +11,7 @@ const SelectContent: React.FC<SelectContentProps> = ({ items }) => {
 const router = useRouter();
 const searchParams = useSearchParams();
 
-const handleSelect = (type) => {
+const handleSelect = (type: MediaTypes) => {
   const params = new URLSearchParams(searchParams.toString());
   params.set('type', type);
   router.push(`?${params.toString()}`);
