@@ -4,9 +4,18 @@ import SelectContent from "maidana07/components/search/page/select-content"
 import { MediaTypes } from "maidana07/types/TMDB/search"
 import tmdbFetcher from "maidana07/lib/api/tmdb"
 import dynamic from "next/dynamic"
+import SkeletonMediaGrid from "maidana07/components/media/list/skeleton-media-grid"
+
 
 const SearchList = dynamic(() => import("maidana07/components/search/page/search-list"), {
-  loading: () => <div>Cargando...</div>
+  loading: () =>
+    <section className="space-y-4 py-10 min-h-[100dvh] max-w-6xl mx-auto">
+      <SkeletonMediaGrid
+        itemsLength={10}
+        containClassName="gap-x-0.5 gap-y-3 sm:gap-3"
+        cardClassName="mx-auto max-h-full h-[384px] aspect-auto rounded-xl shadow-sm"
+      />
+    </section>
 })
 
 const types = [
