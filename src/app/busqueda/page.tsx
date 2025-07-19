@@ -17,6 +17,10 @@ const types = [
 ]
 
 
+export const metadata = {
+  title: "Búsqueda"
+}
+
 const Busqueda = async ({ searchParams }: { searchParams: Promise<{ q: string, type: MediaTypes, page: number }> }) => {
   const { q, type, page } = await searchParams
 
@@ -34,7 +38,7 @@ const Busqueda = async ({ searchParams }: { searchParams: Promise<{ q: string, t
         </div>
       </HeroSection>
 
-      <SearchList data={data} />
+      <SearchList data={data} type={type} />
 
     </>
   )

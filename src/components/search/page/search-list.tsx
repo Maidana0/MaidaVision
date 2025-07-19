@@ -1,14 +1,18 @@
 "use client"
-import { FC, use, useTransition } from "react";
+import { FC, use } from "react";
 import MediaPagination from "maidana07/components/media/list/media-pagination"
 import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "maidana07/components/ui/card";
 import Image from "next/image";
 import CustomLink from "maidana07/components/ui/custom-link";
+import { Badge } from "maidana07/components/ui/badge";
+import { convertTitleToURL, translateMediaType } from "maidana07/utils/transform/stringDto";
+import { MediaTypes } from "maidana07/types/TMDB/search";
 
 interface SearchListProps {
   data: Promise<any>;
+  type?: MediaTypes
 }
-const SearchList: FC<SearchListProps> = ({ data }) => {
+const SearchList: FC<SearchListProps> = ({ data, type }) => {
   const { data: response } = use(data)
 
   return (
@@ -24,18 +28,44 @@ const SearchList: FC<SearchListProps> = ({ data }) => {
               title={media.title ?? media.name}
             >
 
-              <div className="w-full max-h-[272px] h-auto aspect-[2/3]">
-                <Image
-                  src={
-                    (media.poster_path && media.poster_path != null)
-                      ? `https://image.tmdb.org/t/p/w200${media.poster_path}`
-                      : "https://placehold.co/200x300?text=No+Image"
-                  }
-                  width={185}
-                  height={272}
-                  alt={media.title || media.name}
-                  className="brightness-95 object-cover max-w-full size-full"
-                />
+              <div className="w-full max-h-[272px] h-auto aspect-[2/3] relative content-center brightness-90 hover:brightness-100 transition">
+                {(type == "person" || media.media_type == "person")
+                  ? <Image
+                    className={"object-contain  max-w-full mx-auto content-center"}
+                    src={(media.profile_path && media.profile_path != null)
+                      ? `https://image.tmdb.org/t/p/w185${media.profile_path}`
+                      : "/images/person2.png"}
+                    alt={media.name}
+                    height={media.profile_path != null ? 282 : 96}
+                    width={media.profile_path != null ? 185 : 64}
+                    loading="lazy"
+                    quality={75}
+                  />
+                  : <Image
+                    src={
+                      (media.poster_path && media.poster_path != null)
+                        ? `https://image.tmdb.org/t/p/w200${media.poster_path}`
+                        : "/images/image-not-found.png"
+                    }
+                    width={185}
+                    height={272}
+                    loading="lazy"
+                    quality={75}
+                    alt={media.title || media.name}
+                    className="object-cover max-w-full size-full content-center"
+                  />
+                }
+                <>
+                  <Badge className="absolute right-1 top-1 px-1.5 text-[0.67rem]" variant={"secondary"}>
+                    {translateMediaType(media.media_type || type)}
+                  </Badge>
+                  <Badge className="absolute right-1 bottom-1 px-1.5 text-[0.67rem]" variant={"secondary"}>
+                    {(type == "person" || media.media_type == "person")
+                      ? (media.known_for_department)
+                      : (media.release_date || media.first_air_date).slice(0, 4)
+                    }
+                  </Badge>
+                </>
               </div>
 
 
@@ -44,7 +74,13 @@ const SearchList: FC<SearchListProps> = ({ data }) => {
                   {media.title ?? media.name}
                 </CardTitle>
                 <CardDescription className="text-[0.8rem] text-muted-foreground line-clamp-3">
-                  {media.overview?.length > 5 ? media.overview : "La descripción no está disponible."}
+                  {(type == "person" || media.media_type == "person")
+                    ? media.known_for.length >= 1 ? (<>
+                      Conocid{media.gender == 1 ? "a" : "o"} por:{" "}
+                      {media.known_for.map((kf: any) => kf.title || kf.name).filter(Boolean).join(', ')}
+                    </>) : "La información no está disponible."
+                    : media.overview?.length > 5 ? media.overview : "La descripción no está disponible."
+                  }
                 </CardDescription>
 
               </CardContent>
@@ -52,9 +88,12 @@ const SearchList: FC<SearchListProps> = ({ data }) => {
               <CardFooter className="justify-center mt-auto">
                 <CardAction>
                   <CustomLink
-                    className="h-6 flex bg-primary/70 text-[0.8rem]"
+                    className="h-[1.6rem] bg-primary/70 text-[0.8rem]"
                     variant={"button"}
-                    href={`/media/${media.media_type}/${media.id}`}
+                    href={
+                      `/${translateMediaType(media.media_type || type, false, true)}/${convertTitleToURL(media.title || media.name, media.id)
+                      }`
+                    }
                   >
                     Ver más
                   </CustomLink>

@@ -54,9 +54,9 @@ const nextConfig: NextConfig = {
         hostname: 'placehold.co',
       },
     ],
+    dangerouslyAllowSVG: true
   },
-  transpilePackages: ['framer-motion'],
-  dangerouslyAllowSVG: true
+  transpilePackages: ['framer-motion']
 };
 
 export default nextConfig;
