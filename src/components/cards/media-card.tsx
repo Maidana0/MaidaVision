@@ -33,8 +33,9 @@ const MediaCard = ({ media, mediaType, priority, withDescription = false, withSc
         loading={priority ? "eager" : "lazy"}
         priority={priority}
         title={isMovie(media) ? media.title : media.name}
+        unoptimized={!media.poster_path}
         src={
-          media.poster_path
+          (media.poster_path && media.poster_path != null)
             ? `https://image.tmdb.org/t/p/w185${media.poster_path}`
             : "https://placehold.co/185x278?text=No+Image"
         }

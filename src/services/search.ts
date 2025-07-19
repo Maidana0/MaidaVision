@@ -9,6 +9,7 @@ export async function search(query: string, { type = "multi", page = 1 }: Search
   const data = await fetcher<SearchResponse>({
     url, errorMessage: 'Ocurrió un error al realizar la búsqueda', successMessage: "Resultados de búsqueda"
   });
-
+  console.log(data);
+  
   return data;
 }

@@ -4,11 +4,11 @@ import { NextResponse } from 'next/server';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const [t, p] = [searchParams.get('q'), searchParams.get('type')]
+  const [t, p] = [searchParams.get('type'), searchParams.get('page')]
   const query = searchParams.get('q');
   const type: MediaTypes | undefined = t == null ? undefined : t;
   const page: number | undefined = searchParams.get('page') == null ? undefined : Number(p);
-
+  
   if (!query) {
     return NextResponse.json({
       success: true,

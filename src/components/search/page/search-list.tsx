@@ -1,7 +1,7 @@
 "use client"
 import { FC, Suspense, use } from "react";
 import MediaPagination from "maidana07/components/media/list/media-pagination"
-import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "maidana07/components/ui/card";
+import { Card, CardAction, CardContent, CardDescription, CardFooter, CardTitle } from "maidana07/components/ui/card";
 import Image from "next/image";
 import CustomLink from "maidana07/components/ui/custom-link";
 import { Badge } from "maidana07/components/ui/badge";
@@ -14,6 +14,7 @@ interface SearchListProps {
 }
 const SearchList: FC<SearchListProps> = ({ data, type }) => {
   const { data: response } = use(data)
+  console.log(response);
 
   return (
     <section className="space-y-4 py-10 min-h-[55dvh] max-w-6xl mx-auto">
@@ -63,7 +64,10 @@ const SearchList: FC<SearchListProps> = ({ data, type }) => {
                         <Badge className="absolute right-1 bottom-1 px-1.5 text-[0.67rem]" variant={"secondary"}>
                           {(type == "person" || media.media_type == "person")
                             ? (media.known_for_department)
-                            : (media.release_date || media.first_air_date).slice(0, 4)
+                            : (
+                              media.release_date?.slice(0, 4) ||
+                              (media.first_air_date && media.first_air_date !== "" ? media.first_air_date.slice(0, 4) : "N/D")
+                            )
                           }
                         </Badge>
                       </>
