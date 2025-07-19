@@ -9,12 +9,7 @@ import {
   PaginationPrevious,
 } from "maidana07/components/ui/pagination"
 import { useSearchParams } from "next/navigation";
-/*
-const router = useRouter();
 
-
-
-*/
 const MediaPagination = ({ page = 1, totalPages = 1 }: { page?: number; totalPages?: number }) => {
   const searchParams = useSearchParams();
 

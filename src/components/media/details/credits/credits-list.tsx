@@ -43,9 +43,9 @@ const CreditsList: FC<CreditsListProps> = ({ items, type, mediaType }) => {
 
 
         {items.slice(0, 6)
-          .map((person, i) => (
+          .map((person) => (
             <PersonCard
-              key={person.id + "-" + i}
+              key={person.id}
               name={person.name}
               image={person.profile_path}
               description={getDescription(type, person, mediaType)}

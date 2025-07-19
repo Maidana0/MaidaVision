@@ -32,8 +32,8 @@ const TrendingCarousel: FC<TrendingCarouselProps> = ({ items, href = "#", headin
       </div>
 
       <Carousel>
-        {items.map((item, i) => (
-          <SwiperSlide key={`${item.id}-${i}`}>
+        {items.map((item) => (
+          <SwiperSlide key={item.id}>
             <TrendingCard item={item} />
           </SwiperSlide>
         ))}
