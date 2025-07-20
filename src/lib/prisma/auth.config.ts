@@ -1,5 +1,6 @@
 import type { NextAuthConfig } from "next-auth";
 import GitHub from "next-auth/providers/github";
+import Google from "next-auth/providers/google"
 import Credentials from "next-auth/providers/credentials";
 import { myLoginSchema } from "../zod/schema";
 import prisma from "./prisma";
@@ -8,6 +9,7 @@ import bcrypt from "bcryptjs";
 export default {
   providers: [
     GitHub,
+    Google,
     Credentials({
       credentials: {
         email: {},
