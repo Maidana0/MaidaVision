@@ -5,7 +5,7 @@ import { Badge } from "maidana07/components/ui/badge";
 import { convertTitleToURL, translateMediaType } from "maidana07/utils/transform/stringDto";
 import { MediaTypes } from "maidana07/types/TMDB/search";
 
-
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
 const SearchPageCard = ({ media, type }: { media: any, type?: MediaTypes }) => (
   <Card
     className="gap-0 pb-2 overflow-hidden w-[185px] mx-auto"
@@ -64,7 +64,8 @@ const SearchPageCard = ({ media, type }: { media: any, type?: MediaTypes }) => (
         {(type == "person" || media.media_type == "person")
           ? media.known_for.length >= 1 ? (<>
             Conocid{media.gender == 1 ? "a" : "o"} por:{" "}
-            {media.known_for.map((kf: any) => kf.title || kf.name).filter(Boolean).join(', ')}
+            {// eslint-disable-next-line  @typescript-eslint/no-explicit-any
+              media.known_for.map((kf: any) => kf.title || kf.name).filter(Boolean).join(', ')}
           </>) : "La información no está disponible."
           : media.overview?.length > 5 ? media.overview : "La descripción no está disponible."
         }

@@ -3,11 +3,13 @@ import { FC, useState } from "react";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
 import Image from "next/image";
+import { Control } from "react-hook-form";
 
 interface PasswordInputProps {
-  name: string;
+  name: "password" | "confirmPassword";
   label: string;
-  control: any;
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+  control: Control<{ email: string; password: string; } | { email: string; password: string; confirmPassword: string; name?: string | undefined; }, any, { email: string; password: string; } | { email: string; password: string; confirmPassword: string; name?: string | undefined; }>;
 }
 
 

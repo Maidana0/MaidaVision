@@ -11,7 +11,9 @@ const FilterDialog = dynamic(() => import("maidana07/components/media/filter/fil
 const SortSelect = dynamic(() => import("maidana07/components/media/sort-select"), {
   loading: () => <Skeleton className="h-9 w-[126px] dark:bg-input/30 bg-background rounded-md border border-input" />
 })
-const DynamicMediaGrid = dynamic(() => import("maidana07/components/media/list/dynamic-media-grid"), { loading: SkeletonMediaGrid })
+const DynamicMediaGrid = dynamic(() => import("maidana07/components/media/list/dynamic-media-grid"), {
+  loading: () => <SkeletonMediaGrid />
+})
 
 export const metadata = {
   title: "Películas"

@@ -5,6 +5,7 @@ import { MediaTypes } from "maidana07/types/TMDB/search";
 import SearchPageCard from "maidana07/components/cards/search-page-card";
 
 interface SearchListProps {
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   data: Promise<any>;
   type?: MediaTypes
 }
@@ -17,7 +18,7 @@ const SearchList: FC<SearchListProps> = ({ data, type }) => {
         ? <>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-0.5 gap-y-3 sm:gap-3">
             <Suspense>
-              {
+              {// eslint-disable-next-line  @typescript-eslint/no-explicit-any
                 response.results.map((media: any) => (
                   <SearchPageCard key={media.id} media={media} type={type} />
                 ))

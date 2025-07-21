@@ -28,7 +28,7 @@ const SearchCommand: FC<SearchCardProps> = ({
       media_type: type,
     });
     closeSearchDialog("search");
-  }, [closeSearchDialog]);
+  }, [closeSearchDialog, addToHistory, id, image, title, type, year]);
 
   return (
     <motion.div
@@ -43,27 +43,27 @@ const SearchCommand: FC<SearchCardProps> = ({
       className="w-full"
     >
       <Link href={(`/${translateMediaType(type, false, true)
-      }/${convertTitleToURL(
-        title ?? "",
-        Number(id))
-      }`)}>
-      
-
-      <CommandItem onSelect={handleSelect} className="md:h-[106px]">
-        <SearchCard
-          item={{
-            title,
-            id,
-            image,
-            known_for_department,
-            type,
-            year
-          }}
-        />
-      </CommandItem>
+        }/${convertTitleToURL(
+          title ?? "",
+          Number(id))
+        }`)}>
 
 
-        </Link>
+        <CommandItem onSelect={handleSelect} className="md:h-[106px]">
+          <SearchCard
+            item={{
+              title,
+              id,
+              image,
+              known_for_department,
+              type,
+              year
+            }}
+          />
+        </CommandItem>
+
+
+      </Link>
     </motion.div >
   )
 }

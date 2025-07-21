@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from "next";
+import type { Viewport } from "next";
 // import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "maidana07/components/ui/sonner"
@@ -17,62 +17,6 @@ export const viewport: Viewport = {
 }
 
 export const metadata = customMetadata;
-
-// export const metadata: Metadata = {
-//   title: {
-//     default: 'MaidaVision | Tu app para seguir películas y series',
-//     template: '%s | MaidaVision'
-//   },
-//   description: 'Descubre, busca y sigue tus películas y series favoritas. Encuentra contenido en tendencia y mantén un registro de lo que quieres ver.',
-//   keywords: ['películas', 'series', 'streaming', 'TMDB', 'watchlist', 'tendencias', 'entertainment', 'Netflix', 'Disney+', 'Prime Video'],
-//   authors: [{ name: 'Maidana0' }],
-//   creator: 'Maidana0',
-//   publisher: 'MaidaVision',
-//   robots: {
-//     index: true,
-//     follow: true,
-//     googleBot: {
-//       index: true,
-//       follow: true,
-//     },
-//   },
-//   openGraph: {
-//     type: 'website',
-//     locale: 'es_AR',
-//     url: 'https://maidavision.vercel.app',
-//     title: 'MaidaVision | Tu app para seguir películas y series',
-//     description: 'Descubre, busca y sigue tus películas y series favoritas',
-//     siteName: 'MaidaVision',
-//     images: [
-//       {
-//         url: '/logo/isologotipo-og.png',
-//         width: 1200,
-//         height: 630,
-//         alt: 'MaidaVision Preview'
-//       }
-//     ],
-//   },
-//   twitter: {
-//     card: 'summary_large_image',
-//     title: 'MaidaVision | Tu app para seguir películas y series',
-//     description: 'Descubre, busca y sigue tus películas y series favoritas',
-//     images: ['/logo/isologotipo-og.png'],
-//   },
-//   icons: {
-//     icon: '/favicon.ico',
-//     apple: '/apple-icon.png',
-//   },
-//   manifest: '/manifest.json',
-// }
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
-
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
 
 export default function RootLayout({
   children,
