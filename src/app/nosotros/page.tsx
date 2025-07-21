@@ -31,7 +31,7 @@ const stats = [
 ]
 
 export const metadata = {
-  title: "Sobre MaidaVision",
+  title: "Nosotros",
   description: "Descubre cómo MaidaVision está revolucionando el streaming, unificando tus plataformas favoritas en una sola experiencia. Conoce nuestra misión, valores y el equipo detrás de esta innovación."
 }
 
@@ -88,7 +88,8 @@ export default function AboutPage() {
       <Section>
         <div className="max-w-2xl mx-auto text-center px-4">
           <Image
-            src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"
+            unoptimized
+            src="/icons/tmdb-asset-3.svg"
             alt="The Movie Database Logo"
             className="mx-auto mb-6 h-10"
             height={40}

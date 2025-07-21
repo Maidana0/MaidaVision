@@ -1,0 +1,75 @@
+{
+  "title": {
+    "default": "MaidaVision | Tu app para seguir películas y series",
+    "template": "%s | MaidaVision"
+  },
+  "description": "Descubre, busca y sigue tus películas y series favoritas. Encuentra contenido en tendencia y mantén un registro de lo que quieres ver.",
+  "keywords": [
+    "películas",
+    "series",
+    "streaming",
+    "TMDB",
+    "watchlist",
+    "tendencias",
+    "Netflix",
+    "Disney+",
+    "Prime Video",
+    "MaidaVision",
+    "descubrir series",
+    "seguir películas",
+    "dónde ver"
+  ],
+  "authors": [
+    {
+      "name": "Maidana0",
+      "url": "https://maidavision.vercel.app"
+    }
+  ],
+  "creator": "Maidana0",
+  "publisher": "MaidaVision",
+  "robots": {
+    "index": true,
+    "follow": true,
+    "googleBot": {
+      "index": true,
+      "follow": true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1
+    }
+  },
+  "openGraph": {
+    "type": "website",
+    "locale": "es_AR",
+    "url": "https://maidavision.vercel.app",
+    "title": "MaidaVision | Tu app para seguir películas y series",
+    "description": "Descubre, busca y sigue tus películas y series favoritas. Encuentra contenido en tendencia y mantén un registro de lo que quieres ver.",
+    "siteName": "MaidaVision",
+    "images": [
+      {
+        "url": "/logo/isologotipo-og.png",
+        "width": 1200,
+        "height": 630,
+        "alt": "Vista previa de MaidaVision",
+        "type": "image/png"
+      }
+    ]
+  },
+  "twitter": {
+    "card": "summary_large_image",
+    "site": "@maidavision",
+    "creator": "@maidana_07",
+    "title": "MaidaVision | Tu app para seguir películas y series",
+    "description": "Descubre, busca y sigue tus películas y series favoritas. Encuentra contenido en tendencia y mantén un registro de lo que quieres ver.",
+    "images": [
+      "/logo/isologotipo-og.png"
+    ]
+  },
+  "icons": {
+    "icon": "/favicon.ico",
+    "shortcut": "/favicon.ico",
+    "apple": "/apple-icon.png"
+  },
+  "manifest": "/manifest.json",
+  "category": "entertainment"
+}

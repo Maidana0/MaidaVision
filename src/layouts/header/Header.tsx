@@ -1,5 +1,4 @@
 
-import Link from "next/link"
 import { NavigationMenu, NavigationMenuList, NavigationMenuItem } from "maidana07/components/ui/navigation-menu"
 import MobileMenu from "./mobile-menu"
 import links from "./links.json"
@@ -9,6 +8,7 @@ import CommandTrigger from "maidana07/components/search/command-trigger"
 import { Suspense } from "react"
 import Session from "./user/session"
 import { Skeleton } from "maidana07/components/ui/skeleton"
+import Logo from "./logo"
 
 const Header = async () => {
 
@@ -20,9 +20,7 @@ const Header = async () => {
             <MobileMenu />
           </Suspense>
 
-          <Link href="/" className="text-xl font-bold tracking-tight ml-5 sm:block hidden">
-            Maida<span className="text-primary">Vision</span>
-          </Link>
+          <Logo />
         </div>
 
 
@@ -58,7 +56,7 @@ const Header = async () => {
 
 
       </div>
-    </header>
+    </header >
   )
 }
 

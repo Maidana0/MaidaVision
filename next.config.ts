@@ -53,6 +53,11 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'placehold.co',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.themoviedb.org',
+        pathname: '/assets/2/v4/logos/v2/**',
+      },
     ],
     dangerouslyAllowSVG: true
   },

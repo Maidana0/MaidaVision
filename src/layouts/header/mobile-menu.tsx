@@ -5,6 +5,7 @@ import { Menu, X } from "lucide-react"
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "maidana07/components/ui/sheet"
 import { Button } from "maidana07/components/ui/button"
 import links from "./links.json"
+import Logo from "./logo"
 
 export default function MobileMenu() {
 
@@ -25,8 +26,8 @@ export default function MobileMenu() {
                 <X className="w-6 h-6" />
               </Button>
             </SheetClose>
-            <SheetTitle className="text-xl font-bold tracking-tight ml-5">
-              Maida<span className="text-primary">Vision</span>
+            <SheetTitle className="mx-auto">
+              <Logo notHidden />
             </SheetTitle>
           </SheetHeader>
 
