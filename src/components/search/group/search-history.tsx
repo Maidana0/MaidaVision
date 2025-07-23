@@ -29,7 +29,7 @@ function SearchHistory() {
     >
       <CommandItem
         key="clear-history"
-        className="cursor-pointer opacity-75 w-fit mx-auto mt-2"
+        className="cursor-pointer opacity-75 w-fit mx-auto mt-4"
         onSelect={clearHistory}
       >
         <Trash2 className="h-4 w-4" /> Limpiar historial
