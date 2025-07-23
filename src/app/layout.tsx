@@ -1,4 +1,4 @@
-import type { Viewport } from "next";
+import type { Metadata, Viewport } from "next";
 // import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "maidana07/components/ui/sonner"
@@ -16,7 +16,41 @@ export const viewport: Viewport = {
   initialScale: 1,
 }
 
-export const metadata = customMetadata;
+export const metadata: Metadata = {
+  metadataBase: new URL("https://maidavision.vercel.app"),
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: customMetadata.title.default,
+  },
+  formatDetection: {
+    telephone: false,
+  },
+  applicationName: "MaidaVision",
+  other: {
+    "msapplication-TileColor": "#690016b4",
+    "mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "default",
+  },
+  ...customMetadata,
+};
 
 export default function RootLayout({
   children,

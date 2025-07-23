@@ -22,22 +22,11 @@
   "authors": [
     {
       "name": "Maidana0",
-      "url": "https://maidavision.vercel.app"
+      "url": "https://github.com/Maidana0"
     }
   ],
   "creator": "Maidana0",
   "publisher": "MaidaVision",
-  "robots": {
-    "index": true,
-    "follow": true,
-    "googleBot": {
-      "index": true,
-      "follow": true,
-      "max-snippet": -1,
-      "max-image-preview": "large",
-      "max-video-preview": -1
-    }
-  },
   "openGraph": {
     "type": "website",
     "locale": "es_AR",
@@ -47,10 +36,18 @@
     "siteName": "MaidaVision",
     "images": [
       {
-        "url": "/logo/isologotipo-og.png",
+        "url": "https://maidavision.vercel.app/logo/isologotipo-og.png",
         "width": 1200,
         "height": 630,
         "alt": "Vista previa de MaidaVision",
+        "type": "image/png",
+        "secureUrl": "https://maidavision.vercel.app/logo/isologotipo-og.png"
+      },
+      {
+        "url": "https://maidavision.vercel.app/logo/icon-512x512.png",
+        "width": 512,
+        "height": 512,
+        "alt": "Icono de MaidaVision",
         "type": "image/png"
       }
     ]
@@ -61,9 +58,10 @@
     "creator": "@maidana_07",
     "title": "MaidaVision | Tu app para seguir películas y series",
     "description": "Descubre, busca y sigue tus películas y series favoritas. Encuentra contenido en tendencia y mantén un registro de lo que quieres ver.",
-    "images": [
-      "/logo/isologotipo-og.png"
-    ]
+    "images": {
+      "url": "https://maidavision.vercel.app/logo/isologotipo-og.png",
+      "alt": "MaidaVision Preview"
+    }
   },
   "icons": {
     "icon": "/favicon.ico",
