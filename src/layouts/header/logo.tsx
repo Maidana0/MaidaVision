@@ -9,7 +9,7 @@ const montserrat = Montserrat({
 });
 
 const Logo = ({ notHidden }: { notHidden?: boolean }) => (
-  <div className={`items-center align-middle ${notHidden ? "flex" : "sm:flex hidden"} gap-2.5 h-11`}>
+  <div className={`items-center align-middle ${notHidden ? "flex" : "sm:flex hidden"} gap-3 h-8`}>
     <Image
       alt="maida-vision"
       src={"/logo/icon-64x64.png"}
