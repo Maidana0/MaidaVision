@@ -1,6 +1,6 @@
 'use client';
 
-import { Command, CommandDialog, CommandInput, CommandList } from 'maidana07/components/ui/command';
+import { Command, CommandDialog, CommandList } from 'maidana07/components/ui/command';
 import useSearch from 'maidana07/hooks/use-search';
 import useHotkey from 'maidana07/hooks/use-hot-key';
 import useDialogStore from 'maidana07/store/use-dialog-store';
@@ -8,6 +8,7 @@ import SearchResults from './group/search-results';
 import SearchHistory from './group/search-history';
 import { useShallow } from 'zustand/react/shallow';
 import CustomLink from '../ui/custom-link';
+import VoiceSearchInput from './voice-search-input';
 
 
 export default function CommandDialogSearch() {
@@ -30,12 +31,13 @@ export default function CommandDialogSearch() {
       onClose={clearQuery}
       title='Buscador de MaidaVision'
       description='Busca películas y series por su título'
+      showIconClose={false}
     >
       <Command shouldFilter={false} className="overflow-y-auto">
-        <CommandInput
-          placeholder="Buscar películas o series..."
+        <VoiceSearchInput
           value={searchQuery}
           onValueChange={setSearchQuery}
+          loading={loading}
         />
 
         <CommandList className="max-h-[60vh]">
