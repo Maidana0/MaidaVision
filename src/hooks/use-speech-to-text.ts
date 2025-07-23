@@ -5,8 +5,8 @@ import { useEffect, useRef, useState } from "react"
 /**
  * Error types that can occur during speech recognition
  */
-type SpeechRecognitionErrorType = 
-  | 'not-supported' 
+type SpeechRecognitionErrorType =
+  | 'not-supported'
   | 'no-speech'
   | 'network'
   | 'not-allowed'
@@ -64,6 +64,7 @@ const useSpeechToText = ({
   const [transcript, setTranscript] = useState<string>("");
   const [error, setError] = useState<SpeechRecognitionError | null>(null);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
+  const isInitializedRef = useRef<boolean>(false);
 
   useEffect(() => {
     try {
@@ -81,70 +82,84 @@ const useSpeechToText = ({
         );
       }
 
-      const SpeechRecognition = window.SpeechRecognition ?? window.webkitSpeechRecognition;
-      recognitionRef.current = new SpeechRecognition();
+      if (!isInitializedRef.current) {
+        const SpeechRecognition = window.SpeechRecognition ?? window.webkitSpeechRecognition;
+        recognitionRef.current = new SpeechRecognition();
+        isInitializedRef.current = true;
 
-    const recognition = recognitionRef.current
+        const recognition = recognitionRef.current;
 
-    recognition.interimResults = interimResults
-    recognition.lang = lang
-    recognition.continuous = continuous
+        recognition.interimResults = interimResults;
+        recognition.lang = lang;
+        recognition.continuous = continuous;
 
-    if ("webkitSpeechGrammarList" in window) {
+      if ("webkitSpeechGrammarList" in window) {
 
-      const speechRecognitionList = new window.webkitSpeechGrammarList()
-      speechRecognitionList.addFromString(SPEECH_GRAMMAR, 1)
-      recognition.grammars = speechRecognitionList
+        const speechRecognitionList = new window.webkitSpeechGrammarList()
+        speechRecognitionList.addFromString(SPEECH_GRAMMAR, 1)
+        recognition.grammars = speechRecognitionList
 
-      recognition.onresult = (event) => {
-        let interimTranscript = Array.from(event.results)
-          .map((result) => result[0].transcript)
-          .join("");
+        recognition.onresult = (event) => {
+          try {
+            let interimTranscript = Array.from(event.results)
+              .map((result) => result[0].transcript)
+              .join("");
 
-        interimTranscript = interimTranscript
-          .replace(/punto y coma/gi, ";")
-          .replace(/punto/gi, ".")
-          .replace(/coma/gi, ",")
-          .replace(/salto de línea/gi, "\n")
-          .replace(/barra/gi, "/");
+            interimTranscript = interimTranscript
+              .replace(/punto y coma/gi, ";")
+              .replace(/punto/gi, ".")
+              .replace(/coma/gi, ",")
+              .replace(/salto de línea/gi, "\n")
+              .replace(/barra/gi, "/");
 
+            // Poner en mayuscula la primer letra antes de los signos indicados...
+            interimTranscript = interimTranscript
+              .toLowerCase()
+              .replace(/(^\w)|(\.|\;|\n)\s*\w/g, (match) => {
+                return match.toUpperCase();
+              });
 
+            // Borrar espacios antes de la puntuacion && antes y despues de saltos de lineas
+            interimTranscript = interimTranscript
+              .replace(/\s+([.,;?!])/g, '$1')
+              .replace(/\n+\s/g, '\n')
+              .replace(/\s+\n/g, '\n');
 
-        // Poner en mayuscula la primer letra antes de los signos indicados...
-        interimTranscript = interimTranscript
-          .toLowerCase()
-          .replace(/(^\w)|(\.|\;|\n)\s*\w/g, (match) => {
-            return match.toUpperCase();
-          });
+            setTranscript(interimTranscript);
+          } catch (err) {
+            console.error('Error processing speech result:', err);
+            setError(new SpeechRecognitionError('service-not-allowed', 'Error processing speech'));
+          }
+        };
 
-        // Borrar espacios antes de la puntuacion && antes y despues de saltos de lineas
-        interimTranscript = interimTranscript
-          .replace(/\s+([.,;?!])/g, '$1')
-          .replace(/\n+\s/g, '\n')
-          .replace(/\s+\n/g, '\n');
-
-        setTranscript(interimTranscript);
-      };
-
-    }
-
-    recognition.onerror = (event) => {
-      const errorType = event.error as SpeechRecognitionErrorType;
-      const errorMessage = `Speech recognition error: ${event.error}`;
-      setError(new SpeechRecognitionError(errorType, errorMessage));
-      setIsListening(false);
-    }
-
-    recognition.onend = () => {
-      setIsListening(false);
-      if (!preserveTranscriptOnMobile && isMobile()) {
-        setTranscript("");
       }
-    }
 
-    return () => {
-      recognition.stop();
-    }
+      recognition.onerror = (event) => {
+        const errorType = event.error as SpeechRecognitionErrorType;
+        const errorMessage = `Speech recognition error: ${event.error}`;
+        setError(new SpeechRecognitionError(errorType, errorMessage));
+        setIsListening(false);
+      }
+
+      recognition.onend = () => {
+        setIsListening(false);
+        if (!preserveTranscriptOnMobile && isMobile()) {
+          setTranscript("");
+        }
+      }
+
+      recognition.onspeechend = () => {
+        if (!continuous) {
+          recognition.stop();
+        }
+      }
+      }
+
+      return () => {
+        if (recognitionRef.current) {
+          recognitionRef.current.stop();
+        }
+      }
     } catch (err) {
       if (err instanceof SpeechRecognitionError) {
         setError(err);
@@ -152,7 +167,7 @@ const useSpeechToText = ({
         setError(new SpeechRecognitionError('not-supported', 'An unexpected error occurred'));
       }
     }
-  }, [preserveTranscriptOnMobile])
+  }, [preserveTranscriptOnMobile, continuous, interimResults, lang]);
 
   const startListening = () => {
     if (recognitionRef.current && !isListening) {

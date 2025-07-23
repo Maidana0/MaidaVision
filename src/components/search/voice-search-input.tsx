@@ -41,17 +41,21 @@ export default function VoiceSearchInput({
     stopListening,
     error,
     isSupported
-  } = useSpeechToText({ preserveTranscriptOnMobile: true });
+  } = useSpeechToText();
 
   // Manejar el estado del diálogo y el transcript
   useEffect(() => {
     if (transcript) {
       onValueChange(transcript);
     }
+  }, [transcript, onValueChange]);
+
+  // Manejar el estado del diálogo
+  useEffect(() => {
     if (!isDialogOpen && isListening) {
       stopListening();
     }
-  }, [transcript, onValueChange, isDialogOpen, isListening, stopListening]);
+  }, [isDialogOpen, isListening, stopListening]);
 
   // Manejar errores con Sonner
   useEffect(() => {
@@ -82,7 +86,7 @@ export default function VoiceSearchInput({
             toast.error(errorMessages['not-supported']);
             return;
           }
-          isListening ? stopListening() : startListening();
+          if (isListening) stopListening(); else startListening();
         }}
         title={
           !isSupported
