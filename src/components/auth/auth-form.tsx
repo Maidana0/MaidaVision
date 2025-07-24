@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,6 +8,7 @@ import { Input } from "maidana07/components/ui/input";
 import { Button } from "maidana07/components/ui/button";
 import { z } from "zod";
 import { FC, useState, useTransition } from "react";
+import PasswordInput from "./password-input";
 
 interface Props {
   type: "login" | "register";
@@ -44,7 +45,11 @@ const AuthForm: FC<Props> = ({ type, onSubmitAction, submitText = "Enviar" }) =>
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className={`${type === "register"
+          ? "grid grid-cols-1 w-full md:grid-cols-2 gap-6" : "space-y-6"
+          }`}>
         {serverError && (
           <div className="text-sm text-red-500 font-medium text-center">
             {serverError}
@@ -83,37 +88,21 @@ const AuthForm: FC<Props> = ({ type, onSubmitAction, submitText = "Enviar" }) =>
           )}
         />
 
-        <FormField
+        <PasswordInput
           control={form.control}
           name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Contraseña</FormLabel>
-              <FormControl>
-                <Input type="password" placeholder="••••••••" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label="Contraseña"
         />
 
         {type === "register" && (
-          <FormField
+          <PasswordInput
             control={form.control}
             name="confirmPassword"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Confirmar contraseña</FormLabel>
-                <FormControl>
-                  <Input type="password" placeholder="••••••••" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Confirmar contraseña"
           />
         )}
 
-        <Button type="submit" className="w-full" disabled={isPending}>
+        <Button type="submit" className="w-full col-span-full max-w-4/6 block mx-auto" disabled={isPending}>
           {isPending ? "Cargando..." : submitText}
         </Button>
       </form>

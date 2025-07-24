@@ -21,7 +21,8 @@ const TrendingCard: FC<{ item: TrendingMedia }> = ({ item }) => {
 
       <Image
         loading={"lazy"}
-        src={item.poster_url}
+        unoptimized={!item.poster_url}
+        src={(item.poster_url && item.poster_url != null) ? item.poster_url : "https://placehold.co/185x278?text=No+Image"}
         alt={`${item.position}-${item.title}`}
         className={`swiper-lazy w-full h-full object-cover transition-all duration-500 dark:sm:opacity-70 dark:sm:group-hover:opacity-100 hover:scale-105`}
         width={185}

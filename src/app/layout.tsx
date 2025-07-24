@@ -6,9 +6,9 @@ import Header from "maidana07/layouts/header/header";
 import Footer from "maidana07/layouts/footer/footer";
 import { ThemeProvider } from "maidana07/providers/theme-provider";
 import CommandDialogSearch from "maidana07/components/search/command-dialog"
-import BgGradient from "maidana07/components/ui/bg-gradient"
 import { Suspense } from "react";
 import ScrollToTop from "maidana07/components/scroll-to-top";
+import customMetadata from "../../public/metadata.json";
 
 export const viewport: Viewport = {
   themeColor: "#690016b4",
@@ -17,60 +17,40 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: {
-    default: 'MaidaVision | Tu app para seguir películas y series',
-    template: '%s | MaidaVision'
-  },
-  description: 'Descubre, busca y sigue tus películas y series favoritas. Encuentra contenido en tendencia y mantén un registro de lo que quieres ver.',
-  keywords: ['películas', 'series', 'streaming', 'TMDB', 'watchlist', 'tendencias', 'entertainment', 'Netflix', 'Disney+', 'Prime Video'],
-  authors: [{ name: 'Maidana0' }],
-  creator: 'Maidana0',
-  publisher: 'MaidaVision',
+  metadataBase: new URL("https://maidavision.vercel.app"),
   robots: {
     index: true,
     follow: true,
+    nocache: false,
     googleBot: {
       index: true,
       follow: true,
+      noimageindex: false,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
     },
   },
-  openGraph: {
-    type: 'website',
-    locale: 'es_AR',
-    url: 'https://maidavision.vercel.app',
-    title: 'MaidaVision | Tu app para seguir películas y series',
-    description: 'Descubre, busca y sigue tus películas y series favoritas',
-    siteName: 'MaidaVision',
-    // images: [
-    //   {
-    //     url: '/og-image.jpg', // Asegúrate de tener esta imagen en tu carpeta public
-    //     width: 1200,
-    //     height: 630,
-    //     alt: 'MaidaVision Preview'
-    //   }
-    // ],
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'MaidaVision | Tu app para seguir películas y series',
-    description: 'Descubre, busca y sigue tus películas y series favoritas',
-    // images: ['/og-image.jpg'],
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: customMetadata.title.default,
   },
-  // icons: {
-  //   icon: '/favicon.ico',
-  //   apple: '/apple-icon.png',
-  // },
-  manifest: '/manifest.json',
-}
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
-
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
+  formatDetection: {
+    telephone: false,
+  },
+  applicationName: "MaidaVision",
+  other: {
+    "msapplication-TileColor": "#690016b4",
+    "mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "default",
+  },
+  ...customMetadata,
+};
 
 export default function RootLayout({
   children,
@@ -85,7 +65,6 @@ export default function RootLayout({
           defaultTheme="dark"
           enableSystem
         >
-          <BgGradient />
           <Header />
           <main>
             <Suspense>

@@ -1,4 +1,4 @@
-// import { signIn } from "maidana07/lib/auth"
+import { signIn } from "maidana07/lib/prisma/auth"
 import { Button } from "../../ui/button"
 
 
@@ -7,7 +7,7 @@ const GoogleLogin = () => {
   return (
     <form action={async () => {
       "use server"
-      // await signIn("google")
+      await signIn("google")
     }}>
       <Button variant="outline" className="w-full">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -16,7 +16,7 @@ const GoogleLogin = () => {
             fill="currentColor"
           />
         </svg>
-        Login with Google
+        Continúa con Google
       </Button>
     </form>
   )

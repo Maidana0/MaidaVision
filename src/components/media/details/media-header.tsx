@@ -38,7 +38,7 @@ export default function MediaHeader({ genres, backdropPath, posterPath, title, t
           }
           alt={title}
           fill
-          className="object-cover brightness-50"
+          className="object-cover brightness-50 !text-inherit"
           quality={75}
           priority
         />
@@ -61,7 +61,7 @@ export default function MediaHeader({ genres, backdropPath, posterPath, title, t
             height={360}
             quality={100}
             priority
-            className="rounded-lg"
+            className="rounded-lg text-black/80 content-center !text-inherit"
           />
           {homepage && homepage != null
             ? <CustomLink size="sm" aria-label="homepage" className="bg-muted/40 absolute top-1 left-1 font-normal truncate max-w-[240px] text-xs" href={homepage.toString()} target="_blank">

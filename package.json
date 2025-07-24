@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack --port 6060",
-    "build": "next build",
+    "build": "prisma migrate deploy && next build",
+    "postinstall": "prisma generate",
     "start": "next start",
     "lint": "next lint",
     "db:migrate": "bunx prisma migrate dev",
@@ -49,6 +50,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@types/dom-speech-recognition": "^0.0.6",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

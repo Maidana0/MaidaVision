@@ -18,7 +18,7 @@ export default function Footer() {
         </div>
 
         <p className="text-sm text-center">
-          © {new Date().getFullYear()} MaidaVision.
+          MaidaVision {new Date().getFullYear()}
         </p>
       </div>
 

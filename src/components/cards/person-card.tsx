@@ -21,8 +21,8 @@ const PersonCard: FC<{
             ? `https://image.tmdb.org/t/p/w154${image}`
             : "/images/person2.png"}
           alt={name}
-          height={image != null ? 180 : 126}
-          width={image != null ? 120 : 84}
+          height={image != null ? 180 : 96}
+          width={image != null ? 120 : 64}
           loading="lazy"
           quality={75}
         />

@@ -8,15 +8,23 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "maidana07/components/ui/pagination"
+import { useSearchParams } from "next/navigation";
 
 const MediaPagination = ({ page = 1, totalPages = 1 }: { page?: number; totalPages?: number }) => {
+  const searchParams = useSearchParams();
+
+  const handleParams = (page: number): string => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('page', String(page));
+    return (`?${params.toString()}`);
+  };
 
   return (
     <Pagination className="mt-10">
       <PaginationContent className="justify-between w-full">
 
         <PaginationItem className={page === 1 ? "opacity-0" : ""}>
-          <PaginationPrevious href={`?page=${page - 1}`} />
+          <PaginationPrevious href={handleParams(page - 1)} />
         </PaginationItem>
         <div className="flex gap-2">
 
@@ -37,7 +45,7 @@ const MediaPagination = ({ page = 1, totalPages = 1 }: { page?: number; totalPag
                     ? "hidden sm:block"
                     : ""
                 }>
-                  <PaginationLink href={`?page=${index + 1}`} isActive={page === index + 1}>
+                  <PaginationLink href={handleParams(index + 1)} isActive={page === index + 1}>
                     {index + 1}
                   </PaginationLink>
                 </PaginationItem>

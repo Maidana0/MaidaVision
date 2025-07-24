@@ -1,0 +1,73 @@
+{
+  "title": {
+    "default": "MaidaVision | Tu app para seguir películas y series",
+    "template": "%s | MaidaVision"
+  },
+  "description": "Descubre, busca y sigue tus películas y series favoritas. Encuentra contenido en tendencia y mantén un registro de lo que quieres ver.",
+  "keywords": [
+    "películas",
+    "series",
+    "streaming",
+    "TMDB",
+    "watchlist",
+    "tendencias",
+    "Netflix",
+    "Disney+",
+    "Prime Video",
+    "MaidaVision",
+    "descubrir series",
+    "seguir películas",
+    "dónde ver"
+  ],
+  "authors": [
+    {
+      "name": "Maidana0",
+      "url": "https://github.com/Maidana0"
+    }
+  ],
+  "creator": "Maidana0",
+  "publisher": "MaidaVision",
+  "openGraph": {
+    "type": "website",
+    "locale": "es_AR",
+    "url": "https://maidavision.vercel.app",
+    "title": "MaidaVision | Tu app para seguir películas y series",
+    "description": "Descubre, busca y sigue tus películas y series favoritas. Encuentra contenido en tendencia y mantén un registro de lo que quieres ver.",
+    "siteName": "MaidaVision",
+    "images": [
+      {
+        "url": "https://maidavision.vercel.app/logo/isologotipo-og.png",
+        "width": 1200,
+        "height": 630,
+        "alt": "Vista previa de MaidaVision",
+        "type": "image/png",
+        "secureUrl": "https://maidavision.vercel.app/logo/isologotipo-og.png"
+      },
+      {
+        "url": "https://maidavision.vercel.app/logo/icon-512x512.png",
+        "width": 512,
+        "height": 512,
+        "alt": "Icono de MaidaVision",
+        "type": "image/png"
+      }
+    ]
+  },
+  "twitter": {
+    "card": "summary_large_image",
+    "site": "@maidavision",
+    "creator": "@maidana_07",
+    "title": "MaidaVision | Tu app para seguir películas y series",
+    "description": "Descubre, busca y sigue tus películas y series favoritas. Encuentra contenido en tendencia y mantén un registro de lo que quieres ver.",
+    "images": {
+      "url": "https://maidavision.vercel.app/logo/isologotipo-og.png",
+      "alt": "MaidaVision Preview"
+    }
+  },
+  "icons": {
+    "icon": "/favicon.ico",
+    "shortcut": "/favicon.ico",
+    "apple": "/apple-icon.png"
+  },
+  "manifest": "/manifest.json",
+  "category": "entertainment"
+}

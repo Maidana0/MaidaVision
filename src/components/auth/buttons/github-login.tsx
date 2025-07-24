@@ -16,7 +16,7 @@ const GithubLogin = () => {
             fill="currentColor"
           />
         </svg>
-        Login with GitHub
+        Continúa con Github
       </Button>
     </form>
   )
