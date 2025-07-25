@@ -1,8 +1,9 @@
 "use client"
 import { FC, Suspense, use } from "react";
-import MediaPagination from "maidana07/components/media/list/media-pagination"
 import { MediaTypes } from "maidana07/types/TMDB/search";
+import dynamic from "next/dynamic";
 import SearchPageCard from "maidana07/components/cards/search-page-card";
+const MediaPagination = dynamic(() => import("maidana07/components/media/list/media-pagination"))
 
 interface SearchListProps {
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
