@@ -18,34 +18,35 @@ export default function MobileMenu() {
           </Button>
         </SheetTrigger>
 
+        <SheetContent side="left" asChild>
+          <nav>
+            <SheetHeader className="flex items-center flex-row">
+              <SheetClose className="inline" asChild>
+                <Button variant="outline" aria-label="Cerrar menú">
+                  <X className="w-6 h-6" />
+                </Button>
+              </SheetClose>
+            </SheetHeader>
 
-        <SheetContent side="left">
-          <SheetHeader className="flex items-center flex-row">
-            <SheetClose className="inline" asChild>
-              <Button variant="outline" aria-label="Cerrar menú">
-                <X className="w-6 h-6" />
-              </Button>
-            </SheetClose>
-          </SheetHeader>
+            {links.map((link) => (
+              <SheetClose asChild key={link.href}>
+                <Link
+                  href={link.href}
+                  className="text-sm px-6 py-2.5 hover:bg-muted rounded-md"
+                >
+                  {link.label}
+                </Link>
+              </SheetClose>
+            ))}
+            <SheetTitle className="sr-only">
+              Mobile Hamburger Menu
+            </SheetTitle>
 
-          {links.map((link) => (
-            <SheetClose asChild key={link.href}>
-              <Link
-                href={link.href}
-                className="text-sm px-6 py-2.5 hover:bg-muted rounded-md"
-              >
-                {link.label}
-              </Link>
-            </SheetClose>
-          ))}
-          <SheetTitle className="sr-only">
-            Mobile Hamburger Menu
-          </SheetTitle>
+            <SheetFooter className="w-fit mx-auto">
+              <Logo notHidden />
+            </SheetFooter>
 
-          <SheetFooter className="w-fit mx-auto">
-            <Logo notHidden />
-          </SheetFooter>
-
+          </nav>
         </SheetContent>
       </Sheet>
     </div >

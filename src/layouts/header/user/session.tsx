@@ -1,15 +1,22 @@
 import { auth } from "maidana07/lib/prisma/auth"
-import LogoutButton from "./button-logout"
 import Link from "next/link"
 import { Button } from "maidana07/components/ui/button"
 import { LogIn, UserPlus } from "lucide-react"
+import { NavUser } from "./nav-user"
 
 const Session = async () => {
   const session = await auth()
 
-  return session ?
-    <LogoutButton />
-    : (
+  if (session) {
+    const user = {
+      name: session.user?.name ?? "Desconocido",
+      email: session.user?.email ?? "Sin registrar",
+      avatar: session.user?.image
+    }
+
+    return <NavUser user={user} />
+  } else {
+    return (
       <>
         <Link href="/login">
           <Button variant="outline" size="sm" className="h-[30px]">
@@ -27,6 +34,7 @@ const Session = async () => {
         </Link>
       </>
     )
+  }
 }
 
 export default Session

@@ -9,8 +9,10 @@ import { Suspense } from "react"
 import Session from "./user/session"
 import { Skeleton } from "maidana07/components/ui/skeleton"
 import Logo from "./logo"
+import { auth } from "maidana07/lib/prisma/auth"
 
 const Header = async () => {
+  const session = auth()
 
   return (
     <header className="w-full sticky top-0 z-50">
@@ -51,7 +53,7 @@ const Header = async () => {
             <Session />
           </Suspense>
 
-          <ModeToggle />
+          <ModeToggle session={session} />
         </div>
 
 
