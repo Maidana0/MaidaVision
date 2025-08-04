@@ -3,7 +3,6 @@ import * as details from 'maidana07/components/media/details'
 import tmdbFetcher from 'maidana07/lib/api/tmdb';
 import { MovieDetails } from 'maidana07/types/TMDB/media/movie-detail';
 import { Metadata } from "next"
-/* eslint-disable  @typescript-eslint/no-explicit-any */
 
 
 export const metadata: Metadata = {
@@ -81,8 +80,8 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
       <details.CreditsSection
         created_by={created_by}
         type="movie"
-        cast={credits.cast as any}
-        crew={credits.crew as any}
+        cast={credits.cast}
+        crew={credits.crew}
       />
 
       <details.ProductionInfo companies={production_companies} />
@@ -90,16 +89,16 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
       <details.CollectionBanner belongs_to_collection={belongs_to_collection} />
 
       <div className='bg-muted pt-16 pb-20 space-y-10'>
-        {recommendations.results.length > 0 && (<RecommendationsCarousel
+        {recommendations?.results.length > 0 && (<RecommendationsCarousel
           type={"movie"}
-          items={recommendations.results as any}
+          items={recommendations.results}
           title={"Podría interesarte"}
         />)
         }
 
-        {similar.results.length > 0 && <RecommendationsCarousel
+        {similar?.results.length > 0 && <RecommendationsCarousel
           type={"movie"}
-          items={similar.results as any}
+          items={similar.results}
           title={"Similares"}
         />
         }
@@ -108,5 +107,5 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
     </>
   )
 }
-// espero que los "as any" sean temporales xd
+
 export default page

@@ -65,6 +65,6 @@ export type MovieCast = MovieCastAndCrew & {
   "order": number
 }
 export type MovieCrew = MovieCastAndCrew & {
-  "department": "Crew",
-  "job": "Thanks"
+  "department": string,
+  "job": string
 }

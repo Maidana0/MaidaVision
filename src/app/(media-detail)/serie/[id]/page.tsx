@@ -95,14 +95,14 @@ const MediaDetailPage = async ({ params }: { params: Promise<{ id: string }> }) 
       <details.ProductionInfo companies={production_companies} />
 
       <div className='bg-muted pt-16 pb-20 space-y-10'>
-        {recommendations.results.length > 0 && (<RecommendationsCarousel
+        {recommendations?.results.length > 0 && (<RecommendationsCarousel
           type={"tv"}
           items={recommendations.results}
           title={"Podría interesarte"}
         />)
         }
 
-        {similar.results.length > 0 && (<RecommendationsCarousel
+        {similar?.results.length > 0 && (<RecommendationsCarousel
           type={"tv"}
           items={similar.results}
           title={"Similares"}

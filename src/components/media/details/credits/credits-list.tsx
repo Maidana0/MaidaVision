@@ -6,25 +6,24 @@ import { Button } from "maidana07/components/ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 import PersonCard from "maidana07/components/cards/person-card";
 import { MovieCast, MovieCrew } from "maidana07/types/TMDB/media/movie-detail"
-/* eslint-disable  @typescript-eslint/no-explicit-any */
+
+type TypesOfPerson = CreatedBy | Crew | Cast | MovieCast | MovieCrew
 
 interface CreditsListProps {
-  items?: Array<CreatedBy | Crew | Cast | MovieCast | MovieCrew>;
+  items?: Array<TypesOfPerson>;
   mediaType?: "tv" | "movie";
   type: "created_by" | "crew" | "cast";
 }
 
-// eslint-disable-next-line  @typescript-eslint/ban-ts-comment
-// @ts-ignore
-function getDescription(type: "created_by" | "crew" | "cast", person: any, mediaType: "tv" | "movie" = "tv"): string {
+function getDescription(type: "created_by" | "crew" | "cast", person: TypesOfPerson, mediaType: "tv" | "movie" = "tv"): string {
   if (type === "created_by") return "Creador";
   if (mediaType && mediaType === "movie") {
-    if (type === "cast") return person.character
-    if (type === "crew") return person.job
+    if ("character" in person) return person.character
+    if ("job" in person) return person.job
   }
   if (mediaType === "tv") {
-    if (type === "cast") return person.roles[0]?.character ?? "";
-    return person.jobs[0]?.job ?? ""
+    if ("roles" in person) return person.roles[0]?.character ?? "";
+    else if ("jobs" in person) return person.jobs[0]?.job ?? "";
   }
   return " "
 }

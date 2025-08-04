@@ -61,7 +61,7 @@ export default function MediaHeader({ genres, backdropPath, posterPath, title, t
             height={360}
             quality={100}
             priority
-            className="rounded-lg text-black/80 content-center !text-inherit"
+            className="rounded-lg content-center !text-inherit"
           />
           {homepage && homepage != null
             ? <CustomLink size="sm" aria-label="homepage" className="bg-muted/40 absolute top-1 left-1 font-normal truncate max-w-[240px] text-xs" href={homepage.toString()} target="_blank">
@@ -87,7 +87,7 @@ export default function MediaHeader({ genres, backdropPath, posterPath, title, t
               </span>)}
             </h1>
             {tagline && (
-              <Badge variant={"outline"} className="backdrop-blur-sm border-none md:border text-base whitespace-nowrap mt-2 text-muted-foreground italic">
+              <Badge variant={"outline"} className="backdrop-blur-sm border-none md:border text-base sm:whitespace-nowrap mt-2 text-muted-foreground italic">
                 &quot;{tagline}&quot;
               </Badge>
             )}
