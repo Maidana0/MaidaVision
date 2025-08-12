@@ -113,7 +113,7 @@ export interface Crew extends CastAndCrew {
   department: string;
 }
 
-enum Gender {
+export enum Gender {
   "Not set / not specified" = 1,
   "Female" = 2,
   "Male" = 3,
