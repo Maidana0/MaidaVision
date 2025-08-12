@@ -50,7 +50,6 @@ const page = async ({ params }: Props) => {
     adult,
     also_known_as,
     birthday,
-    credits,
     deathday,
     gender,
     homepage,
@@ -59,7 +58,9 @@ const page = async ({ params }: Props) => {
     place_of_birth,
     popularity,
     profile_path,
-    id: iden
+    id: iden,
+    combined_credits,
+    images
   } = data
 
   return (
