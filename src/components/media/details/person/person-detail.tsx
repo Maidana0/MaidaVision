@@ -1,9 +1,8 @@
 "use client"
 import { PersonDetails } from "maidana07/types/TMDB/media/person-detail";
 import { use } from "react"
-import HeaderDetail from "./header-detail";
+import HeadDetail from "./head-detail";
 import { Section } from "maidana07/components/ui/section";
-import { Separator } from "@radix-ui/react-dropdown-menu";
 
 
 const PersonDetail = ({ data }: { data: Promise<PersonDetails | null> }) => {
@@ -38,7 +37,7 @@ const PersonDetail = ({ data }: { data: Promise<PersonDetails | null> }) => {
 
   return (
     <>
-      <HeaderDetail
+      <HeadDetail
         name={name}
         profile_path={profile_path}
         birthday={birthday}
@@ -47,22 +46,8 @@ const PersonDetail = ({ data }: { data: Promise<PersonDetails | null> }) => {
         known_for_department={known_for_department}
         gender={gender}
         also_known_as={also_known_as}
+        biography={biography}
       />
-
-      <Section className="!py-0">
-        <h2 className="text-2xl font-bold">Biografía</h2>
-
-        <div className="text-balance p-3 sm:p-5 max-w-4xl">
-          {biography.split("\n").map((paragraph, index) => {
-            return paragraph != "" && (
-              <p className="text-lg leading-7" key={index + "-paragraph"}>
-                {paragraph}
-                {index != biography.split("\n").length - 1 && <span className="block h-[1px] rounded-2xl bg-muted-foreground/25 my-4.5 w-10/11 mx-auto"></span>}
-              </p>
-            );
-          })}
-        </div>
-      </Section>
 
       <Section>
 

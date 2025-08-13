@@ -1,4 +1,5 @@
 import PersonDetail from "maidana07/components/media/details/person/person-detail"
+import { PersonDetailSkeleton } from "maidana07/components/media/details/person/person-detail-skeleton"
 import tmdbFetcher from "maidana07/lib/api/tmdb"
 import { PersonDetails } from "maidana07/types/TMDB/media/person-detail"
 import type { Metadata } from 'next'
@@ -37,28 +38,9 @@ const page = async ({ params }: Props) => {
   const { id } = await params
   const data = getData(id)
 
-  // const {
-  //   name,
-  //   biography,
-  //   adult,
-  //   also_known_as,
-  //   birthday,
-  //   deathday,
-  //   gender,
-  //   homepage,
-  //   imdb_id,
-  //   known_for_department,
-  //   place_of_birth,
-  //   popularity,
-  //   profile_path,
-  //   id: iden,
-  //   combined_credits,
-  //   images
-  // } = data
-
   return (
     <div className="max-w-5xl w-[calc(100%-2rem)] mx-auto space-y-4 my-5">
-      <Suspense fallback={<div>Cargando...</div>}>
+      <Suspense fallback={<PersonDetailSkeleton />}>
         <PersonDetail data={data} />
       </Suspense >
     </div >
