@@ -114,8 +114,8 @@ export interface Crew extends CastAndCrew {
 }
 
 export enum Gender {
-  "Not set / not specified" = 1,
-  "Female" = 2,
-  "Male" = 3,
-  "Non-binary" = 4,
+  "Not set / not specified" = 0,
+  "Female" = 1,
+  "Male" = 2,
+  "Non-binary" = 3,
 }
