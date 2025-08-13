@@ -1,13 +1,15 @@
+import PersonDetail from "maidana07/components/media/details/person/person-detail"
 import tmdbFetcher from "maidana07/lib/api/tmdb"
 import { PersonDetails } from "maidana07/types/TMDB/media/person-detail"
 import type { Metadata } from 'next'
+import { Suspense } from "react"
 
 
 type Props = {
   params: Promise<{ id: string }>
 }
 
-async function getData(id: string) {
+async function getData(id: string): Promise<PersonDetails | null> {
   const mediaID = id.split("-")[0]
   const data = await tmdbFetcher.getMediaDetails<PersonDetails>({
     id: mediaID,
@@ -33,40 +35,33 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 const page = async ({ params }: Props) => {
   const { id } = await params
-  const data = await getData(id)
+  const data = getData(id)
 
-  if (!data) {
-    return (<div className="p-12 w-full max-w-4xl">
-      <h1>Ocurrio un error.</h1>
-      <p className="bg-card w-2xl mx-auto p-6 mt-6">
-        {JSON.stringify(data)}
-      </p>
-    </div>)
-  }
-
-  const {
-    name,
-    biography,
-    adult,
-    also_known_as,
-    birthday,
-    deathday,
-    gender,
-    homepage,
-    imdb_id,
-    known_for_department,
-    place_of_birth,
-    popularity,
-    profile_path,
-    id: iden,
-    combined_credits,
-    images
-  } = data
+  // const {
+  //   name,
+  //   biography,
+  //   adult,
+  //   also_known_as,
+  //   birthday,
+  //   deathday,
+  //   gender,
+  //   homepage,
+  //   imdb_id,
+  //   known_for_department,
+  //   place_of_birth,
+  //   popularity,
+  //   profile_path,
+  //   id: iden,
+  //   combined_credits,
+  //   images
+  // } = data
 
   return (
-    <>
-
-    </>
+    <div className="max-w-5xl w-[calc(100%-2rem)] mx-auto space-y-4 my-5">
+      <Suspense fallback={<div>Cargando...</div>}>
+        <PersonDetail data={data} />
+      </Suspense >
+    </div >
   )
 }
 
