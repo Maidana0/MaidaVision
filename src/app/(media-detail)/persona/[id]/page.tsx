@@ -1,4 +1,4 @@
-import PersonDetail from "maidana07/components/media/details/person/person-detail"
+import PersonDetail from "maidana07/components/media/details/pages/person-detail"
 import { PersonDetailSkeleton } from "maidana07/components/media/details/person/person-detail-skeleton"
 import tmdbFetcher from "maidana07/lib/api/tmdb"
 import { PersonDetails } from "maidana07/types/TMDB/media/person-detail"
@@ -10,22 +10,22 @@ type Props = {
   params: Promise<{ id: string }>
 }
 
-async function getData(id: string): Promise<PersonDetails | null> {
+export async function getPersonDetail(id: string): Promise<PersonDetails | { message: string }> {
   const mediaID = id.split("-")[0]
   const data = await tmdbFetcher.getMediaDetails<PersonDetails>({
     id: mediaID,
     mediaType: "person",
   })
 
-  if (!data.success || !data.data) return null;
+  if (!data.success || !data.data) return { message: data.message || data.serverMessage || "Error desconocido" };
   return data.data
 }
 
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params
-  const data = await getData(id)
-  if (!data) return { title: "Persona" }
+  const data = await getPersonDetail(id)
+  if ("message" in data) return { title: "Persona" }
 
   return {
     title: data.name,
@@ -34,17 +34,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 
-const page = async ({ params }: Props) => {
+const PersonDetailPage = async ({ params }: Props) => {
   const { id } = await params
-  const data = getData(id)
 
   return (
     <div className="max-w-5xl w-[calc(100%-2rem)] mx-auto space-y-4 my-5">
       <Suspense fallback={<PersonDetailSkeleton />}>
-        <PersonDetail data={data} />
+        <PersonDetail id={id} />
       </Suspense >
     </div >
   )
 }
 
-export default page
+export default PersonDetailPage

@@ -1,111 +1,47 @@
-import RecommendationsCarousel from 'maidana07/components/carousel/recommendations-carousel';
-import * as details from 'maidana07/components/media/details'
+import MovieDetail from 'maidana07/components/media/details/pages/movie-detail';
 import tmdbFetcher from 'maidana07/lib/api/tmdb';
 import { MovieDetails } from 'maidana07/types/TMDB/media/movie-detail';
 import { Metadata } from "next"
+import { Suspense } from 'react';
 
 
-export const metadata: Metadata = {
-  title: "Película"
+type Props = {
+  params: Promise<{ id: string }>
 }
 
-const page = async ({ params }: { params: Promise<{ id: string }> }) => {
-  const { id } = await params
-
-  const mediaID = id.split("-")[0]
+export const getMovieDetail = async (id: string): Promise<MovieDetails | { message: string }> => {
   const data = await tmdbFetcher.getMediaDetails<MovieDetails>({
-    id: mediaID,
+    id,
     mediaType: "movie",
   })
+  if (!data.success || !data.data) return { message: data.message || data.serverMessage || "Error desconocido" };
+  return data.data
+}
 
-  if (!data.success || !data.data) {
-    return (<div className="p-12 w-full max-w-4xl">
-      <h1>Ocurrio un error.</h1>
-      <p className="bg-card w-2xl mx-auto p-6 mt-6">
-        {JSON.stringify(data)}
-      </p>
-    </div>)
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params
+  const mediaID = id.split("-")[0]
+  const data = await getMovieDetail(mediaID)
+  if ("message" in data) return { title: "Película" }
+
+  return {
+    title: data.title,
+    description: data.overview
   }
+}
 
-  const {
-    title,
-    backdrop_path,
-    poster_path,
-    tagline,
-    overview,
-    genres,
-    release_date,
-    vote_average,
-    vote_count,
-    original_language,
-    status,
-    runtime,
-    homepage,
-    belongs_to_collection,
-    'watch/providers': providers,
-    production_companies,
-    videos,
-    recommendations,
-    similar,
-    credits,
-    created_by,
-  } = data.data
-
+const MovieDetailPage = async ({ params }: Props) => {
+  const { id } = await params
+  const mediaID = id.split("-")[0]
 
   return (
     <>
-      <details.MediaHeader
-        genres={genres}
-        backdropPath={backdrop_path}
-        posterPath={poster_path}
-        title={title}
-        tagline={tagline}
-        trailerButton={<details.TrailerEmbed videos={videos?.results || []} />}
-        providers={providers.results['AR'] || {}}
-        homepage={homepage}
-        type="movie"
-        runtime={runtime}
-      />
-
-      <details.MediaInfo
-        dates={{ release_date }}
-        voteAverage={vote_average}
-        voteCount={vote_count}
-        language={original_language}
-        status={status}
-        overview={overview ?? "No disponible."}
-        type="movie"
-      />
-
-      <details.CreditsSection
-        created_by={created_by}
-        type="movie"
-        cast={credits.cast}
-        crew={credits.crew}
-      />
-
-      <details.ProductionInfo companies={production_companies} />
-
-      <details.CollectionBanner belongs_to_collection={belongs_to_collection} />
-
-      <div className='bg-muted pt-16 pb-20 space-y-10'>
-        {recommendations?.results.length > 0 && (<RecommendationsCarousel
-          type={"movie"}
-          items={recommendations.results}
-          title={"Podría interesarte"}
-        />)
-        }
-
-        {similar?.results.length > 0 && <RecommendationsCarousel
-          type={"movie"}
-          items={similar.results}
-          title={"Similares"}
-        />
-        }
-      </div>
-
+      <Suspense fallback={<div>Loading...</div>}>
+        <MovieDetail id={mediaID} />
+      </Suspense>
     </>
   )
 }
 
-export default page
+export default MovieDetailPage

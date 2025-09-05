@@ -41,7 +41,7 @@ const PersonalInfo = ({ profile_path, birthday, deathday, place_of_birth, known_
           Información personal
         </h2>
 
-        <div className="px-2 grid grid-cols-2 gap-y-3 w-fit">
+        <div className="px-1 grid grid-cols-2 gap-3 w-fit">
           <p className="text-sm text-foreground/65">Conocido por:
             <Badge variant={"secondary"} className="px-2 py-1 text-md mt-1 ml-0 sm:ml-1 block truncate max-w-full">{knownForTranslate(known_for_department)} </Badge> </p>
 

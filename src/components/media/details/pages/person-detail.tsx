@@ -1,18 +1,15 @@
-"use client"
-import { PersonDetails } from "maidana07/types/TMDB/media/person-detail";
-import { use } from "react"
-import HeadDetail from "./head-detail";
+import HeadDetail from "../person/head-detail";
 import { Section } from "maidana07/components/ui/section";
+import { getPersonDetail } from "maidana07/app/(media-detail)/persona/[id]/page";
 
 
-const PersonDetail = ({ data }: { data: Promise<PersonDetails | null> }) => {
+const PersonDetail = async ({ id }: { id: string }) => {
+  const data = await getPersonDetail(id)
 
-
-  const useData = use(data)
-  if (!useData) return (<div className="p-12 w-full max-w-4xl">
+  if ("message" in data) return (<div className="p-12 w-full max-w-4xl">
     <h1>Ocurrio un error.</h1>
-    <p className="bg-card w-2xl mx-auto p-6 mt-6">
-      {JSON.stringify(data)}
+    <p className="bg-card w-2xl mx-auto p-6 mt-6 text-muted-foreground">
+      {data.message}
     </p>
   </div>)
 
@@ -33,7 +30,7 @@ const PersonDetail = ({ data }: { data: Promise<PersonDetails | null> }) => {
     id: iden,
     combined_credits,
     images
-  } = useData
+  } = data
 
   return (
     <>
