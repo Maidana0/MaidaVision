@@ -1,11 +1,11 @@
-import { getTVDetail } from 'maidana07/app/(media-detail)/serie/[id]/page'
 import RecommendationsCarousel from 'maidana07/components/carousel/recommendations-carousel'
 import * as details from 'maidana07/components/media/details'
+import tmdbFetcher from 'maidana07/lib/api/tmdb'
 
 
 const TVDetail = async ({ id }: { id: string }) => {
 
-  const data = await getTVDetail(id)
+  const data = await tmdbFetcher.getTVDetail(id)
 
   if ("message" in data) {
     return (<div className="p-12 w-full max-w-4xl">

@@ -1,11 +1,11 @@
-import { getMovieDetail } from 'maidana07/app/(media-detail)/pelicula/[id]/page'
 import RecommendationsCarousel from 'maidana07/components/carousel/recommendations-carousel'
 import * as details from 'maidana07/components/media/details'
+import tmdbFetcher from 'maidana07/lib/api/tmdb'
 
 
 const MovieDetail = async ({ id }: { id: string }) => {
 
-  const data = await getMovieDetail(id)
+  const data = await tmdbFetcher.getMovieDetail(id)
 
   if ("message" in data) {
     return (<div className="p-12 w-full max-w-4xl">

@@ -1,10 +1,10 @@
+import tmdbFetcher from "maidana07/lib/api/tmdb";
 import HeadDetail from "../person/head-detail";
 import { Section } from "maidana07/components/ui/section";
-import { getPersonDetail } from "maidana07/app/(media-detail)/persona/[id]/page";
 
 
 const PersonDetail = async ({ id }: { id: string }) => {
-  const data = await getPersonDetail(id)
+  const data = await tmdbFetcher.getPersonDetail(id)
 
   if ("message" in data) return (<div className="p-12 w-full max-w-4xl">
     <h1>Ocurrio un error.</h1>
@@ -16,20 +16,20 @@ const PersonDetail = async ({ id }: { id: string }) => {
   const {
     name,
     biography,
-    adult,
+    // adult,
     also_known_as,
     birthday,
     deathday,
     gender,
-    homepage,
-    imdb_id,
+    // homepage,
+    // imdb_id,
     known_for_department,
     place_of_birth,
-    popularity,
+    // popularity,
     profile_path,
-    id: iden,
-    combined_credits,
-    images
+    // id: iden,
+    // combined_credits,
+    // images
   } = data
 
   return (
