@@ -1,118 +1,37 @@
-import RecommendationsCarousel from 'maidana07/components/carousel/recommendations-carousel';
-import * as details from 'maidana07/components/media/details'
+import TVDetail from 'maidana07/components/media/details/pages/tv-detail';
 import tmdbFetcher from "maidana07/lib/api/tmdb";
-import { TVDetails } from 'maidana07/types/TMDB/media/tv-detail';
-
 import { Metadata } from "next"
+import { Suspense } from 'react';
 
-export const metadata: Metadata = {
-  title: "Serie"
+type Props = {
+  params: Promise<{ id: string }>
 }
 
-
-const MediaDetailPage = async ({ params }: { params: Promise<{ id: string }> }) => {
-  const { id } = await params;
-
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params
   const mediaID = id.split("-")[0]
-  const data = await tmdbFetcher.getMediaDetails<TVDetails>({
-    id: mediaID,
-    mediaType: "tv",
-  })
+  const data = await tmdbFetcher.getTVDetail(mediaID)
+  if ("message" in data) return { title: "Serie" }
 
-  if (!data.success || !data.data) {
-    return (<div className="p-12 w-full max-w-4xl">
-      <h1>Ocurrio un error.</h1>
-      <p className="bg-card w-2xl mx-auto p-6 mt-6">
-        {JSON.stringify(data)}
-      </p>
-    </div>)
+  return {
+    title: data.name,
+    description: data.overview
   }
+}
 
-  const {
-    name,
-    backdrop_path,
-    poster_path,
-    tagline,
-    overview,
-    genres,
-    first_air_date: firstAirDate,
-    last_air_date: lastAirDate,
-    vote_average,
-    vote_count,
-    original_language,
-    status,
-    'watch/providers': providers,
-    last_episode_to_air,
-    next_episode_to_air,
-    seasons,
-    production_companies,
-    videos,
-    recommendations,
-    similar,
-    aggregate_credits,
-    created_by,
-    homepage
-  } = data.data
+const TVDetailPage = async ({ params }: Props) => {
+  const { id } = await params;
+  const mediaID = id.split("-")[0]
 
   return (
     <>
-
-      <details.MediaHeader
-        genres={genres}
-        backdropPath={backdrop_path}
-        posterPath={poster_path}
-        title={name}
-        tagline={tagline}
-        trailerButton={<details.TrailerEmbed videos={videos?.results || []} />}
-        providers={providers.results['AR'] || {}}
-        homepage={homepage}
-        type="tv"
-      />
-
-      <details.MediaInfo
-        dates={{ firstAirDate, lastAirDate }}
-        voteAverage={vote_average}
-        voteCount={vote_count}
-        language={original_language}
-        status={status}
-        overview={overview ?? "No disponible."}
-      />
-
-      <details.CreditsSection
-        created_by={created_by}
-        cast={aggregate_credits.cast}
-        crew={aggregate_credits.crew}
-      />
-
-
-      <div className='flex flex-wrap'>
-        {last_episode_to_air && <details.EpisodeInfo episode={last_episode_to_air} />}
-        {next_episode_to_air && <details.EpisodeInfo episode={next_episode_to_air} isNextEpisode />}
-      </div>
-
-      <details.SeasonList seasons={seasons} />
-
-      <details.ProductionInfo companies={production_companies} />
-
-      <div className='bg-muted pt-16 pb-20 space-y-10'>
-        {recommendations?.results.length > 0 && (<RecommendationsCarousel
-          type={"tv"}
-          items={recommendations.results}
-          title={"Podría interesarte"}
-        />)
-        }
-
-        {similar?.results.length > 0 && (<RecommendationsCarousel
-          type={"tv"}
-          items={similar.results}
-          title={"Similares"}
-        />)
-        }
-      </div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <TVDetail id={mediaID} />
+      </Suspense>
 
     </>
   )
 }
 
 
-export default MediaDetailPage
+export default TVDetailPage

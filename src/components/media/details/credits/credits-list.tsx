@@ -6,6 +6,7 @@ import { Button } from "maidana07/components/ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 import PersonCard from "maidana07/components/cards/person-card";
 import { MovieCast, MovieCrew } from "maidana07/types/TMDB/media/movie-detail"
+import Link from "next/link";
 
 type TypesOfPerson = CreatedBy | Crew | Cast | MovieCast | MovieCrew
 
@@ -43,12 +44,16 @@ const CreditsList: FC<CreditsListProps> = ({ items, type, mediaType }) => {
 
         {items.slice(0, 6)
           .map((person) => (
-            <PersonCard
-              key={person.id}
-              name={person.name}
-              image={person.profile_path}
-              description={getDescription(type, person, mediaType)}
-            />
+            <Link key={person.id}
+              href={`/persona/${person.id}-${person.name.replaceAll(" ", "-").toLowerCase()}`}
+            >
+              <PersonCard
+                name={person.name}
+                image={person.profile_path}
+                description={getDescription(type, person, mediaType)}
+              />
+            </Link>
+
           ))}
 
         {items.length >= 6 && loadMore && (
@@ -62,11 +67,13 @@ const CreditsList: FC<CreditsListProps> = ({ items, type, mediaType }) => {
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.2, delay: i * 0.1 }}
                 >
-                  <PersonCard
-                    name={person.name}
-                    image={person.profile_path}
-                    description={getDescription(type, person, mediaType)}
-                  />
+                  <Link href={`/persona/${person.id}-${person.name.replaceAll(" ", "-").toLowerCase()}`}>
+                    <PersonCard
+                      name={person.name}
+                      image={person.profile_path}
+                      description={getDescription(type, person, mediaType)}
+                    />
+                  </Link>
                 </motion.div>
               ))}
           </AnimatePresence>
