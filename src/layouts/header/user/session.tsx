@@ -4,6 +4,8 @@ import { Button } from "maidana07/components/ui/button"
 import { LogIn, UserPlus } from "lucide-react"
 import { NavUser } from "./nav-user"
 
+export const revalidate = 60 * 30 // 30 minutes
+
 const Session = async () => {
   const session = await auth()
 

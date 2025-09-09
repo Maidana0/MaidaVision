@@ -14,7 +14,7 @@ export default auth(async function middleware(req) {
   // Your custom middleware logic goes here
   if (req.auth && AUTH_PAGES.includes(req.nextUrl.pathname)) {
     const newUrl = new URL("/", req.nextUrl.origin)
-    return NextResponse.redirect(newUrl)
+    return Response.redirect(newUrl)
   }
   return NextResponse.next();
 })
