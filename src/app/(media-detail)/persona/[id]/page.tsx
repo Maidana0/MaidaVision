@@ -1,9 +1,8 @@
-import PersonDetail from "maidana07/components/media/details/pages/person-detail"
-import { PersonDetailSkeleton } from "maidana07/components/media/details/person/person-detail-skeleton"
 import tmdbFetcher from "maidana07/lib/api/tmdb"
 import type { Metadata } from 'next'
-import { Suspense } from "react"
-
+import { Suspense } from "react";
+import PersonDetail from "maidana07/components/media/details/pages/person-detail";
+import PersonDetailSkeleton from "./loading";
 
 type Props = {
   params: Promise<{ id: string }>
@@ -26,11 +25,9 @@ const PersonDetailPage = async ({ params }: Props) => {
   const { id } = await params
 
   return (
-    <div className="max-w-5xl w-[calc(100%-2rem)] mx-auto space-y-4 my-5">
-      <Suspense fallback={<PersonDetailSkeleton />}>
-        <PersonDetail id={id} />
-      </Suspense >
-    </div >
+    <Suspense fallback={<PersonDetailSkeleton />}>
+      <PersonDetail id={id} />
+    </Suspense>
   )
 }
 

@@ -4,10 +4,10 @@ import { Modal } from "maidana07/components/ui/modal"
 import useTrendingModalStore from "maidana07/store/use-trending-modal-store"
 import Image from "next/image"
 import { FC } from "react"
-import Loader from "../ui/loader"
 import { Badge } from "../ui/badge"
 import CustomLink from "../ui/custom-link"
 import { convertTitleToURL } from "maidana07/utils/transform/stringDto"
+import { Skeleton } from "../ui/skeleton"
 
 
 const TrendingModal: FC = () => {
@@ -22,15 +22,15 @@ const TrendingModal: FC = () => {
       description={`Película o serie en tendencia: ${item.title} - En la posición de ${item.position} lugar.`}
       className="p-0 max-h-[85vh] !overflow-y-auto"
     >
-      <div className="relative sm:aspect-video sm:min-h-auto min-h-[240px]">
+      <picture className="relative sm:aspect-video sm:min-h-auto min-h-[240px]">
         <Image
           src={item.backdrop_url || item.poster_url}
           alt={item.title}
           fill
-          className="object-cover"
+          className="object-cover object-center"
           priority
         />
-        <Loader className="absolute -z-10 top-2/4 right-2/4 translate-x-[50%] translate-y-[-50%]" size="lg" />
+        <Skeleton className="absolute inset-0 w-full h-full rounded-none -z-10" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent" />
         <div className="absolute bottom-1.5 left-5 right-6">
           <h2 className="lg:text-4xl text-3xl font-bold text-white text-shadow-sm pb-0.5 line-clamp-2"
@@ -39,7 +39,7 @@ const TrendingModal: FC = () => {
             {item.title}
           </h2>
         </div>
-      </div>
+      </picture>
 
       <div className="px-6 pb-4">
 

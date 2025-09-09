@@ -13,7 +13,7 @@ const CACHE_MIN_TIME = 900; // 15 min
 const CACHE_HOUR_TIME = 3600; // 1 hora
 const CACHE_DAY_TIME = 86400; // 1 día
 // const CACHE_TIME = CACHE_DAY_TIME * 3; // 3 días
-const CACHE_WEEK_TIME = CACHE_DAY_TIME * 7; // 1 semana
+const CACHE_WEEK_TIME = CACHE_DAY_TIME * 6; // 1 semana menos un día
 
 
 class TMDBFetcher {
@@ -137,7 +137,7 @@ class TMDBFetcher {
   // HELPER PARA LOS DETALLES DE MEDIA
   getMovieDetail = async (id: string) => {
     const data = await this.getMediaDetails<MovieDetails>({
-      id,
+      id: id.split("-")[0],
       mediaType: "movie",
     });
     if (!data.success || !data.data) return { message: data.message || "Error desconocido" };
@@ -147,7 +147,7 @@ class TMDBFetcher {
   // Método helper específico para TV
   getTVDetail = async (id: string) => {
     const data = await this.getMediaDetails<TVDetails>({
-      id,
+      id: id.split("-")[0],
       mediaType: "tv",
     });
     if (!data.success || !data.data) return { message: data.message || "Error desconocido" };
@@ -157,7 +157,7 @@ class TMDBFetcher {
   // Método helper específico para Person
   getPersonDetail = async (id: string) => {
     const data = await this.getMediaDetails<PersonDetails>({
-      id,
+      id: id.split("-")[0],
       mediaType: "person",
     });
     if (!data.success || !data.data) return { message: data.message || "Error desconocido" };

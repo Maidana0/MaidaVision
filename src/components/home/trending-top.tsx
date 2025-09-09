@@ -1,7 +1,9 @@
 import tmdbFetcher from "maidana07/lib/api/tmdb";
-import TrendingCarousel from "../carousel/trending-carousel"
 import { formatMediaData } from "maidana07/utils/transform/formatMediaData";
 import { Section } from "../ui/section";
+import dynamic from "next/dynamic";
+
+const TrendingCarousel = dynamic(() => import("../carousel/trending-carousel"));
 
 const TrendingTop = async ({ trendingFor }: { trendingFor: "peliculas" | "series" }) => {
   const { data, success, message } = trendingFor === "peliculas"

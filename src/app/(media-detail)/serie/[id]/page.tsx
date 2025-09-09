@@ -1,7 +1,8 @@
-import TVDetail from 'maidana07/components/media/details/pages/tv-detail';
-import tmdbFetcher from "maidana07/lib/api/tmdb";
 import { Metadata } from "next"
-import { Suspense } from 'react';
+import tmdbFetcher from 'maidana07/lib/api/tmdb'
+import { Suspense } from "react"
+import TVDetail from "maidana07/components/media/details/pages/tv-detail"
+import MediaDetailSkeleton from "../../loading"
 
 type Props = {
   params: Promise<{ id: string }>
@@ -21,17 +22,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 const TVDetailPage = async ({ params }: Props) => {
   const { id } = await params;
-  const mediaID = id.split("-")[0]
 
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
-        <TVDetail id={mediaID} />
+      <Suspense fallback={<MediaDetailSkeleton />}>
+        <TVDetail id={id} />
       </Suspense>
-
     </>
   )
 }
-
 
 export default TVDetailPage

@@ -6,12 +6,14 @@ import { Section } from "maidana07/components/ui/section";
 const PersonDetail = async ({ id }: { id: string }) => {
   const data = await tmdbFetcher.getPersonDetail(id)
 
-  if ("message" in data) return (<div className="p-12 w-full max-w-4xl">
-    <h1>Ocurrio un error.</h1>
-    <p className="bg-card w-2xl mx-auto p-6 mt-6 text-muted-foreground">
-      {data.message}
-    </p>
-  </div>)
+  if ("message" in data) {
+    return (<div className="p-12 max-w-[calc(100%-2rem)] w-4xl mx-auto">
+      <h1 className="text-xl font-semibold">Ocurrio un error</h1>
+      <p className="bg-card p-6 mt-6 text-red-700">
+        {data.message}
+      </p>
+    </div>)
+  }
 
   const {
     name,
@@ -33,7 +35,7 @@ const PersonDetail = async ({ id }: { id: string }) => {
   } = data
 
   return (
-    <>
+    <div className="max-w-5xl w-[calc(100%-2rem)] mx-auto space-y-4 my-5">
       <HeadDetail
         name={name}
         profile_path={profile_path}
@@ -49,7 +51,7 @@ const PersonDetail = async ({ id }: { id: string }) => {
       <Section>
 
       </Section>
-    </>
+    </div>
   )
 }
 

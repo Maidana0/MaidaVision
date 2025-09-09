@@ -1,7 +1,5 @@
 import LoginForm from "maidana07/components/auth/form-container"
 import BgGradient from "maidana07/components/ui/bg-gradient"
-import { auth } from "maidana07/lib/prisma/auth"
-import { redirect } from "next/navigation"
 
 export const metadata = {
   title: "Iniciar Sesión",
@@ -14,8 +12,6 @@ export const metadata = {
 }
 
 const Page = async () => {
-  const session = await auth();
-  if (session) redirect("/");
 
   return (
     <div className="flex flex-col items-center justify-center py-10 p-6">

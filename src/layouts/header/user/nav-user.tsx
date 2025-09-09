@@ -22,7 +22,7 @@ export function NavUser({
 
       <Button className="w-fit h-fit p-[1px] rounded-full" variant={"outline"}>
         <DropdownMenuTrigger asChild>
-          <Avatar className="h-8 w-8 grayscale">
+          <Avatar className="h-8 w-8">
             {avatar ? <AvatarImage src={avatar} alt={name} /> : ""}
             <AvatarFallback className="rounded-lg uppercase">{name.slice(0, 2)}</AvatarFallback>
           </Avatar>
@@ -41,7 +41,7 @@ export function NavUser({
             <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
               <Avatar className="h-8 w-8 rounded-lg">
                 {avatar ? <AvatarImage src={avatar} alt={name} /> : ""}
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <AvatarFallback className="rounded-lg uppercase">{name.slice(0, 2)}</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{name}</span>

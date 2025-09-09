@@ -8,15 +8,17 @@ import { Input } from "maidana07/components/ui/input";
 import { Button } from "maidana07/components/ui/button";
 import { z } from "zod";
 import { FC, useState, useTransition } from "react";
-import PasswordInput from "./password-input";
+import PasswordInput from "maidana07/components/auth/password-input";
+import Loader from "maidana07/components/ui/loader";
 
 interface Props {
   type: "login" | "register";
   onSubmitAction: (values: Record<string, unknown>) => Promise<{ error?: string }>;
   submitText?: string;
+  submittingText?: string;
 }
 
-const AuthForm: FC<Props> = ({ type, onSubmitAction, submitText = "Enviar" }) => {
+const AuthForm: FC<Props> = ({ type, onSubmitAction, submitText = "Enviar", submittingText }) => {
   const schema = type === "login" ? myLoginSchema : myRegisterSchema;
   const [isPending, startTransition] = useTransition();
   const [serverError, setServerError] = useState("");
@@ -103,7 +105,10 @@ const AuthForm: FC<Props> = ({ type, onSubmitAction, submitText = "Enviar" }) =>
         )}
 
         <Button type="submit" className="w-full col-span-full max-w-4/6 block mx-auto" disabled={isPending}>
-          {isPending ? "Cargando..." : submitText}
+          {isPending ?
+            <Loader size="sm" text={submittingText ?? "Cargando..."} className="!p-0" />
+            : submitText
+          }
         </Button>
       </form>
     </Form>

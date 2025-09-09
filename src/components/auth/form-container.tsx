@@ -1,11 +1,17 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "maidana07/components/ui/card"
 import Link from "next/link"
-import AuthForm from "./auth-form"
 import loginAction from "maidana07/actions/login-action"
 import registerUserAction from "maidana07/actions/register-user-action"
 import ContinueWith from "./continue-with"
+import AuthFormSkeleton from "maidana07/components/skeletons/auth-form-skeleton"
+import dynamic from "next/dynamic"
+
 
 const FormContainer = ({ type }: { type: "register" | "login" }) => {
+
+  const AuthForm = dynamic(() => import("maidana07/components/auth/auth-form"), {
+    loading: () => <AuthFormSkeleton type={type} />
+  })
 
   return (
     <Card className="py-6">
@@ -24,6 +30,7 @@ const FormContainer = ({ type }: { type: "register" | "login" }) => {
               ? (
                 <AuthForm
                   type="login"
+                  submittingText="Iniciando sesión..."
                   onSubmitAction={loginAction}
                   submitText="Iniciar Sesión"
                 />
@@ -31,6 +38,7 @@ const FormContainer = ({ type }: { type: "register" | "login" }) => {
               : (
                 <AuthForm
                   type="register"
+                  submittingText="Registrando usuario..."
                   onSubmitAction={registerUserAction}
                   submitText="Registrarse"
                 />

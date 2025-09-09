@@ -1,21 +1,22 @@
-import RecommendationsCarousel from 'maidana07/components/carousel/recommendations-carousel'
 import * as details from 'maidana07/components/media/details'
 import tmdbFetcher from 'maidana07/lib/api/tmdb'
+import dynamic from 'next/dynamic';
 
+const RecommendationsCarousel = dynamic(() => import('maidana07/components/carousel/recommendations-carousel'),
+  { loading: () => <div className="h-48" /> }
+);
 
 const TVDetail = async ({ id }: { id: string }) => {
-
   const data = await tmdbFetcher.getTVDetail(id)
 
   if ("message" in data) {
-    return (<div className="p-12 w-full max-w-4xl">
-      <h1>Ocurrio un error.</h1>
-      <p className="bg-card w-2xl mx-auto p-6 mt-6">
+    return (<div className="p-12 max-w-[calc(100%-2rem)] w-4xl mx-auto">
+      <h1 className="text-xl font-semibold">Ocurrio un error</h1>
+      <p className="bg-card p-6 mt-6 text-red-700">
         {data.message}
       </p>
     </div>)
   }
-
 
   const {
     name,

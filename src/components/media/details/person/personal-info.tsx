@@ -62,17 +62,21 @@ const PersonalInfo = ({ profile_path, birthday, deathday, place_of_birth, known_
 
 
           <p className="text-sm text-foreground/65 col-span-2">Lugar de nacimiento:
-            <Badge variant={"secondary"} className="px-2 py-1 text-md mt-1 ml-0 sm:ml-1 block truncate max-w-full">{place_of_birth} </Badge> </p>
+            <Badge variant={"secondary"} className="px-2 py-1 text-md mt-1 ml-0 sm:ml-1 block truncate max-w-full">{place_of_birth ?? "Desconocido"} </Badge> </p>
         </div>
 
-        <div className="px-2 w-full md:block hidden">
-          <p className="text-foreground/65 text-sm">También conocido como:</p>
-          <ul className="list-disc list-inside grid grid-cols-2 py-2 gap-x-1 justify-between text-xs">
-            {also_known_as.map((name, index) => (
-              <li key={index} className="text-foreground/80">{name}</li>
-            ))}
-          </ul>
-        </div>
+        {
+          also_known_as.length > 0 && (
+            <div className="px-2 w-full md:block hidden">
+              <p className="text-foreground/65 text-sm">También conocido como:</p>
+              <ul className="list-disc list-inside grid grid-cols-2 py-2 gap-x-1 justify-between text-xs">
+                {also_known_as.map((name, index) => (
+                  <li key={index} className="text-foreground/80">{name}</li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
       </div>
 
     </div>
