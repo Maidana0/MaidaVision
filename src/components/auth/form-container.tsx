@@ -7,7 +7,7 @@ import AuthFormSkeleton from "maidana07/components/skeletons/auth-form-skeleton"
 import dynamic from "next/dynamic"
 
 
-const FormContainer = ({ type }: { type: "register" | "login" }) => {
+const FormContainer = ({ type, callbackUrl }: { type: "register" | "login", callbackUrl?: string }) => {
 
   const AuthForm = dynamic(() => import("maidana07/components/auth/auth-form"), {
     loading: () => <AuthFormSkeleton type={type} />
@@ -33,6 +33,7 @@ const FormContainer = ({ type }: { type: "register" | "login" }) => {
                   submittingText="Iniciando sesión..."
                   onSubmitAction={loginAction}
                   submitText="Iniciar Sesión"
+                  callbackUrl={callbackUrl}
                 />
               )
               : (
@@ -41,6 +42,7 @@ const FormContainer = ({ type }: { type: "register" | "login" }) => {
                   submittingText="Registrando usuario..."
                   onSubmitAction={registerUserAction}
                   submitText="Registrarse"
+                  callbackUrl={callbackUrl}
                 />
               )
           }

@@ -11,13 +11,19 @@ export const metadata = {
   }
 }
 
-const Page = async () => {
+type Props = {
+  searchParams?: Promise<{ callbackUrl?: string }>
+}
+
+const Page = async ({ searchParams }: Props) => {
+  const { callbackUrl } = await searchParams || {}
+
   return (
     <div className="flex flex-col items-center justify-center py-10 p-6">
       <BgGradient />
 
       <div className={"flex w-sm md:w-lg max-w-full flex-col gap-6"}>
-        <RegisterForm type="register" />
+        <RegisterForm type="register" callbackUrl={callbackUrl} />
       </div>
 
     </div>

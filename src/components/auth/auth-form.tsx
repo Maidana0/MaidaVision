@@ -13,12 +13,13 @@ import Loader from "maidana07/components/ui/loader";
 
 interface Props {
   type: "login" | "register";
-  onSubmitAction: (values: Record<string, unknown>) => Promise<{ error?: string }>;
+  onSubmitAction: (values: Record<string, unknown>, callbackUrl?: string) => Promise<{ error?: string }>;
   submitText?: string;
   submittingText?: string;
+  callbackUrl?: string;
 }
 
-const AuthForm: FC<Props> = ({ type, onSubmitAction, submitText = "Enviar", submittingText }) => {
+const AuthForm: FC<Props> = ({ type, onSubmitAction, submitText = "Enviar", submittingText, callbackUrl }) => {
   const schema = type === "login" ? myLoginSchema : myRegisterSchema;
   const [isPending, startTransition] = useTransition();
   const [serverError, setServerError] = useState("");
@@ -37,7 +38,7 @@ const AuthForm: FC<Props> = ({ type, onSubmitAction, submitText = "Enviar", subm
     setServerError("");
 
     startTransition(async () => {
-      const { error } = await onSubmitAction(values);
+      const { error } = await onSubmitAction(values, callbackUrl);
 
       if (error) {
         setServerError(error); // Mostrar error en pantalla
