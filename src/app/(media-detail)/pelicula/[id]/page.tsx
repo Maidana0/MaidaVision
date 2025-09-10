@@ -2,7 +2,7 @@ import tmdbFetcher from 'maidana07/lib/api/tmdb';
 import { Metadata } from "next"
 import { Suspense } from 'react';
 import MovieDetail from 'maidana07/components/media/details/pages/movie-detail';
-import MediaDetailSkeleton from '../../loading';
+import MediaDetailSkeleton from 'maidana07/components/skeletons/media-detail/media-detail-skeleton';
 type Props = {
   params: Promise<{ id: string }>
 }
