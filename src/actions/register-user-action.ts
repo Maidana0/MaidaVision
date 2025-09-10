@@ -5,6 +5,7 @@ import prisma from "maidana07/lib/prisma/prisma";
 import bcrypt from "bcryptjs";
 import { signIn } from "maidana07/lib/prisma/auth";
 import executeAction from "maidana07/utils/executeAction";
+import { redirect } from "next/navigation";
 
 export default async function registerUserAction(values: unknown, callbackUrl: string = "/") {
   const validated = myRegisterSchema.safeParse(values);
@@ -25,13 +26,11 @@ export default async function registerUserAction(values: unknown, callbackUrl: s
       await signIn("credentials", {
         email,
         password,
-        redirect: true,
-        callbackUrl,
+        redirect: false,
       });
     },
   });
 
   if (!res.success) return { error: res.message };
-
-  return {};
+  redirect(callbackUrl);
 }
