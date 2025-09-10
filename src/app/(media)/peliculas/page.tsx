@@ -1,9 +1,13 @@
 import SkeletonMediaGrid from "maidana07/components/media/list/skeleton-media-grid"
-import tmdbFetcher from "maidana07/lib/api/tmdb"
 import dynamic from "next/dynamic"
 import { Section } from "maidana07/components/ui/section"
 import { Skeleton } from "maidana07/components/ui/skeleton"
 import HeroSection from "maidana07/components/hero-section"
+import { Suspense } from "react"
+import MovieList from "maidana07/components/media/details/pages/movie-list"
+
+// una semana de revalidación
+export const revalidate = 86400 * 6
 
 const FilterDialog = dynamic(() => import("maidana07/components/media/filter/filter-dialog"), {
   loading: () => <Skeleton className="h-9 w-[89px] dark:bg-input/30 bg-background rounded-md border border-input" />
@@ -11,17 +15,13 @@ const FilterDialog = dynamic(() => import("maidana07/components/media/filter/fil
 const SortSelect = dynamic(() => import("maidana07/components/media/sort-select"), {
   loading: () => <Skeleton className="h-9 w-[126px] dark:bg-input/30 bg-background rounded-md border border-input" />
 })
-const DynamicMediaGrid = dynamic(() => import("maidana07/components/media/list/dynamic-media-grid"), {
-  loading: () => <SkeletonMediaGrid />
-})
 
 export const metadata = {
-  title: "Películas"
+  title: "Películas",
+  description: `Explora nuestra colección de películas y encuentra tu próxima historia favorita`
 }
 
 const MoviePage = () => {
-  const initialData = tmdbFetcher.getTrendingMovies()
-
   return <>
     <HeroSection
       title="Películas"
@@ -38,10 +38,9 @@ const MoviePage = () => {
           </div>
         </div>
 
-        <DynamicMediaGrid
-          initialData={initialData}
-          mediaType={"pelicula"}
-        />
+        <Suspense fallback={<SkeletonMediaGrid />}>
+          <MovieList />
+        </Suspense>
 
       </div >
     </Section >

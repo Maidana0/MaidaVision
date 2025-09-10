@@ -7,8 +7,6 @@ const CollectionBanner = ({ belongs_to_collection }: { belongs_to_collection?: B
   if (!belongs_to_collection || belongs_to_collection === null) return null;
 
   const { backdrop_path, id, name, poster_path } = belongs_to_collection
-  console.log(backdrop_path, poster_path);
-
   return (
     <section key={id}
       className="relative aspect-video w-full min-h-[375px]"

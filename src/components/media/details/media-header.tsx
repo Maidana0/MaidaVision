@@ -87,7 +87,7 @@ export default function MediaHeader({ genres, backdropPath, posterPath, title, t
               </span>)}
             </h1>
             {tagline && (
-              <Badge variant={"outline"} className="backdrop-blur-sm border-none md:border text-base sm:whitespace-nowrap mt-2 text-muted-foreground italic">
+              <Badge variant={"outline"} className="backdrop-blur-sm border-none md:border text-base sm:whitespace-nowrap mt-2 text-muted-foreground italic truncate max-w-full w-sm block px-2" title={tagline}>
                 &quot;{tagline}&quot;
               </Badge>
             )}
