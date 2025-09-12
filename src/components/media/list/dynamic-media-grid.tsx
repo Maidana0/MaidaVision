@@ -1,5 +1,5 @@
 "use client"
-import { useCallback, useEffect, useRef, use } from "react"
+import { useCallback, useEffect, useRef } from "react"
 import { useInfinityScroll } from "maidana07/hooks/use-infinity-scroll"
 import { trendingMovies, trendingTVs } from "maidana07/services/trending"
 import { GetDiscoverProps } from "maidana07/types/TMDB/tmdb-fetcher"

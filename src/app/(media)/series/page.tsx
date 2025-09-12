@@ -7,7 +7,7 @@ import TVList from "maidana07/components/media/details/pages/tv-list"
 import { Suspense } from "react"
 
 // una semana de revalidación
-export const revalidate = 86400 * 6
+// export const revalidate = 86400 * 6
 
 const FilterDialog = dynamic(() => import("maidana07/components/media/filter/filter-dialog"), {
   loading: () => <Skeleton className="h-9 w-[89px] dark:bg-input/30 bg-background rounded-md border border-input" />
