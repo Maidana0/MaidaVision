@@ -1,3 +1,4 @@
+"use client"
 import { Card, CardAction, CardContent, CardDescription, CardFooter, CardTitle } from "maidana07/components/ui/card";
 import Image from "next/image";
 import CustomLink from "maidana07/components/ui/custom-link";
@@ -36,6 +37,14 @@ const SearchPageCard: FC<SearchPageCardProps> = ({ media, type }) => {
             width={profile_path ? 185 : 64}
             loading="lazy"
             quality={75}
+            placeholder="blur"
+            blurDataURL={"/images/person2.png"}
+            onError={(e) => {
+              const target = e.currentTarget as HTMLImageElement
+              target.src = "/images/person2.png"
+            }}
+            // momentaneo para evitar el error de next/image en Vercel Edge
+            unoptimized={true}
           />
           : <Image
             src={
@@ -49,6 +58,14 @@ const SearchPageCard: FC<SearchPageCardProps> = ({ media, type }) => {
             quality={75}
             alt={title}
             className="object-cover max-w-full size-full content-center"
+            placeholder="blur"
+            blurDataURL={"/images/image-not-found.png"}
+            onError={(e) => {
+              const target = e.currentTarget as HTMLImageElement
+              target.src = "/images/image-not-found.png"
+            }}
+            // momentaneo para evitar el error de next/image en Vercel Edge
+            unoptimized={true}
           />
         }
         <>

@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image"
 import { CardContent, CardDescription } from "../ui/card"
 import { translateMediaType } from "maidana07/utils/transform/stringDto"
@@ -41,6 +42,14 @@ const SearchCard: FC<{ item: SearchCardProps }> = ({
         className="w-16 h-24 object-cover rounded"
         sizes="64px"
         quality={75}
+        placeholder="blur"
+        blurDataURL={type == "person" ? "/images/person2.png" : "/images/image-not-found.png"}
+        onError={(e) => {
+          const target = e.currentTarget as HTMLImageElement
+          target.src = type == "person" ? "/images/person2.png" : "/images/image-not-found.png"
+        }}
+        // momentaneo para evitar el error de next/image en Vercel Edge
+        unoptimized={true}
       />
       <CardDescription className="flex flex-col gap-0.5">
         <h3 className="max-h-16 text-ellipsis overflow-y-hidden" style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' }}>

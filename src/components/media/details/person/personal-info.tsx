@@ -1,6 +1,6 @@
 import { Badge } from "maidana07/components/ui/badge";
 import { convertGender, knownForTranslate } from "maidana07/utils/transform/knownForTranslate";
-import Image from "next/image"
+import PersonalImage from "./components/personal-image";
 
 type PersonalInfoProps = {
   name: string;
@@ -17,20 +17,7 @@ const PersonalInfo = ({ profile_path, birthday, deathday, place_of_birth, known_
   return (
     <div className="w-[280px] sm:w-full md:w-[280px] flex md:flex-col sm:flex-row flex-col space-y-2 bg-primary/15 dark:bg-primary/60 py-2 px-5 rounded-xl md:justify-start justify-evenly items-start sm:items-center">
 
-      <div className="w-[240px] md:mx-auto h-[360px] rounded-lg overflow-hidden">
-        <Image
-          src={
-            profile_path != null
-              ? `https://image.tmdb.org/t/p/w500${profile_path}`
-              : "/images/image-not-found.png"
-          }
-          alt={name}
-          width={profile_path != null ? 300 : 225}
-          height={profile_path != null ? 450 : 225}
-          className="!text-inherit object-contain w-full h-full"
-          priority
-        />
-      </div>
+      <PersonalImage profile_path={profile_path} name={name} />
 
       <div className="space-y-2">
         <h1 className="text-4xl font-bold md:hidden block">

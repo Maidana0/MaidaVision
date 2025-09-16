@@ -28,7 +28,15 @@ const TrendingModal: FC = () => {
           alt={item.title}
           fill
           className="object-cover object-center"
-          priority
+          // priority
+          placeholder="blur"
+          blurDataURL="/images/image-not-found.png"
+          onError={(e) => {
+            const target = e.currentTarget as HTMLImageElement
+            target.src = "/images/image-not-found.png"
+          }}
+          // momentaneo para evitar el error de next/image en Vercel Edge
+          unoptimized={true}
         />
         <Skeleton className="absolute inset-0 w-full h-full rounded-none -z-10" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent" />
@@ -71,6 +79,7 @@ const TrendingModal: FC = () => {
           href={`/${item.media_type}/${convertTitleToURL(item.title, item.id)}`}
           variant={"button"}
           onClick={onClose}
+          isSpecial
         >
           Ver más
         </CustomLink>

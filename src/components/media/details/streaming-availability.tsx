@@ -1,3 +1,4 @@
+"use client"
 import Image from 'next/image'
 
 interface Provider {
@@ -20,20 +21,34 @@ const section = (title: string, list?: Provider[]) => (
     <div className="text-left">
       <h3 className="text-xl font-semibold">{title}</h3>
       <div className="flex flex-wrap gap-4 mt-3">
-        {list.map((prov) => (
-          <div key={prov.provider_name} className="w-9 h-9 relative" title={prov.provider_name}>
-            <Image
-              src={(prov.logo_path && prov.logo_path != null)
-                ? `https://image.tmdb.org/t/p/w45${prov.logo_path}`
-                : `https://placehold.co/45?text=${prov.provider_name}`
-              }
-              alt={prov.provider_name}
-              width={45}
-              height={45}
-              className="rounded"
-            />
-          </div>
-        ))}
+        {list.map((prov) => {
+          const noImage = `https://placehold.co/45?text=${prov.provider_name}`
+          return (
+            <div key={prov.provider_name} className="w-9 h-9 relative" title={prov.provider_name}>
+              <Image
+                src={(prov.logo_path && prov.logo_path != null)
+                  ? `https://image.tmdb.org/t/p/w45${prov.logo_path}`
+                  : noImage
+                }
+                alt={prov.provider_name}
+                width={45}
+                height={45}
+                className="rounded"
+                loading="lazy"
+                quality={75}
+                placeholder="blur"
+                blurDataURL={noImage}
+                onError={(e) => {
+                  const target = e.currentTarget as HTMLImageElement
+                  target.src = noImage
+                }}
+                // momentaneo para evitar el error de next/image en Vercel Edge
+                unoptimized={true}
+              />
+            </div>
+          )
+        }
+        )}
       </div>
     </div>
   )

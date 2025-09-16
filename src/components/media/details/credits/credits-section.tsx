@@ -1,3 +1,4 @@
+"use client"
 import { Section } from "maidana07/components/ui/section"
 import { FC, Suspense } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "maidana07/components/ui/tabs"

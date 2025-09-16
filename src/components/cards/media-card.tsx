@@ -1,4 +1,5 @@
-import Link from 'next/link'
+"use client"
+import CustomLink from "maidana07/components/ui/custom-link"
 import { mediaResultIsMovie as isMovie } from "maidana07/utils/transform/formatMediaData"
 import Image from 'next/image'
 import { convertTitleToURL } from 'maidana07/utils/transform/stringDto'
@@ -13,8 +14,9 @@ const MediaCard = ({ media, mediaType, priority, withDescription = false, withSc
   withScale?: boolean,
   isForCarousel?: boolean
 }) => {
+  const noImage = "https://placehold.co/185x278?text=No+Image"
   return (
-    <Link
+    <CustomLink
       className="overflow-hidden bg-card relative block group rounded w-[185px] max-h-[272px] h-auto aspect-[2/3] max-w-full"
       href={`/${mediaType}/${convertTitleToURL(
         (isMovie(media) ? media.title : media.name)
@@ -33,12 +35,20 @@ const MediaCard = ({ media, mediaType, priority, withDescription = false, withSc
         loading={priority ? "eager" : "lazy"}
         priority={priority}
         title={isMovie(media) ? media.title : media.name}
-        unoptimized={!media.poster_path}
+        // unoptimized={!media.poster_path}
         src={
           (media.poster_path && media.poster_path != null)
             ? `https://image.tmdb.org/t/p/w185${media.poster_path}`
-            : "https://placehold.co/185x278?text=No+Image"
+            : noImage
         }
+        placeholder="blur"
+        blurDataURL={noImage}
+        onError={(e) => {
+          const target = e.currentTarget as HTMLImageElement
+          target.src = noImage
+        }}
+        // momentaneo para evitar el error de next/image en Vercel Edge
+        unoptimized={true}
       />
       {
         withDescription && (
@@ -53,7 +63,7 @@ const MediaCard = ({ media, mediaType, priority, withDescription = false, withSc
           </div>
         )
       }
-    </Link>
+    </CustomLink>
   )
 }
 
