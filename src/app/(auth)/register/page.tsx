@@ -1,5 +1,7 @@
 import RegisterForm from "maidana07/components/auth/form-container"
 import BgGradient from "maidana07/components/ui/bg-gradient";
+import { auth } from "maidana07/lib/prisma/auth"
+import { redirect } from "next/navigation"
 
 export const metadata = {
   title: "Registrarse",
@@ -17,6 +19,12 @@ type Props = {
 
 const Page = async ({ searchParams }: Props) => {
   const { callbackUrl } = await searchParams || {}
+
+
+  const session = await auth()
+  if (session?.user) {
+    redirect(callbackUrl || "/")
+  }
 
   return (
     <div className="flex flex-col items-center justify-center py-10 p-6">

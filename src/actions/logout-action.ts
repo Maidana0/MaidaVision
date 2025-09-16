@@ -1,10 +1,11 @@
 "use server";
 
 import { signOut } from "maidana07/lib/prisma/auth";
+import { redirect } from "next/navigation";
 
 export async function logoutAction() {
   await signOut({
-    redirect: true,
-    redirectTo: "/login"
+    redirect: false,
   });
+  redirect("/login");
 }
