@@ -20,7 +20,7 @@ export function CallToAction() {
           <div className="flex gap-4 justify-center">
 
             <CallToActionButton />
-            <CustomLink href="/nosotros" size="lg" variant="outline" className="gap-2">
+            <CustomLink isSpecial href="/nosotros" size="lg" variant="outline" className="gap-2">
               Saber más
               <ArrowRight className="w-5 h-5" />
             </CustomLink>

@@ -1,6 +1,6 @@
 "use client"
 
-import Link from "next/link"
+import CustomLink from "maidana07/components/ui/custom-link"
 import { Menu, X } from "lucide-react"
 import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "maidana07/components/ui/sheet"
 import { Button } from "maidana07/components/ui/button"
@@ -30,12 +30,12 @@ export default function MobileMenu() {
 
             {links.map((link) => (
               <SheetClose asChild key={link.href}>
-                <Link
+                <CustomLink
                   href={link.href}
                   className="text-sm px-6 py-2.5 hover:bg-muted rounded-md"
                 >
                   {link.label}
-                </Link>
+                </CustomLink>
               </SheetClose>
             ))}
             <SheetTitle className="sr-only">

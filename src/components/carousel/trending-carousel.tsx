@@ -25,7 +25,7 @@ const TrendingCarousel: FC<TrendingCarouselProps> = ({ items, href = "#", headin
           en tendencia
         </h2>
 
-        <CustomLink href={href} className="ml-auto">
+        <CustomLink href={href} className="ml-auto" isSpecial>
           Ver más
         </CustomLink>
 

@@ -50,7 +50,7 @@ export default function CommandDialogSearch() {
 
           {!loading && searchQuery && results.length > 19 && (
             <div className="after:border-border relative text-center after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t-4 col-span-full my-3.5">
-              <CustomLink href={`/busqueda?q=${searchQuery}`} className="bg-card  text-muted-foreground relative z-10 p-2.5 text-sm" onClick={() => setSearchIsOpen("search", false)}>
+              <CustomLink isSpecial href={`/busqueda?q=${searchQuery}`} className="bg-card  text-muted-foreground relative z-10 p-2.5 text-sm" onClick={() => setSearchIsOpen("search", false)}>
                 Ver más resultados
               </CustomLink>
             </div>

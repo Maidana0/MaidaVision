@@ -2,7 +2,7 @@
 
 import { Button } from "maidana07/components/ui/button"
 import { Home, ArrowLeft } from "lucide-react"
-import Link from "next/link"
+import CustomLink from "maidana07/components/ui/custom-link"
 import { useRouter, usePathname, useSearchParams } from "next/navigation"
 import { AnimatePresence, motion } from "framer-motion"
 import { Suspense } from "react"
@@ -49,24 +49,22 @@ export default function NotFound() {
                 Volver
               </Button>
 
-              <Button variant="default" className="gap-2 w-28" asChild>
-                <Link href="/">
-                  <Home className="h-4 w-4" />
-                  Inicio
-                </Link>
-              </Button>
+              <CustomLink href="/" isSpecial variant="default" className="gap-2 w-28">
+                <Home className="h-4 w-4" />
+                Inicio
+              </CustomLink>
 
             </div>
 
             <div className="pt-8">
               <p className="text-sm text-muted-foreground">
                 ¿Necesitas ayuda? {" "}
-                <Link
+                <CustomLink
                   href="/contact"
                   className="text-primary hover:underline underline-offset-4"
                 >
                   Contáctanos
-                </Link>
+                </CustomLink>
               </p>
             </div>
           </motion.div>

@@ -1,5 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "maidana07/components/ui/card"
-import Link from "next/link"
+import CustomLink from "maidana07/components/ui/custom-link"
 import loginAction from "maidana07/actions/login-action"
 import registerUserAction from "maidana07/actions/register-user-action"
 import ContinueWith from "./continue-with"
@@ -51,12 +51,12 @@ const FormContainer = ({ type, callbackUrl }: { type: "register" | "login", call
 
           <div className="text-center text-sm">
             {type === "login" ? "¿No tenés cuenta? " : "¿Ya tienes cuenta? "}
-            <Link
+            <CustomLink
               href={type === "login" ? "/register" : "/login"}
               className="underline underline-offset-4"
             >
               {type === "login" ? "Registrate" : "Inicia sesión"}
-            </Link>
+            </CustomLink>
           </div>
 
           <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">

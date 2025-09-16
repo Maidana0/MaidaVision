@@ -27,7 +27,7 @@ const HeroSection: FC<HeroSectionProps> = ({
       <BgGradient />
       <div className="max-w-7xl mx-auto px-4">
         {showBackButton && (
-          <CustomLink href="/" variant="ghost" className="mb-6 text-foreground/80 text-sm">
+          <CustomLink href="/" variant="ghost" className="mb-6 text-foreground/80 text-sm" isSpecial>
             <ArrowLeft className="mr-2 h-4 w-4" /> Ir al Inicio
           </CustomLink>
         )}
