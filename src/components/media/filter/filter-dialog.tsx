@@ -7,8 +7,11 @@ import { Modal } from "../../ui/modal"
 import useDialogStore from "maidana07/store/use-dialog-store"
 import { useShallow } from "zustand/react/shallow"
 import GenresFilter from "./queries/genres-filter"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "maidana07/components/ui/select"
 import ReleaseYearFilter from "./queries/release-year-filter"
+import CountryFilter from "./queries/country-filter"
+import LanguageFilter from "./queries/language-filter"
+import { useFilterActions } from "maidana07/hooks/use-filters"
+import WatchProvidersFilter from "./queries/watch-providers-filter"
 
 export default function FilterDialog({ isMovie = true }: { isMovie?: boolean }) {
 
@@ -16,6 +19,19 @@ export default function FilterDialog({ isMovie = true }: { isMovie?: boolean }) 
     isOpen: state.filter,
     onOpenChange: state.setIsOpen
   })))
+
+  const { clearFilters } = useFilterActions()
+
+  const handleApplyFilters = () => {
+    // Close the dialog after applying filters
+    onOpenChange("filter", false)
+    // The filters are already applied through the store
+    // Here you could trigger a refetch or other side effects
+  }
+
+  const handleClearFilters = () => {
+    clearFilters()
+  }
 
   return (
     <Modal
@@ -36,60 +52,52 @@ export default function FilterDialog({ isMovie = true }: { isMovie?: boolean }) 
       <DialogHeader>
         <DialogTitle>Filtrar {isMovie ? "Películas" : "Series"}</DialogTitle>
       </DialogHeader>
-      {/* Aquí irían los filtros con checkboxes, radio buttons, etc */}
 
+      {/* Genres Filter */}
       <GenresFilter isMovie={isMovie} />
 
+      <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t my-5" />
+
+      {/* Watch Providers Section */}
+      <WatchProvidersFilter />
 
       <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t my-5" />
 
-      <div>
-        <div className="flex justify-between">
-          <h4 className="text-lg font-semibold mb-4">Disponibles en: </h4>
-          <Select>
-            <SelectTrigger className="gap-2" isButtonGhost>
-              <SelectValue placeholder="País" />
-            </SelectTrigger>
-
-
-            <SelectContent>
-              {Array.from({ length: 5 }).map((_, i) => (
-                <SelectItem key={i} value={`${i}`}>
-                  {i}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
-        Proveedores..
-      </div>
-
-      <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t my-5" />
-
+      {/* Release Year Filter */}
       <ReleaseYearFilter />
 
       <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t my-5" />
 
-      <div className="flex flex-col sm:flex-row gap-2 justify-between">
+      {/* Country and Language Filters */}
+      <div className="flex flex-col sm:flex-row gap-4 justify-between">
         <div>
-          <h4 className="text-lg font-semibold mb-4">País de origen:</h4>
-
+          <CountryFilter />
         </div>
         <div>
-          <h4 className="text-lg font-semibold mb-4">Idioma original:</h4>
-
+          <LanguageFilter />
         </div>
       </div>
 
-
-      <div className="flex flex-col gap-2 justify-evenly mx-auto mt-4 w-5/6 max-w-md">
-        <Button variant="default" type="button" size="lg" className="text-md">
-          Aplicar
+      {/* Action Buttons */}
+      <div className="flex flex-col gap-2 justify-evenly mx-auto mt-6 w-5/6 max-w-md">
+        <Button
+          variant="default"
+          type="button"
+          size="lg"
+          className="text-md"
+          onClick={handleApplyFilters}
+        >
+          Aplicar Filtros
         </Button>
 
-        <Button variant="outline" type="button" size="lg" className="text-md">
-          Limpiar
+        <Button
+          variant="outline"
+          type="button"
+          size="lg"
+          className="text-md"
+          onClick={handleClearFilters}
+        >
+          Limpiar Filtros
         </Button>
       </div>
 

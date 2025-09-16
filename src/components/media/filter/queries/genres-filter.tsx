@@ -1,16 +1,13 @@
 import { Button } from 'maidana07/components/ui/button'
 import genres from "maidana07/lib/api/genres.json"
-import { FC, useState } from 'react'
+import { FC } from 'react'
+import { useGenresFilters } from 'maidana07/hooks/use-filters'
 
 const GenresFilter: FC<{ isMovie: boolean }> = ({ isMovie }) => {
-  const [selectedGenres, setSelectedGenres] = useState<number[]>([])
+  const { genres: selectedGenres, toggleGenre } = useGenresFilters()
 
-  const handledClick = (genreId: number) => {
-    setSelectedGenres((prev) =>
-      prev.includes(genreId)
-        ? prev.filter((id) => id !== genreId)
-        : [...prev, genreId]
-    )
+  const handleClick = (genreId: number) => {
+    toggleGenre(genreId.toString())
   }
 
   return (
@@ -20,16 +17,17 @@ const GenresFilter: FC<{ isMovie: boolean }> = ({ isMovie }) => {
         {(isMovie ? genres.movie : genres.tv).map((genre) => (
           <Button
             key={genre.id}
-            variant={selectedGenres.includes(genre.id) ? "default" : "outline"}
+            variant={selectedGenres.includes(genre.id.toString()) ? "default" : "outline"}
             size="sm"
             className="rounded-full border-2 border-border"
-            onClick={() => handledClick(genre.id)}
+            onClick={() => handleClick(genre.id)}
           >
             {genre.name}
           </Button>
         ))}
       </div>
-    </div>)
+    </div>
+  )
 }
 
 export default GenresFilter

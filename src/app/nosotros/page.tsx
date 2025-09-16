@@ -78,7 +78,7 @@ export default function AboutPage() {
             Facilitar el descubrimiento y acceso al entretenimiento digital,
             ahorrándote tiempo y mejorando tu experiencia de streaming.
           </p>
-          <CustomLink variant={"button"} href="https://github.com/Maidana0/MaidaVision" target="_blank" className="gap-2">
+          <CustomLink isSpecial variant={"button"} href="https://github.com/Maidana0/MaidaVision" target="_blank" className="gap-2">
             <Github className="w-5 h-5" />
             Contribuir al Proyecto
           </CustomLink>

@@ -13,16 +13,23 @@ export const metadata = {
   }
 }
 
-const Page = async () => {
-  const session = await auth();
-  if (session) redirect("/");
+type Props = {
+  searchParams?: Promise<{ callbackUrl?: string }>
+}
+
+const Page = async ({ searchParams }: Props) => {
+  const { callbackUrl } = await searchParams || {}
+  const session = await auth()
+  if (session?.user) {
+    redirect(callbackUrl || "/")
+  }
 
   return (
     <div className="flex flex-col items-center justify-center py-10 p-6">
       <BgGradient />
 
       <div className={"flex flex-col max-w-sm gap-6"}>
-        <LoginForm type="login" />
+        <LoginForm type="login" callbackUrl={callbackUrl} />
       </div>
 
     </div>

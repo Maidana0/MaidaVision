@@ -7,7 +7,7 @@ import {
 
 import cn from "maidana07/utils/cn"
 import { Button, buttonVariants } from "maidana07/components/ui/button"
-import Link from "next/link"
+import CustomLink from "maidana07/components/ui/custom-link"
 
 function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
   return (
@@ -41,7 +41,7 @@ function PaginationItem({ ...props }: React.ComponentProps<"li">) {
 type PaginationLinkProps = {
   isActive?: boolean
 } & Pick<React.ComponentProps<typeof Button>, "size"> &
-  React.ComponentProps<typeof Link>
+  React.ComponentProps<typeof CustomLink>
 
 function PaginationLink({
   className,
@@ -50,7 +50,7 @@ function PaginationLink({
   ...props
 }: PaginationLinkProps) {
   return (
-    <Link
+    <CustomLink
       aria-current={isActive ? "page" : undefined}
       data-slot="pagination-link"
       data-active={isActive}

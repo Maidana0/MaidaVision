@@ -8,8 +8,7 @@ import { Control } from "react-hook-form";
 interface PasswordInputProps {
   name: "password" | "confirmPassword";
   label: string;
-  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-  control: Control<{ email: string; password: string; } | { email: string; password: string; confirmPassword: string; name?: string | undefined; }, any, { email: string; password: string; } | { email: string; password: string; confirmPassword: string; name?: string | undefined; }>;
+  control: Control<{ email: string; password: string; } | { email: string; password: string; confirmPassword: string; name?: string | undefined; }, { email: string; password: string; } | { email: string; password: string; confirmPassword: string; name?: string | undefined; }>;
 }
 
 

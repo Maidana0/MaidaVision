@@ -1,14 +1,14 @@
-
+"use client"
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from "maidana07/components/ui/pagination"
 import { useSearchParams } from "next/navigation";
+import PaginationDropdown from "./pagination-dropdown";
 
 const MediaPagination = ({ page = 1, totalPages = 1 }: { page?: number; totalPages?: number }) => {
   const searchParams = useSearchParams();
@@ -31,7 +31,12 @@ const MediaPagination = ({ page = 1, totalPages = 1 }: { page?: number; totalPag
           {
             page - 2 > 0 && (
               <PaginationItem>
-                <PaginationEllipsis />
+                <PaginationDropdown
+                  startPage={1}
+                  endPage={page - 2}
+                  currentPage={page}
+                  onPageSelect={handleParams}
+                />
               </PaginationItem>
             )
           }
@@ -56,7 +61,12 @@ const MediaPagination = ({ page = 1, totalPages = 1 }: { page?: number; totalPag
           {
             page + 2 < totalPages && (
               <PaginationItem>
-                <PaginationEllipsis />
+                <PaginationDropdown
+                  startPage={page + 3}
+                  endPage={totalPages}
+                  currentPage={page}
+                  onPageSelect={handleParams}
+                />
               </PaginationItem>
             )
           }

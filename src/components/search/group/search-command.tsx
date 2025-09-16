@@ -6,7 +6,7 @@ import useSearchStore from "maidana07/store/use-search-store";
 import { useShallow } from "zustand/react/shallow";
 import useDialogStore from "maidana07/store/use-dialog-store";
 import SearchCard, { SearchCardProps } from "maidana07/components/cards/search-card";
-import Link from "next/link"
+import CustomLink from "maidana07/components/ui/custom-link"
 
 const SearchCommand: FC<SearchCardProps> = ({
   title,
@@ -42,11 +42,12 @@ const SearchCommand: FC<SearchCardProps> = ({
       }}
       className="w-full"
     >
-      <Link href={(`/${translateMediaType(type, false, true)
+      <CustomLink href={(`/${translateMediaType(type, false, true)
         }/${convertTitleToURL(
           title ?? "",
           Number(id))
-        }`)}>
+        }`)}
+      >
 
 
         <CommandItem onSelect={handleSelect} className="md:h-[106px]">
@@ -63,7 +64,7 @@ const SearchCommand: FC<SearchCardProps> = ({
         </CommandItem>
 
 
-      </Link>
+      </CustomLink>
     </motion.div >
   )
 }

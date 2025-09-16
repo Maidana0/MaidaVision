@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import CustomLink from "maidana07/components/ui/custom-link"
 import { Montserrat } from "next/font/google";
 
 const montserrat = Montserrat({
@@ -18,10 +18,10 @@ const Logo = ({ notHidden }: { notHidden?: boolean }) => (
       height={64}
     />
 
-    <Link href="/" className={`text-lg uppercase tracking-widest ${montserrat.className}`}>
+    <CustomLink href="/" className={`text-lg uppercase tracking-widest ${montserrat.className}`}>
       <span className="font-medium">Maida</span>
       <span className="text-primary font-bold">Vision</span>
-    </Link>
+    </CustomLink>
   </div>
 )
 

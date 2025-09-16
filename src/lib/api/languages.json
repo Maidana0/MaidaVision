@@ -1,0 +1,20 @@
+{
+  "languages": [
+    { "iso_639_1": "es", "name": "Español" },
+    { "iso_639_1": "en", "name": "Inglés" },
+    { "iso_639_1": "pt", "name": "Portugués" },
+    { "iso_639_1": "fr", "name": "Francés" },
+    { "iso_639_1": "it", "name": "Italiano" },
+    { "iso_639_1": "de", "name": "Alemán" },
+    { "iso_639_1": "ja", "name": "Japonés" },
+    { "iso_639_1": "ko", "name": "Coreano" },
+    { "iso_639_1": "zh", "name": "Chino" },
+    { "iso_639_1": "hi", "name": "Hindi" },
+    { "iso_639_1": "ru", "name": "Ruso" },
+    { "iso_639_1": "ar", "name": "Árabe" },
+    { "iso_639_1": "nl", "name": "Holandés" },
+    { "iso_639_1": "sv", "name": "Sueco" },
+    { "iso_639_1": "da", "name": "Danés" },
+    { "iso_639_1": "no", "name": "Noruego" }
+  ]
+}

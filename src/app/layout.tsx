@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-// import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "maidana07/components/ui/sonner"
 import Header from "maidana07/layouts/header/header";

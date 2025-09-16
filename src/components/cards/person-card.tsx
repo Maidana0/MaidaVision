@@ -25,6 +25,14 @@ const PersonCard: FC<{
           width={image != null ? 120 : 64}
           loading="lazy"
           quality={75}
+          placeholder="blur"
+          blurDataURL="/images/person2.png"
+          onError={(e) => {
+            const target = e.currentTarget as HTMLImageElement
+            target.src = "/images/person2.png"
+          }}
+          // momentaneo para evitar el error de next/image en Vercel Edge
+          unoptimized={true}
         />
       </CardContent>
       <CardTitle className="px-1.5 leading-4 font-normal text-wrap w-full">

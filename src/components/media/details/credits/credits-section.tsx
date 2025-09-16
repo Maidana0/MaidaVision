@@ -1,3 +1,4 @@
+"use client"
 import { Section } from "maidana07/components/ui/section"
 import { FC, Suspense } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "maidana07/components/ui/tabs"
@@ -9,8 +10,8 @@ import { MovieCast, MovieCrew } from "maidana07/types/TMDB/media/movie-detail"
 
 interface CreditsProps {
   created_by?: CreatedBy[];
-  crew: Crew[] | MovieCast[];
-  cast: Cast[] | MovieCrew[];
+  crew: Array<Crew | MovieCrew>;
+  cast: Array<Cast | MovieCast>;
   type?: "tv" | "movie"
 }
 const credits: ("created_by" | "cast" | "crew")[] = ["created_by", "cast", "crew"]

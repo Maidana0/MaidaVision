@@ -1,10 +1,13 @@
 import SkeletonMediaGrid from "maidana07/components/media/list/skeleton-media-grid"
-import tmdbFetcher from "maidana07/lib/api/tmdb"
 import dynamic from "next/dynamic"
 import { Section } from "maidana07/components/ui/section"
 import { Skeleton } from "maidana07/components/ui/skeleton"
 import HeroSection from "maidana07/components/hero-section"
+import TVList from "maidana07/components/media/details/pages/tv-list"
+import { Suspense } from "react"
 
+// una semana de revalidación
+// export const revalidate = 86400 * 6
 
 const FilterDialog = dynamic(() => import("maidana07/components/media/filter/filter-dialog"), {
   loading: () => <Skeleton className="h-9 w-[89px] dark:bg-input/30 bg-background rounded-md border border-input" />
@@ -12,16 +15,13 @@ const FilterDialog = dynamic(() => import("maidana07/components/media/filter/fil
 const SortSelect = dynamic(() => import("maidana07/components/media/sort-select"), {
   loading: () => <Skeleton className="h-9 w-[126px] dark:bg-input/30 bg-background rounded-md border border-input" />
 })
-const DynamicMediaGrid = dynamic(() => import("maidana07/components/media/list/dynamic-media-grid"), {
-  loading: () => <SkeletonMediaGrid />
-})
 
 export const metadata = {
-  title: "Series"
+  title: "Series",
+  description: `Explora una amplia variedad de series, encuentra tus programas favoritos y descubre nuevos títulos.`
 }
 
 const TVPage = () => {
-  const initialData = tmdbFetcher.getTrendingTV()
 
   return <>
     <HeroSection
@@ -39,10 +39,9 @@ const TVPage = () => {
           </div>
         </div>
 
-        <DynamicMediaGrid
-          initialData={initialData}
-          mediaType={"serie"}
-        />
+        <Suspense fallback={<SkeletonMediaGrid />}>
+          <TVList />
+        </Suspense>
 
       </div >
     </Section >

@@ -5,12 +5,15 @@ import { filtersForDiscover } from "maidana07/utils/transform/filtersForDiscover
 import { DiscoverMovieResponse, DiscoverTVResponse, SearchResponse, TrendingMovieResponse, TrendingTVResponse } from "maidana07/types/TMDB/media-result";
 import { MediaType } from "maidana07/types/TMDB/media/common/common-types";
 import { SearchProps } from "maidana07/types/TMDB/search";
+import { PersonDetails } from "maidana07/types/TMDB/media/person-detail";
+import { TVDetails } from "maidana07/types/TMDB/media/tv-detail";
+import { MovieDetails } from "maidana07/types/TMDB/media/movie-detail";
 
 const CACHE_MIN_TIME = 900; // 15 min
 const CACHE_HOUR_TIME = 3600; // 1 hora
 const CACHE_DAY_TIME = 86400; // 1 día
 // const CACHE_TIME = CACHE_DAY_TIME * 3; // 3 días
-const CACHE_WEEK_TIME = CACHE_DAY_TIME * 7; // 1 semana
+const CACHE_WEEK_TIME = CACHE_DAY_TIME * 6; // 1 semana menos un día
 
 
 class TMDBFetcher {
@@ -119,10 +122,10 @@ class TMDBFetcher {
     });
   }
 
-
+  // DETALLES DE MEDIA
   getMediaDetails = async <T>({ mediaType, id }: { mediaType: MediaType, id: string }) => {
-    const url = `${this.baseUrl}/${mediaType}/${id}?${this.queryLanguage}&append_to_response
-=watch/providers,aggregate_credits,credits,videos,recommendations,similar&locale=AR&include_video_language=es-MX,en`
+    const url = `${this.baseUrl}/${mediaType}/${id}?${mediaType == "person" ? "language=es-AR" : this.queryLanguage}&append_to_response
+=${mediaType == "person" ? "images,combined_credits" : "watch/providers,aggregate_credits,credits,videos,recommendations,similar&locale=AR&include_video_language=es-MX,en"}`
 
     return await this.fetch<T>({
       url,
@@ -131,7 +134,37 @@ class TMDBFetcher {
       requestMessage: `${mediaType}-detail`
     })
   }
+  // HELPER PARA LOS DETALLES DE MEDIA
+  getMovieDetail = async (id: string) => {
+    const data = await this.getMediaDetails<MovieDetails>({
+      id: id.split("-")[0],
+      mediaType: "movie",
+    });
+    if (!data.success || !data.data) return { message: data.message || "Error desconocido" };
+    return data.data;
+  }
 
+  // Método helper específico para TV
+  getTVDetail = async (id: string) => {
+    const data = await this.getMediaDetails<TVDetails>({
+      id: id.split("-")[0],
+      mediaType: "tv",
+    });
+    if (!data.success || !data.data) return { message: data.message || "Error desconocido" };
+    return data.data;
+  }
+
+  // Método helper específico para Person
+  getPersonDetail = async (id: string) => {
+    const data = await this.getMediaDetails<PersonDetails>({
+      id: id.split("-")[0],
+      mediaType: "person",
+    });
+    if (!data.success || !data.data) return { message: data.message || "Error desconocido" };
+    return data.data;
+  }
+
+  // IMAGENES DE MEDIA
   getMediaImages = async ({ mediaType, id, includeImageLanguage = ["es"] }: { mediaType: MediaType, id: string, includeImageLanguage: string[] }) => {
     const url = `${this.baseUrl}/${mediaType}/${id}/images?${this.queryLanguage}&include_image_language=${includeImageLanguage.join(",")}`
 

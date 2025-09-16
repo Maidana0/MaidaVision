@@ -48,7 +48,7 @@ export function MaintenanceNotice({
             <span>Tiempo estimado: {estimatedTime}</span>
           </div>
 
-          <CustomLink href={"/"} className="mt-4">
+          <CustomLink href={"/"} className="mt-4" isSpecial>
             Ir al inicio
           </CustomLink>
         </div>

@@ -1,14 +1,14 @@
 import { Slider } from 'maidana07/components/ui/slider'
-import { useState } from 'react'
+import { useYearFilters } from 'maidana07/hooks/use-filters'
 
 const minYear = 1900
 
 const ReleaseYearFilter = () => {
   const currentYear = new Date().getFullYear()
-  const [years, setYears] = useState([minYear, currentYear])
+  const { years, setYears } = useYearFilters()
 
   const handleYearChange = (values: number[]) => {
-    setYears(values)
+    setYears({ minYear: values[0], maxYear: values[1] })
   }
 
   return (
@@ -20,14 +20,13 @@ const ReleaseYearFilter = () => {
           min={minYear}
           max={currentYear}
           step={1}
-          value={years}
+          value={[years.minYear, years.maxYear]}
           onValueChange={handleYearChange}
           className="w-full"
-
         />
         <div className="flex justify-between text-sm">
-          <span>{years[0]}</span>
-          <span>{years[1]}</span>
+          <span>{years.minYear}</span>
+          <span>{years.maxYear}</span>
         </div>
       </div>
     </div>

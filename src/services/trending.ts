@@ -12,7 +12,7 @@ export const trendingMovies = async (page: number): Promise<CustomResponse<Trend
     errorMessage: "Ocurrió un error al intentar obtener las películas en tendencia."
   })
 
-  if (!data.success) console.error("Información del error: ", data.serverMessage);
+  if (!data.success) console.error("Información del error: ", data.serverMessage ?? data.message);
 
   return data;
 }
@@ -27,7 +27,7 @@ export const trendingTVs = async (page: number): Promise<CustomResponse<Trending
     errorMessage: "Ocurrió un error al intentar obtener las series en tendencia."
   })
 
-  if (!data.success) console.error("Información del error: ", data.serverMessage);
+  if (!data.success) console.error("Información del error: ", data.serverMessage ?? data.message);
 
   return data;
 }

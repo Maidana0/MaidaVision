@@ -1,8 +1,9 @@
 "use client"
-import { LogOut, Loader2 } from "lucide-react"
-import { Button } from "../../../components/ui/button"
+import { LogOut } from "lucide-react"
 import { logoutAction } from "maidana07/actions/logout-action"
 import { useTransition } from "react"
+import { DropdownMenuItem } from "maidana07/components/ui/dropdown-menu"
+import Loader from "maidana07/components/ui/loader"
 
 function LogoutButton() {
   const [isPending, startTransition] = useTransition()
@@ -14,23 +15,20 @@ function LogoutButton() {
   }
 
   return (
-    <Button
+    <DropdownMenuItem
       onClick={handleLogout}
+      onSelect={(e) => e.preventDefault()}
       disabled={isPending}
-      variant="outline"
-      size={"sm"}
     >
       {
         isPending
-          ? <Loader2 className="w-4 h-4 mr-1" />
-          : <LogOut className="w-4 h-4 mr-1" />
+          ? <Loader size="sm" text="Cerrando sesión..." className="!p-0" />
+          : <LogOut />
       }
-      <span className="md:block hidden">
-        {isPending 
-        ? "Cerrando sesión..." 
+      {isPending
+        ? ""
         : "Cerrar sesión"}
-      </span>
-    </Button>
+    </DropdownMenuItem>
   )
 }
 

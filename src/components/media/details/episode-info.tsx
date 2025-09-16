@@ -1,8 +1,11 @@
+"use client"
+
 import { Section } from 'maidana07/components/ui/section'
 import { EpisodeToAir } from 'maidana07/types/TMDB/media/tv-detail'
 import Image from 'next/image'
 
 export default function EpisodeInfo({ episode, isNextEpisode }: { episode: EpisodeToAir, isNextEpisode?: boolean }) {
+  const noImage = "/images/image-not-found.png"
   return (
     <Section className="!py-6 max-w-5xl w-[calc(100%-2rem)] mx-auto">
       <h2 className="font-semibold text-xl mb-2">{isNextEpisode ? "Siguiente" : "Último"} episodio</h2>
@@ -12,13 +15,21 @@ export default function EpisodeInfo({ episode, isNextEpisode }: { episode: Episo
             src={
               (episode.still_path && episode.still_path != null)
                 ? `https://image.tmdb.org/t/p/w500${episode.still_path}`
-                : "/images/image-not-found.png"
+                : noImage
             }
             alt={episode.name}
-            quality={100}
+            quality={75}
             width={328}
             height={185}
             className="object-cover h-full w-full"
+            placeholder="blur"
+            blurDataURL={noImage}
+            onError={(e) => {
+              const target = e.currentTarget as HTMLImageElement
+              target.src = noImage
+            }}
+            // momentaneo para evitar el error de next/image en Vercel Edge
+            unoptimized={true}
           />
         </div>
         <div className="md:col-span-2 p-6">

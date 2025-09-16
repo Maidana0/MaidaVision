@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 
 
 interface customLinkProps extends ComponentProps<"a">, VariantProps<typeof linkVariants> {
-
+  isSpecial?: boolean
 }
 
 const linkVariants = cva(
@@ -44,13 +44,14 @@ const linkVariants = cva(
 
 
 
-const CustomLink: FC<customLinkProps> = ({ variant, size, href = "#", className = "", ...props }) => {
+const CustomLink: FC<customLinkProps> = ({ variant, size, href = "#", className = "", isSpecial, ...props }) => {
   return (
     <Link
       href={href}
       data-slot={"link"}
-      className={cn(linkVariants({ variant, size, className }))}
-
+      className={isSpecial ? cn(linkVariants({ variant, size, className })) : className}
+      // evite prefetching to save bandwidth and improve performance
+      prefetch={false}
       // className={cn("text-accent-foreground hover:text-primary transition-colors text-md px-2 py-1", className)}
       {...props}
     />

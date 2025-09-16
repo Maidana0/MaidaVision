@@ -1,8 +1,10 @@
+"use client"
 import { Section } from 'maidana07/components/ui/section'
 import { Season } from 'maidana07/types/TMDB/media/tv-detail'
 import Image from 'next/image'
 
 export default function SeasonList({ seasons }: { seasons: Season[] }) {
+  const noImage = "https://placehold.co/113x171?text=No+Image"
   return (
     <Section className="space-y-6 !py-6 max-w-5xl w-[calc(100%-2rem)] mx-auto">
       <h2 className="text-xl font-semibold">Temporadas</h2>
@@ -13,11 +15,19 @@ export default function SeasonList({ seasons }: { seasons: Season[] }) {
               <Image
                 src={s.poster_path && s.poster_path != null
                   ? `https://image.tmdb.org/t/p/w154${s.poster_path}`
-                  : "https://placehold.co/113x171?text=No+Image"}
+                  : noImage}
                 alt={s.name}
                 width={113}
                 height={171}
                 className="object-cover w-full h-full"
+                placeholder="blur"
+                blurDataURL={noImage}
+                onError={(e) => {
+                  const target = e.currentTarget as HTMLImageElement
+                  target.src = noImage
+                }}
+                // momentaneo para evitar el error de next/image en Vercel Edge
+                unoptimized={true}
               />
             </div>
             <div className="p-4 pl-3 flex flex-col justify-between">

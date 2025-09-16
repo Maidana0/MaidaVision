@@ -1,11 +1,17 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "maidana07/components/ui/card"
-import Link from "next/link"
-import AuthForm from "./auth-form"
+import CustomLink from "maidana07/components/ui/custom-link"
 import loginAction from "maidana07/actions/login-action"
 import registerUserAction from "maidana07/actions/register-user-action"
 import ContinueWith from "./continue-with"
+import AuthFormSkeleton from "maidana07/components/skeletons/auth-form-skeleton"
+import dynamic from "next/dynamic"
 
-const FormContainer = ({ type }: { type: "register" | "login" }) => {
+
+const FormContainer = ({ type, callbackUrl }: { type: "register" | "login", callbackUrl?: string }) => {
+
+  const AuthForm = dynamic(() => import("maidana07/components/auth/auth-form"), {
+    loading: () => <AuthFormSkeleton type={type} />
+  })
 
   return (
     <Card className="py-6">
@@ -24,15 +30,19 @@ const FormContainer = ({ type }: { type: "register" | "login" }) => {
               ? (
                 <AuthForm
                   type="login"
+                  submittingText="Iniciando sesión..."
                   onSubmitAction={loginAction}
                   submitText="Iniciar Sesión"
+                  callbackUrl={callbackUrl}
                 />
               )
               : (
                 <AuthForm
                   type="register"
+                  submittingText="Registrando usuario..."
                   onSubmitAction={registerUserAction}
                   submitText="Registrarse"
+                  callbackUrl={callbackUrl}
                 />
               )
           }
@@ -41,12 +51,12 @@ const FormContainer = ({ type }: { type: "register" | "login" }) => {
 
           <div className="text-center text-sm">
             {type === "login" ? "¿No tenés cuenta? " : "¿Ya tienes cuenta? "}
-            <Link
+            <CustomLink
               href={type === "login" ? "/register" : "/login"}
               className="underline underline-offset-4"
             >
               {type === "login" ? "Registrate" : "Inicia sesión"}
-            </Link>
+            </CustomLink>
           </div>
 
           <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">

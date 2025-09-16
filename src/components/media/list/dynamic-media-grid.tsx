@@ -1,5 +1,5 @@
 "use client"
-import { useCallback, useEffect, useRef, use } from "react"
+import { useCallback, useEffect, useRef } from "react"
 import { useInfinityScroll } from "maidana07/hooks/use-infinity-scroll"
 import { trendingMovies, trendingTVs } from "maidana07/services/trending"
 import { GetDiscoverProps } from "maidana07/types/TMDB/tmdb-fetcher"
@@ -13,7 +13,7 @@ import { MovieResult } from "maidana07/types/TMDB/media/movie-detail"
 interface MediaGridProps {
   mediaType?: "pelicula" | "serie"
   filters?: GetDiscoverProps
-  initialData: Promise<CustomResponse<TrendingTVResponse | TrendingMovieResponse>>
+  initialData: CustomResponse<TrendingTVResponse | TrendingMovieResponse>
 }
 
 export default function DynamicMediaGrid({
@@ -22,7 +22,7 @@ export default function DynamicMediaGrid({
   filters
 }: MediaGridProps) {
   const prevFiltersRef = useRef(filters)
-  const { data: serverData } = use(initialData)
+  const { data: serverData } = initialData
 
   const cb = useCallback(async (nextPage: number) => {
     const { data, success, message } =

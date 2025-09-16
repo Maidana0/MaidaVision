@@ -6,25 +6,25 @@ import { Button } from "maidana07/components/ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 import PersonCard from "maidana07/components/cards/person-card";
 import { MovieCast, MovieCrew } from "maidana07/types/TMDB/media/movie-detail"
-/* eslint-disable  @typescript-eslint/no-explicit-any */
+import CustomLink from "maidana07/components/ui/custom-link";
+
+type TypesOfPerson = CreatedBy | Crew | Cast | MovieCast | MovieCrew
 
 interface CreditsListProps {
-  items?: Array<CreatedBy | Crew | Cast | MovieCast | MovieCrew>;
+  items?: Array<TypesOfPerson>;
   mediaType?: "tv" | "movie";
   type: "created_by" | "crew" | "cast";
 }
 
-// eslint-disable-next-line  @typescript-eslint/ban-ts-comment
-// @ts-ignore
-function getDescription(type: "created_by" | "crew" | "cast", person: any, mediaType: "tv" | "movie" = "tv"): string {
+function getDescription(type: "created_by" | "crew" | "cast", person: TypesOfPerson, mediaType: "tv" | "movie" = "tv"): string {
   if (type === "created_by") return "Creador";
   if (mediaType && mediaType === "movie") {
-    if (type === "cast") return person.character
-    if (type === "crew") return person.job
+    if ("character" in person) return person.character
+    if ("job" in person) return person.job
   }
   if (mediaType === "tv") {
-    if (type === "cast") return person.roles[0]?.character ?? "";
-    return person.jobs[0]?.job ?? ""
+    if ("roles" in person) return person.roles[0]?.character ?? "";
+    else if ("jobs" in person) return person.jobs[0]?.job ?? "";
   }
   return " "
 }
@@ -44,12 +44,16 @@ const CreditsList: FC<CreditsListProps> = ({ items, type, mediaType }) => {
 
         {items.slice(0, 6)
           .map((person) => (
-            <PersonCard
-              key={person.id}
-              name={person.name}
-              image={person.profile_path}
-              description={getDescription(type, person, mediaType)}
-            />
+            <CustomLink key={person.id}
+              href={`/persona/${person.id}-${person.name.replaceAll(" ", "-").toLowerCase()}`}
+            >
+              <PersonCard
+                name={person.name}
+                image={person.profile_path}
+                description={getDescription(type, person, mediaType)}
+              />
+            </CustomLink>
+
           ))}
 
         {items.length >= 6 && loadMore && (
@@ -63,11 +67,15 @@ const CreditsList: FC<CreditsListProps> = ({ items, type, mediaType }) => {
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.2, delay: i * 0.1 }}
                 >
-                  <PersonCard
-                    name={person.name}
-                    image={person.profile_path}
-                    description={getDescription(type, person, mediaType)}
-                  />
+                  <CustomLink
+                    href={`/persona/${person.id}-${person.name.replaceAll(" ", "-").toLowerCase()}`}
+                  >
+                    <PersonCard
+                      name={person.name}
+                      image={person.profile_path}
+                      description={getDescription(type, person, mediaType)}
+                    />
+                  </CustomLink>
                 </motion.div>
               ))}
           </AnimatePresence>

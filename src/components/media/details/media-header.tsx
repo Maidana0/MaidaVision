@@ -26,6 +26,8 @@ interface MediaHeaderProps {
 
 export default function MediaHeader({ genres, backdropPath, posterPath, title, tagline, trailerButton, homepage, providers, type, runtime }: MediaHeaderProps) {
   const genresList = translateGenres({ originalGenresList: genres, type })
+  const noImage = `https://placehold.co/640x480?text=${title}`
+  const posterNoImage = `https://placehold.co/240x360?text=${title.slice(0, 10)}`
 
   return (
     <div className="relative">
@@ -34,13 +36,17 @@ export default function MediaHeader({ genres, backdropPath, posterPath, title, t
           src={
             (backdropPath && backdropPath != null)
               ? `https://image.tmdb.org/t/p/original${backdropPath}`
-              : `https://placehold.co/640x480?text=${title}`
+              : noImage
           }
           alt={title}
           fill
           className="object-cover brightness-50 !text-inherit"
           quality={75}
           priority
+          placeholder="blur"
+          blurDataURL={noImage}
+          // momentaneo para evitar el error de next/image en Vercel Edge
+          unoptimized={true}
         />
       </div>
 
@@ -55,13 +61,17 @@ export default function MediaHeader({ genres, backdropPath, posterPath, title, t
             src={
               (posterPath && posterPath != null)
                 ? `https://image.tmdb.org/t/p/w500${posterPath}`
-                : "https://placehold.co/240x360?text=No+Image"}
+                : posterNoImage}
             alt={title}
             width={240}
             height={360}
             quality={100}
             priority
-            className="rounded-lg text-black/80 content-center !text-inherit"
+            className="rounded-lg content-center !text-inherit"
+            placeholder="blur"
+            blurDataURL={posterNoImage}
+            // momentaneo para evitar el error de next/image en Vercel Edge
+            unoptimized={true}
           />
           {homepage && homepage != null
             ? <CustomLink size="sm" aria-label="homepage" className="bg-muted/40 absolute top-1 left-1 font-normal truncate max-w-[240px] text-xs" href={homepage.toString()} target="_blank">
@@ -87,7 +97,7 @@ export default function MediaHeader({ genres, backdropPath, posterPath, title, t
               </span>)}
             </h1>
             {tagline && (
-              <Badge variant={"outline"} className="backdrop-blur-sm border-none md:border text-base whitespace-nowrap mt-2 text-muted-foreground italic">
+              <Badge variant={"outline"} className="backdrop-blur-sm border-none md:border text-base sm:whitespace-nowrap mt-2 text-muted-foreground italic truncate max-w-full w-sm block px-2" title={tagline}>
                 &quot;{tagline}&quot;
               </Badge>
             )}
