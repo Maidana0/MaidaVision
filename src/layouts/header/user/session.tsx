@@ -1,10 +1,10 @@
-import { auth } from "maidana07/lib/prisma/auth"
-import Link from "next/link"
-import { Button } from "maidana07/components/ui/button"
+import CustomLink from "maidana07/components/ui/custom-link"
 import { LogIn, UserPlus } from "lucide-react"
-import { NavUser } from "./nav-user"
-
-export const revalidate = 60 * 30 // 30 minutes
+import { auth } from "maidana07/lib/prisma/auth"
+import dynamic from "next/dynamic"
+const NavUser = dynamic(() => import("maidana07/layouts/header/user/nav-user"))
+const ModeToggle = dynamic(() => import("maidana07/components/mode-toggle"))
+const Button = dynamic(() => import("maidana07/components/ui/button").then(mod => mod.Button))
 
 const Session = async () => {
   const session = await auth()
@@ -20,20 +20,21 @@ const Session = async () => {
   } else {
     return (
       <>
-        <Link href="/login">
+        <CustomLink href="/login">
           <Button variant="outline" size="sm" className="h-[30px]">
             <LogIn className="w-3 h-3" />
             <span className="md:block hidden">
               Iniciar sesión
             </span>
           </Button>
-        </Link>
-        <Link href="/register" className="lg:block hidden">
+        </CustomLink>
+        <CustomLink href="/register" className="lg:block hidden">
           <Button variant="default" size="sm" className="h-[30px]">
             <UserPlus className="w-3 h-3" />
             Registrarse
           </Button>
-        </Link>
+        </CustomLink>
+        <ModeToggle />
       </>
     )
   }

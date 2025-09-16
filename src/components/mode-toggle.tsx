@@ -3,12 +3,9 @@ import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import { Button } from "maidana07/components/ui/button"
 import { DropdownMenuItem } from "./ui/dropdown-menu"
-import { use } from "react"
-import { Session } from "next-auth"
 
 interface ModeToggleProps {
   variant?: "button" | "menuItem",
-  session?: Promise<Session | null>
 }
 
 const icons = [<Sun key={"sun"}
@@ -18,20 +15,20 @@ const icons = [<Sun key={"sun"}
   className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
 />]
 
-export function ModeToggle({ variant = "button", session }: ModeToggleProps) {
+const ModeToggle = ({ variant = "button" }: ModeToggleProps) => {
   const { setTheme, theme } = useTheme()
-  const isConnected = session ? use(session) : false
 
   const handleThemeChange = () => {
     setTheme(theme === "dark" ? "light" : "dark")
   }
 
+
   if (variant === "menuItem") {
     return (
-      <DropdownMenuItem 
-        onClick={handleThemeChange} 
+      <DropdownMenuItem
+        onClick={handleThemeChange}
         onSelect={(e) => e.preventDefault()}
-        className="relative" 
+        className="relative"
         aria-label="Cambiar tema"
       >
         {icons}
@@ -39,7 +36,7 @@ export function ModeToggle({ variant = "button", session }: ModeToggleProps) {
       </DropdownMenuItem>
     )
   }
-  if (!isConnected) return (
+  return (
     <Button
       variant="ghost"
       size="icon"
@@ -51,3 +48,5 @@ export function ModeToggle({ variant = "button", session }: ModeToggleProps) {
     </Button>
   )
 }
+
+export default ModeToggle;

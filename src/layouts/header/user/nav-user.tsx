@@ -5,9 +5,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "maidana07/components/ui/ava
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, } from "maidana07/components/ui/dropdown-menu"
 import LogoutButton from "./button-logout"
 import { Button } from "maidana07/components/ui/button"
-import { ModeToggle } from "maidana07/components/mode-toggle"
+import ModeToggle from "maidana07/components/mode-toggle"
 
-export function NavUser({
+const NavUser = ({
   user: { name, email, avatar }
 }: {
   user: {
@@ -15,7 +15,7 @@ export function NavUser({
     email: string
     avatar: string | null | undefined
   }
-}) {
+}) => {
 
   return (
     <DropdownMenu>
@@ -75,3 +75,5 @@ export function NavUser({
     </DropdownMenu>
   )
 }
+
+export default NavUser
